@@ -7,7 +7,15 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      colors:{
+        majorColor: "fb8500",
+        minorColor: "ffb703", 
+      },
+      screens:{
+        lg: '1140px'
+      },
+    },
   },
   variants: {
     extend: {},
