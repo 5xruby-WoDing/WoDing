@@ -9,8 +9,8 @@ module.exports = {
   theme: {
     extend: {
       colors:{
-        majorColor: "fb8500",
-        minorColor: "ffb703", 
+        'major': "#fb8500",
+        'minor': "#ffb703", 
       },
       screens:{
         lg: '1140px'

@@ -1,52 +1,88 @@
 
-<div class=" mx-auto max-w-screen-lg mt-24">
-  <%# <%= link_to "測試登出", destroy_manager_session_path, method: "delete" %> %>
-  <%# <%= link_to "測試註冊", new_manager_registration_path %> %>
-  <section class="border-b-2 pb-8">
+<div class="max-w-screen-lg mx-auto mt-24 ">
+
+    <li><%= link_to '測試登出', destroy_manager_session_path, method: :delete %></li>
+    <li><%= link_to '測試註冊', new_manager_registration_path %></li>
+    <li><%= link_to '測試登入', new_manager_session_path %></li>
+
+  <section class="home-img">
 
     <div>
       <img src="https://picsum.photos/seed/picsum/1440/400" alt="">
     </div>
   
     <div class="my-6">
-      <span class="text-lg font-bold text-gray-800">搜尋餐廳：</span>
-      <input type="text" class="focus:ring-yellow-400 focus:border-yellow-400 rounded">
+      <span class="text-lg font-bold">搜尋餐廳：</span>
+      <input type="text" class="py-1 input-border-click" placeholder='輸入搜尋餐廳'>
     </div>
 
     <div class="grid grid-cols-2 gap-4">
       <div>
-        <h4 class="mb-4 text-lg font-bold text-gray-800">用餐人數</h4>
+        <h4 class="mb-4 text-lg font-bold">用餐人數</h4>
       
         <div class="flex">
-          <select class=" focus:ring-yellow-400 focus:border-yellow-400 w-full rounded mr-4">
+          <select class="w-full py-1 mr-4 input-border-click">
             <option value="">大人人數</option>
           </select>
-          <select class="focus:ring-yellow-400 focus:border-yellow-400 w-full rounded">
+          <select class="w-full input-border-click">
             <option value="">小孩人數</option>
           </select>
         </div>
       </div>
 
       <div>
-        <h4 class="mb-4 text-lg font-bold text-gray-800">用餐日期</h4>
+        <h4 class="mb-4 text-lg font-bold">用餐日期</h4>
         <div>
-          <input type="date" class="focus:ring-yellow-400 focus:border-yellow-400 w-full rounded">
+          <input type="date" class="w-full date input-border-click">
         </div>
       </div>
     </div>
   </section>
   
     <section>
-      <div class="container">
-        <div class="flex py-4 my-6">
-          <div class="rounded mr-6">
+      <div>
+        <div class="flex py-4 my-6 border-b-2">
+          <div class="mr-6 rounded">
             <img src="https://picsum.photos/seed/picsum/200/200" class="rounded" alt="">
           </div>
           <div class="txt">
-            <h2 class="text-3xl mb-3">restaurant name</h2>
+            <h2 class="mb-3 text-3xl">restaurant name</h2>
             <p class="mb-3 text-gray-500">台北市中山區樂群三路303號1F</p>
-            <p class="text-gray-800">台菜香檳本館</p>
-            <p class="text-red-500">12月3日 的 2 人尚不開放線上訂位，其他可訂位日期：</p>
+            <p >台菜香檳本館</p>
+            <p class="text-sm text-red-500">12月3日 的 2 人尚不開放線上訂位，其他可訂位日期：</p>
+            <ul class="flex mt-2 date-list">
+              <li class="home-box">
+                12月12號
+              </li>
+              <li class="home-box">
+                12月12號
+              </li>
+              <li class="home-box">
+                12月12號
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="flex py-4 my-6 border-b-2">
+          <div class="mr-6 rounded">
+            <img src="https://picsum.photos/seed/picsum/200/200" class="rounded" alt="">
+          </div>
+          <div class="txt">
+            <h2 class="mb-3 text-3xl">restaurant name</h2>
+            <p class="mb-3 text-gray-500">台北市中山區樂群三路303號1F</p>
+            <p >台菜香檳本館</p>
+            <p class="text-sm text-red-500">12月3日 的 2 人尚不開放線上訂位，其他可訂位日期：</p>
+            <ul class="flex mt-2 date-list">
+              <li class="home-box">
+                12月12號
+              </li>
+              <li class="home-box">
+                12月12號
+              </li>
+              <li class="home-box">
+                12月12號
+              </li>
+            </ul>
           </div>
         </div>
       </div>
