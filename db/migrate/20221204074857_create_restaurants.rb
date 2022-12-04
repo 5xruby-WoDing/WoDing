@@ -4,11 +4,11 @@ class CreateRestaurants < ActiveRecord::Migration[6.1]
       t.string :title
       t.string :tel
       t.string :address
-      t.datetime :delete_at
+      t.datetime :deleted_at, default: nil
       t.belongs_to :manager, null: false, foreign_key: true
 
       t.timestamps
     end
-    add_index :restaurants, :delete_at
+    add_index :restaurants, :deleted_at
   end
 end
