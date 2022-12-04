@@ -1,0 +1,14 @@
+class CreateRestaurants < ActiveRecord::Migration[6.1]
+  def change
+    create_table :restaurants do |t|
+      t.string :title
+      t.string :tel
+      t.string :address
+      t.datetime :delete_at
+      t.belongs_to :manager, null: false, foreign_key: true
+
+      t.timestamps
+    end
+    add_index :restaurants, :delete_at
+  end
+end

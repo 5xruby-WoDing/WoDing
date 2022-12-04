@@ -62,3 +62,5 @@ gem "devise", "~> 4.8"
 
 gem 'dotenv-rails', groups: [:development, :test]
 
+
+gem "paranoia", "~> 2.6"
