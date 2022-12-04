@@ -10,11 +10,22 @@
 
 @layer components{
   .input-border-click{
-    @apply  focus:ring-yellow-400 
-            focus:border-yellow-400 
+    @apply  focus:ring-major
+            focus:border-major
               focus:outline-none
               border
               rounded 
+  }
+}
+
+@layer components{
+  .sign-up-input-box{
+    @apply  focus:ring-major
+            focus:border-major
+              focus:outline-none
+              border
+              rounded
+              mb-2 
   }
 }
 
