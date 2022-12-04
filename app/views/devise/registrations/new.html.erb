@@ -1,44 +1,60 @@
-<h2>Sign up</h2>
+<div class="max-w-screen-lg py-10 m-auto mt-24 border rounded md:flex md:justify-between px-14">
+  <section class="md:w-2/5">
+    <h2 class="pb-6 text-2xl font-bold border-b-2">註冊會員</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="mt-8">
+        <div class="field">
+          <p class="mb-2"><%= f.label :email, "email："%></p>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "sign-up-input-box" %>
+        </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+        <div class="field">
+          <p class="mb-2"><%= f.label :password, "密碼" %>
+            <% if @minimum_password_length %>
+              <em>(長度最少為<%= @minimum_password_length %>碼)</em>
+            <% end %> 
+          </p>
+          <%= f.password_field :password, autocomplete: "new-password", class: "sign-up-input-box" %>
+        </div>
 
-  <div class="field">
-    <%= f.label :password, "密碼" %>
-    <% if @minimum_password_length %>
-    <em>(長度最少為<%= @minimum_password_length %> 碼)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+        <div class="field">
+          <p><%= f.label :password_confirmation, "再次確認密碼" %></p>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "sign-up-input-box" %>
+        </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "再次確認密碼" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+        <div class="field">
+          <p><%= f.label :name, "名字：" %></p>
+          <%= f.text_field :name, autocomplete: "name", class: "sign-up-input-box" %>
+        </div>
 
-  <div class="field">
-    <%= f.label :name, "名字：" %><br />
-    <%= f.text_field :name, autocomplete: "name" %>
-  </div>
+        <div class="field">
+          <p><%= f.label :phone, "電話號碼：" %></p>
+          <%= f.telephone_field :phone, autocomplete: "phone", class: "sign-up-input-box" %>
+        </div>
 
-  <div class="field">
-    <%= f.label :phone, "電話號碼：" %><br />
-    <%= f.telephone_field :phone, autocomplete: "phone" %>
-  </div>
+        <div class="mb-4 field">
+          <span>
+            <%= f.label :gender, "稱謂：" %>
+            <%= f.select :gender, Manager.genders.keys, class: "sign-up-input-box" %>
+          </span>
+        </div>
 
-  <div class="field">
-    <%= f.label :gender, "稱謂：" %><br />
-    <%= f.select :gender, Manager.genders.keys %>
-  </div>
+        <div class="mb-4 actions">
+          <%= f.submit "註冊會員",class: "home-box" %>
+        </div>
+      </div>
+      
+    <% end %>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+    <%= render "devise/shared/links" %>
+  </section>
+  <section class="w-3/6 rounded">
+    <img src="https://picsum.photos/seed/picsum/570/700" alt="" class="hidden rounded md:block">
+  </section>
+  
 
-<%= render "devise/shared/links" %>
+</div>
+
+

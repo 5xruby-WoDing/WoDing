@@ -4,7 +4,7 @@ class Manager < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  enum gender: [:male, :female, :other]
+  enum gender: [:男性, :女性, :其他]
 
   #devise mailer active job 
   def send_devise_notification(notification, *args)
