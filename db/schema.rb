@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2022_12_04_074857) do
     t.bigint "manager_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["delete_at"], name: "index_restaurants_on_delete_at"
+    t.index ["deleted_at"], name: "index_restaurants_on_deleted_at"
     t.index ["manager_id"], name: "index_restaurants_on_manager_id"
   end
 
