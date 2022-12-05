@@ -7,7 +7,7 @@
       <div class="mt-8">
         <div class="field">
           <p class="mb-2"><%= f.label :email, "email："%></p>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "sign-up-input-box" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-box" %>
         </div>
 
         <div class="field">
@@ -16,22 +16,22 @@
               <em>(長度最少為<%= @minimum_password_length %>碼)</em>
             <% end %> 
           </p>
-          <%= f.password_field :password, autocomplete: "new-password", class: "sign-up-input-box" %>
+          <%= f.password_field :password, autocomplete: "new-password", class: "input-box" %>
         </div>
 
         <div class="field">
           <p><%= f.label :password_confirmation, "再次確認密碼" %></p>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "sign-up-input-box" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input-box" %>
         </div>
 
         <div class="field">
           <p><%= f.label :name, "名字：" %></p>
-          <%= f.text_field :name, autocomplete: "name", class: "sign-up-input-box" %>
+          <%= f.text_field :name, autocomplete: "name", class: "input-box" %>
         </div>
 
         <div class="field">
           <p><%= f.label :phone, "電話號碼：" %></p>
-          <%= f.telephone_field :phone, autocomplete: "phone", class: "sign-up-input-box" %>
+          <%= f.telephone_field :phone, autocomplete: "phone", class: "input-box" %>
         </div>
 
         <div class="mb-4 field">
@@ -42,7 +42,7 @@
         </div>
 
         <div class="mb-4 actions">
-          <%= f.submit "註冊會員",class: "home-box" %>
+          <%= f.submit "註冊會員",class: "major-btn" %>
         </div>
       </div>
     <% end %>
