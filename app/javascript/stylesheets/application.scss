@@ -19,7 +19,7 @@
 }
 
 @layer components{
-  .sign-up-input-box{
+  .input-box{
     @apply  focus:ring-major
             focus:border-major
               focus:outline-none
@@ -34,8 +34,8 @@
     @apply pb-8 border-b-2
   }
 
-  .home-box{
-    @apply border text-sm bg-major text-white rounded py-1 px-2 mr-2
+  .major-btn{
+    @apply border text-sm bg-major text-white rounded py-1 px-2 mr-2 hover:bg-yellow-600
   }
 
   .member-system-flex{

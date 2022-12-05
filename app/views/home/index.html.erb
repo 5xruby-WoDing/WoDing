@@ -1,10 +1,12 @@
 
 <div class="max-w-screen-lg mx-auto mt-24 ">
-
+  <ul class="flex gap-4">
     <li><%= link_to '測試登出', destroy_manager_session_path, method: :delete %></li>
     <li><%= link_to '測試註冊', new_manager_registration_path %></li>
     <li><%= link_to '測試登入', new_manager_session_path %></li>
-
+    <li><%= link_to '測試manager頁面', manager_path(current_manager.id) %></li>
+  </ul>
+    
   <section class="home-img">
 
     <div>
@@ -51,13 +53,13 @@
             <p >台菜香檳本館</p>
             <p class="text-sm text-red-500">12月3日 的 2 人尚不開放線上訂位，其他可訂位日期：</p>
             <ul class="flex mt-2 date-list">
-              <li class="home-box">
+              <li class="major-btn">
                 12月12號
               </li>
-              <li class="home-box">
+              <li class="major-btn">
                 12月12號
               </li>
-              <li class="home-box">
+              <li class="major-btn">
                 12月12號
               </li>
             </ul>
@@ -73,13 +75,13 @@
             <p >台菜香檳本館</p>
             <p class="text-sm text-red-500">12月3日 的 2 人尚不開放線上訂位，其他可訂位日期：</p>
             <ul class="flex mt-2 date-list">
-              <li class="home-box">
+              <li class="major-btn">
                 12月12號
               </li>
-              <li class="home-box">
+              <li class="major-btn">
                 12月12號
               </li>
-              <li class="home-box">
+              <li class="major-btn">
                 12月12號
               </li>
             </ul>

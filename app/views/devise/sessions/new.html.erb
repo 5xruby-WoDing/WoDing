@@ -6,12 +6,12 @@
       <div class="mt-8">
         <div class="field">
           <p class="mb-2"><%= f.label :email, "email："%></p>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "sign-up-input-box" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-box" %>
         </div>
 
         <div class="field">
           <p class="mb-2"><%= f.label :password, "密碼：" %></p>
-          <%= f.password_field :password, autocomplete: "current-password", class: "sign-up-input-box" %>
+          <%= f.password_field :password, autocomplete: "current-password", class: "input-box" %>
         </div>
 
         <% if devise_mapping.rememberable? %>
@@ -22,7 +22,7 @@
         <% end %>
 
         <div class="mb-4 actions">
-          <%= f.submit "登入",class: "home-box" %>
+          <%= f.submit "登入",class: "major-btn" %>
         </div>
       </div>
     <% end %>
