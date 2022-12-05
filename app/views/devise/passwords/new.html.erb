@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:flex-row md:h-screen lg:py-0 ">
+=======
+<h2>忘記密碼</h2>
+>>>>>>> e8418a5 (修正中文顯示，主頁判斷登入，新增.env說明)
 
   <div class="w-full mt-24 rounded-lg shadow md:mt-0 md:max-w-lg xl:p-0">
     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
 
+<<<<<<< HEAD
       <h1 class="text-2xl font-bold leading-tight tracking-tight">
           忘記密碼
       </h1>
@@ -27,4 +32,15 @@
   </div>
 
 </div>
+=======
+  <div class="field">
+    <%= f.label :email, "Email：" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-box" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "送出", class: "major-btn" %>
+  </div>
+<% end %>
+>>>>>>> e8418a5 (修正中文顯示，主頁判斷登入，新增.env說明)
 
