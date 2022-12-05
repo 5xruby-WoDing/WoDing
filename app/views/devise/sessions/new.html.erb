@@ -5,7 +5,7 @@
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="mt-8">
         <div class="field">
-          <p class="mb-2"><%= f.label :email, "email："%></p>
+          <p class="mb-2"><%= f.label :email, "Email："%></p>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-box" %>
         </div>
 
@@ -18,7 +18,7 @@
           <div class="mb-2 field">
             <%= f.check_box :remember_me %>
             <span><%= f.label :remember_me, "記住我"%></span>
-          </div>
+          </div> 
         <% end %>
 
         <div class="mb-4 actions">
