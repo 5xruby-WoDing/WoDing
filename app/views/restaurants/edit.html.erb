@@ -7,7 +7,7 @@
   </ul>
 <% end %>
 
-<%= form_with(model: @restaurant, url: edit_restaurant_path) do |f| %>
+<%= form_with(model: @restaurant, url: restaurant_path) do |f| %>
   <div>
     <%= f.label :title, "餐廳名稱：" %>
     <%= f.text_field :title, class: "input-box" %>
