@@ -33,14 +33,13 @@
   .home-img{
     @apply pb-8 border-b-2
   }
-}
+
 .major-btn{
   @apply border text-sm bg-major text-white rounded py-1 px-2 mr-2 hover:bg-yellow-600
 }
 
-@layer components{
-  .home-box{
-    @apply border text-sm bg-major text-white rounded py-1 px-2 mr-2
+  .major-btn{
+    @apply border text-sm bg-major text-white rounded py-1 px-2 mr-2 hover:bg-yellow-600
   }
 
   .member-system-flex{
