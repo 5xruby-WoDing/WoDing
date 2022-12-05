@@ -21,4 +21,6 @@ Things you may want to cover:
 
 * Deployment instructions
 
+.env.example 加入你的mail gun 資料，已完成寄信功能
+
 * ...
