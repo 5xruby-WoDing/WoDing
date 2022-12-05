@@ -19,7 +19,11 @@ before_action :find_restaurant, only: [:show, :edit, :update, :destroy]
   end
 
   def update
-    
+    if @restaurant.update(params_restaurant)
+      redirect_to manager_path(current_manager.id), notice: '更新成功'
+    else
+      render :edit
+    end
   end
 
   def show
