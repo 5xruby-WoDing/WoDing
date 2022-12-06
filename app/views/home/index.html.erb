@@ -3,7 +3,7 @@
   <ul class="flex gap-4">
    
     <% if current_manager %>
-      <li><%= link_to '測試manager頁面', manager_path(current_manager.id) %></li>
+      <li><%= link_to '測試manager頁面', backstage_root_path %></li>
       <li><%= link_to '測試登出', destroy_manager_session_path, method: :delete %></li>
     <% else %>
       <li><%= link_to '測試註冊', new_manager_registration_path %></li>
