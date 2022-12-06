@@ -1,13 +1,4 @@
-<h1><%= "編輯#{@restaurant.title}" %></h1>
-<% if (@restaurant.errors.any?) %>
-  <ul>
-    <%= @restaurant.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<%= form_with(model: @restaurant, url: restaurant_path) do |f| %>
+<%= form_with(model: [:backstage, :manager, @restaurant],url: url) do |f| %>
   <div>
     <%= f.label :title, "餐廳名稱：" %>
     <%= f.text_field :title, class: "input-box" %>
@@ -20,7 +11,7 @@
 
   <div>
     <%= f.label :tel, "餐廳電話：" %>
-    <%= f.text_field :tel, class: "input-box" %>
+    <%= f.phone_field :tel, class: "input-box" %>
   </div>
   <%= f.submit "編輯餐廳",class: "major-btn" %>
 <% end %>
