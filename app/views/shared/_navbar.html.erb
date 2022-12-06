@@ -1,5 +1,5 @@
-<nav class="p-5 bg-white shadow md:flex md-items-center md:justify-between fixed left-0 top-0 w-full">
-  <div class="flex justify-between items-center w-full">
+<nav class="fixed top-0 left-0 w-full p-5 bg-white shadow md:flex md-items-center md:justify-between">
+  <div class="flex items-center justify-between w-full">
     <span class="text-2xl cursor-pointer">
       <%= link_to image_tag "/assets/IMG_2349.PNG", width: 150 %>
     </span>    
@@ -10,22 +10,24 @@
                name="search" 
                id="search" 
                placeholder="立即下訂" 
-               class="border-none bg-gray-200 px-4 py-2 text-gray-900 outline-none focus:outline-none rounded w-40">
+               class="w-40 px-4 py-2 text-gray-900 bg-gray-200 border-none rounded outline-none focus:outline-none">
         
-        <button class="major-btn bg-minor px-4 py-2 text-base ml-1">搜尋</button>
+        <button class="px-4 py-2 ml-1 text-base major-btn bg-minor">搜尋</button>
       </div>
       <div class="flex items-center">
         <% if current_manager %>
-          <li><%= link_to current_manager.name, manager_path(current_manager.id) %></li>
-          <li class= "major-btn px-6 py-2 mx-2 text-base"><%= link_to '測試登出', destroy_manager_session_path, method: :delete %></li>
+          <li><%= link_to current_manager.name, backstage_root_path %></li>
+          <li class= "px-6 py-2 mx-2 text-base major-btn"><%= link_to '測試登出', destroy_manager_session_path, method: :delete %></li>
         <% else %>
-          <li class= "major-btn px-6 py-2 mx-2 text-base"><%= link_to '測試註冊', new_manager_registration_path %></li>
-          <li class= "major-btn px-6 py-2 mx-2 text-base"><%= link_to '測試登入', new_manager_session_path %></li>  
+          <li class= "px-6 py-2 mx-2 text-base major-btn"><%= link_to '測試註冊', new_manager_registration_path %></li>
+          <li class= "px-6 py-2 mx-2 text-base major-btn"><%= link_to '測試登入', new_manager_session_path %></li>  
         <% end %>
       </div>
     </div>
   </ul>
 </nav>
+
+
 
 
 
