@@ -1,0 +1,2 @@
+module Backstage::RestaurantsHelper
+end
