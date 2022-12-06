@@ -1,0 +1,5 @@
+<h1><%= "編輯#{@restaurant.title}" %></h1>
+
+<%= render "error", restaurant: @restaurant %>
+
+<%= render 'form', restaurant: @restaurant, url: backstage_restaurant_path(@restaurant) %>
