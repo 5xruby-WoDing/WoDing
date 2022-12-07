@@ -26,6 +26,7 @@ class Backstage::RestaurantsController < Backstage::ManagersController
   end
 
   def show
+    @seats = @restaurant.seats
   end
 
   def destroy

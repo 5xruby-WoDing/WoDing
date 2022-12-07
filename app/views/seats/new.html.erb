@@ -1,28 +1,9 @@
-<h2>我是新增位子類別的頁面</h2>
+<div class="mt-24">
+  <h2>新增seat的前台頁面</h2>
 
 
-<%= form_with model: @seat, url: restaurant_seats_path(@restaurant) do |f| %>
-  <div>
-    <%= f.label :kind %>
-    <%= f.select :kind, Seat.kinds.keys %>
-  </div>
-  <div>
-    <%= f.label :capacity %>
-    <%= f.select :capacity, [[1, 1], [2, 2], [3, 3]] %>
-  </div>
-  <div>
-    <%= f.label :deposit %>
-    <%= f.text_field :deposit %>
-  </div>
-  <div>
-    <%= f.label :state %>
-    <%= f.text_field :state %>
-  </div>
 
-  <%= f.submit %>
-<% end %>
-
-
+</div>
 
 
 
