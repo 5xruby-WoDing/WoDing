@@ -1,4 +1,5 @@
-<%= form_with(model: [:backstage, :manager, @restaurant],url: url) do |f| %>
+<div class="mt-24">
+  <%= form_with(model: [:backstage, :manager, @restaurant],url: url) do |f| %>
   <div>
     <%= f.label :title, "餐廳名稱：" %>
     <%= f.text_field :title, class: "input-box" %>
@@ -10,9 +11,14 @@
   </div>
 
   <div>
+    <%= f.label :branch, "餐廳分店：" %>
+    <%= f.text_field :branch, class: "input-box", placeholder: "例如：復興店" %>
+  </div>
+
+  <div>
     <%= f.label :tel, "餐廳電話：" %>
     <%= f.phone_field :tel, class: "input-box" %>
   </div>
   <%= f.submit "編輯餐廳",class: "major-btn" %>
-<% end %>
-
+  <% end %>
+</div>

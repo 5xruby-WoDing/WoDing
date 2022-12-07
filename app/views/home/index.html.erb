@@ -1,7 +1,6 @@
 
 <div class="max-w-screen-lg mx-auto mt-24 ">    
   <section class="home-img">
-
     <div>
       <img src="https://picsum.photos/seed/picsum/1440/400" alt="">
     </div>
@@ -36,50 +35,30 @@
   
   <section>
     <div>
-      <div class="flex py-4 my-6 border-b-2">
-        <div class="mr-6 rounded">
-          <img src="https://picsum.photos/seed/picsum/200/200" class="rounded" alt="">
+      <% @restaurants.each do |restaurant| %>
+        <div class="flex py-4 my-6 border-b-2">
+          <div class="mr-6 rounded">
+            <img src="https://picsum.photos/seed/picsum/200/200" class="rounded" alt="">
+          </div>
+          <div class="txt">
+            <h2><%= link_to restaurant.title, restaurant_path(restaurant), class: "mb-3 text-3xl" %></h2>
+            <p class="mb-3 text-gray-500"><%= restaurant.address %></p>
+            <p ><%= restaurant.branch %></p>
+            <p class="text-sm text-red-500">12月3日 的 2 人尚不開放線上訂位，其他可訂位日期：</p>
+            <ul class="flex mt-2 date-list">
+              <li class="major-btn">
+                12月12號
+              </li>
+              <li class="major-btn">
+                12月12號
+              </li>
+              <li class="major-btn">
+                12月12號
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="txt">
-          <h2 class="mb-3 text-3xl">restaurant name</h2>
-          <p class="mb-3 text-gray-500">台北市中山區樂群三路303號1F</p>
-          <p >台菜香檳本館</p>
-          <p class="text-sm text-red-500">12月3日 的 2 人尚不開放線上訂位，其他可訂位日期：</p>
-          <ul class="flex mt-2 date-list">
-            <li class="major-btn">
-              12月12號
-            </li>
-            <li class="major-btn">
-              12月12號
-            </li>
-            <li class="major-btn">
-              12月12號
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="flex py-4 my-6 border-b-2">
-        <div class="mr-6 rounded">
-          <img src="https://picsum.photos/seed/picsum/200/200" class="rounded" alt="">
-        </div>
-        <div class="txt">
-          <h2 class="mb-3 text-3xl">restaurant name</h2>
-          <p class="mb-3 text-gray-500">台北市中山區樂群三路303號1F</p>
-          <p >台菜香檳本館</p>
-          <p class="text-sm text-red-500">12月3日 的 2 人尚不開放線上訂位，其他可訂位日期：</p>
-          <ul class="flex mt-2 date-list">
-            <li class="major-btn">
-              12月12號
-            </li>
-            <li class="major-btn">
-              12月12號
-            </li>
-            <li class="major-btn">
-              12月12號
-            </li>
-          </ul>
-        </div>
-      </div>
+      <% end %>
     </div>
   </section>
 
