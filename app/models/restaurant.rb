@@ -6,4 +6,5 @@ class Restaurant < ApplicationRecord
   validates :tel, presence: true
 
   belongs_to :manager
+  has_many :seats
 end

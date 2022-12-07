@@ -1,0 +1,26 @@
+<h2>我是編輯seat類別的頁面</h2>
+
+
+<%= form_with model: @seat, url: seat_path(@seat) do |f| %>
+  <div>
+    <%= f.label :kind %>
+    <%= f.text_field :kind %>
+  </div>
+  <div>
+    <%= f.label :capacity %>
+    <%= f.text_field :capacity %>
+  </div>
+  <div>
+    <%= f.label :deposit %>
+    <%= f.text_field :deposit %>
+  </div>
+  <div>
+    <%= f.label :state %>
+    <%= f.text_field :state %>
+  </div>
+
+  <%= f.submit %>
+<% end %>
+
+
+
