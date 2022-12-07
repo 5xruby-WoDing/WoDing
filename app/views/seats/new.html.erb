@@ -4,11 +4,11 @@
 <%= form_with model: @seat, url: restaurant_seats_path(@restaurant) do |f| %>
   <div>
     <%= f.label :kind %>
-    <%= f.text_field :kind %>
+    <%= f.select :kind, Seat.kinds.keys %>
   </div>
   <div>
     <%= f.label :capacity %>
-    <%= f.text_field :capacity %>
+    <%= f.select :capacity, [[1, 1], [2, 2], [3, 3]] %>
   </div>
   <div>
     <%= f.label :deposit %>
