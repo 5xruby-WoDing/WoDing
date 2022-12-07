@@ -1,0 +1,37 @@
+<div class="mt-24">
+  <h2>我是編輯seat類別的頁面</h2>
+
+
+  <% if @seat.errors.any? %>
+    <ul>
+      <%= @seat.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>  
+  <% end %>
+
+
+  <%= form_with model: @seat, url: backstage_seat_path(@seat) do |f| %>
+    <div>
+      <%= f.label :kind %>
+      <%= f.select :kind, Seat.kinds.keys %>
+    </div>
+    <div>
+      <%= f.label :capacity %>
+      <%= f.select :capacity, [[1, 1], [2, 2], [3, 3]] %>
+    </div>
+    <div>
+    <div>
+      <%= f.label :deposit %>
+      <%= f.text_field :deposit %>
+    </div>
+    <div>
+      <%= f.label :state %>
+      <%= f.text_field :state %>
+    </div>
+  
+    <%= f.submit %>
+  <% end %>
+
+</div>
+
