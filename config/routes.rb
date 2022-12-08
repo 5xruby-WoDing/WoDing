@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     root 'managers#show'
   end
   
-  resources :restaurants, only: [:show] 
+  resources :restaurants, only: [:index, :show] 
 
   root 'home#index'
 end

@@ -16,3 +16,4 @@ import "controllers"
 
 import "stylesheets/application";
 
+import "swiper_carousel"

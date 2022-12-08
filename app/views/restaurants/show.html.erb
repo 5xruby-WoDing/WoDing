@@ -1,3 +1,115 @@
-<div class="mt-24">
-  <h1>個別頁面</h1>
-</div>
+<main class="container mx-auto">
+  <section>
+    <div class="py-8 space-y-2.5 border-b-2">
+      <img src="https://picsum.photos/seed/picsum/1440/400" alt="">
+    </div>
+    <article>
+      <div class="py-8 space-y-2.5 border-b-2">  
+        <h1 class="text-4xl text-gray-800">台菜香檳本館</h1>
+        <p class="text-gray-500">台北市中山區樂群三路303號1F</p>
+        <div>
+          <i class="fa-light fa-phone">0939993443434</i>
+          <i class="fa-light fa-map">地圖</i>
+        </div>
+      </div>
+      <div class="py-8 space-y-2.5 border-b-2">
+        <h2 class="text-xl text-gray-800">訂位注意事項</h2>
+        <p class="text-gray-500">1.目前開放「一個月內」的訂位，例如：要預訂3/1位置，請於2/1之後進行訂位。</p>
+        <p class="text-gray-500">2.如有多人訂位需求，請撥打門店電話。</p>
+        <p class="text-gray-500">3.訂位保留10分鐘，逾時將自動取消座位。</p>
+        <p class="text-gray-500">4.本餐廳保留條款內容變更與解釋、暫停或終止本線上訂位之權利。</p>
+      </div>
+    </article>
+  <section>
+  
+  <section>
+    <div class="py-8 space-y-2.5 border-b-2">
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <h4 class="mb-4 text-lg font-bold">用餐人數</h4>
+          <div class="flex">
+            <select class="w-full py-1 mr-4 input-border-click">
+              <option value="">大人人數2</option>
+              <option value="">大人人數4</option>
+            </select>
+            <select class="w-full input-border-click">
+              <option value="">小孩人數2</option>
+              <option value="">小孩人數4</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <h4 class="mb-4 text-lg font-bold">用餐日期</h4>
+          <div>
+            <input type="date" class="w-full date input-border-click">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>  
+  
+  <section>
+    <!-- maps -->
+  </section>
+  
+  <section>
+    <div class="py-8 space-y-2.5 border-b-2">
+      <div style="display: flex; justify-content:center; align-items: center" >
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+            </div>
+            <div class="swiper-slide">
+              <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+            </div>
+            <div class="swiper-slide">
+              <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+            </div>
+            <div class="swiper-slide">
+              <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section>
+    <div class="py-8 space-y-2.5 border-b-2">
+      <div class="grid grid-cols-1 gap-4 p-4 border rounded-lg shadow-lg">
+        <div class="flex gap-4">
+          <div class="flex flex-col w-full -mb-4">
+            <h2 class="text-gray-800">陳大東／2022-10-21</h2>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+          </div>
+        </div>
+        <p class="text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. <br>Maxime quisquam vero adipisci beatae voluptas dolor ame.</p>
+      </div>
+    </div>
+  </section>
+  
+  <section>
+    <div class="py-8 space-y-2.5 border-b-2 grid grid-cols-2">
+      <form class="p-4 border rounded-lg shadow-lg">
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <h2 class="px-4 pt-3 pb-2 text-gray-800 text-lg">我有話要說</h2>
+          <div class="w-full px-3 mb-2 mt-2">
+            <input class="input-border-click h-10 px-3" type="text" placeholder='請輸入標題'>
+          </div>
+          <div class="w-full px-3 mb-2 mt-2">
+            <textarea class="input-border-click resize-none w-full h-20 py-2 px-3 " name="comment" placeholder='請輸入留言' required></textarea>
+          </div>
+          <div class="w-full flex items-start md:w-full px-3">
+            <div>
+              <input type='submit' class="input-border-click text-yellow-600 font-medium py-1 px-4 mr-1 hover:bg-yellow-100" value='送出留言'>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
