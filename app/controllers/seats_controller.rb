@@ -1,3 +1,0 @@
-class SeatsController < ApplicationController
-  
-end

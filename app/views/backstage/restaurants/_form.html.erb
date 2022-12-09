@@ -19,6 +19,17 @@
     <%= f.label :tel, "餐廳電話：" %>
     <%= f.phone_field :tel, class: "input-box" %>
   </div>
+  
+  <div>
+    <%= f.label :start_time, "用餐開始時間：" %>
+    <%= f.time_select :start_time, class: "input-box" %>
+  </div>
+  
+  <div>
+    <%= f.label :end_time, "用餐結束時間：" %>
+    <%= f.time_select :end_time, class: "input-box" %>
+  </div>
+  
   <%= f.submit "編輯餐廳",class: "major-btn" %>
   <% end %>
 </div>
