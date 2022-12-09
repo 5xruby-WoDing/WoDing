@@ -1,0 +1,67 @@
+<div class="mt-24">
+  <h3>確認訂位與填寫聯絡資訊</h3>
+</div>
+
+
+<% if (@user.errors.any?) %>
+  <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<div class="my-12">
+  <%= form_with url: users_path do |form| %>
+
+    <input type="hidden" name="seat_id" value="<%= @seat.id %>">
+    <input type="hidden" name="restaurant_id" value="<%= @restaurant.id %>">
+    <div>
+      <%= form.label :訂位人姓名 %>
+      <%= form.text_field :name, class: "border" %>
+    </div>
+  
+    <div>
+      <%= form.label :信箱 %>
+      <%= form.email_field :email, class: "border" %>
+    </div>
+
+    <div>
+      <%= form.label :電話 %>
+      <%= form.telephone_field :phone, class: "border" %>
+    </div>
+
+    <div>
+      <%= form.label :稱謂 %>
+      <%= form.select :gender, User.genders.keys %>
+    </div>
+  
+    <div>
+      <%= form.label :訂位時間 %>
+      <%= form.time_field :arrival_time, class: "border" %>
+    </div>
+  
+    <div>
+      <%= form.label :大人人數 %>
+      <%= form.number_field :adult_quantity, class: "border" %>
+    </div>
+  
+    <div>
+      <%= form.label :小孩人數 %>
+      <%= form.number_field :child_quantity, class: "border" %>
+    </div>
+  
+    <div>
+      <%= form.submit "確認定位", class: "major-btn" %>
+    </div>
+    
+  <% end %>
+</div>
+
+
+<%= link_to "回上一頁", restaurant_path(@restaurant) %>
+
+
+
+  

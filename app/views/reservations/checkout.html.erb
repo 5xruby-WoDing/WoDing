@@ -1,0 +1,55 @@
+<div class="my-24">
+  <h2>這個是消費者最後看到的頁面</h2>
+  
+  <table>
+    <tr>
+      <td class="pr-6">id</td>
+      <td class="pr-6">serial</td>
+      <td class="pr-6">name</td>
+      <td class="pr-6">phone</td>
+      <td class="pr-6">email</td>
+      <td class="pr-6">gender</td>
+      <td class="pr-6">arrival_time</td>
+      <td class="pr-6">adult_quantity</td>
+      <td class="pr-6">child_quantity</td>
+      <td class="pr-6">user_id</td>
+      <td class="pr-6">restaurant_id</td>
+      <td class="pr-6">seat_id</td>
+      <td class="pr-6">椅子類型</td>
+      <td class="pr-6">椅子容量</td>
+      <td class="pr-6">餐廳名稱</td>
+        
+    </tr>
+    <tr>
+      <td><%= @reservation.id %></td>
+      <td><%= @reservation.serial %></td>
+      <td><%= @reservation.name %></td>
+      <td><%= @reservation.phone %></td>
+      <td><%= @reservation.email %></td>
+      <td><%= @reservation.gender %></td>
+      <td><%= @reservation.arrival_time %></td>
+      <td><%= @reservation.adult_quantity %></td>
+      <td><%= @reservation.child_quantity %></td>
+      <td><%= @reservation.user_id %></td>
+      <td><%= @reservation.restaurant_id %></td>
+      <td><%= @reservation.seat_id %></td>
+      <td><%= @reservation.seat.kind %></td>
+      <td><%= @reservation.seat.capacity %></td>
+      <td><%= @reservation.seat.restaurant.title %></td>
+    </tr>
+
+  </table>
+</div>
+
+<div class="my-8">
+  <li>User model的資料</li>
+   <li><%= @reservation.user.name %></li>
+   <li><%= @reservation.user.email %></li>
+   <li><%= @reservation.user.phone %></li>
+   <li><%= @reservation.user.gender %></li>
+</div>
+
+<%= link_to "回首頁", root_path, class: "major-btn" %>
+
+
+
