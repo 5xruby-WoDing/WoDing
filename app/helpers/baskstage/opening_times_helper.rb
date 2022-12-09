@@ -1,0 +1,2 @@
+module Baskstage::OpeningTimesHelper
+end
