@@ -20,4 +20,5 @@ class RestaurantsController < ApplicationController
   def find_seat_id
     @seat = Seat.find_by!(id: params[:seat_id])
   end
+
 end
