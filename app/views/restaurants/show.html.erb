@@ -49,6 +49,17 @@
   </section>  
 
   <section>
+    <% @time_list = [] %>
+
+    <% run_time(@restaurant.start_time, @restaurant.end_time) %>
+    <% @time_list.each do |time| %>
+      <span class = "major-btn">
+        <%= time %>
+      </span>
+    <% end %>
+  </select>
+
+  <section>
     <h3>我要訂位</h3>
     <% @seats.each do |seat| %>
       <div class="mt-4">
@@ -132,11 +143,3 @@
   </section>
 </main>
 
-  <% @time_list = [] %>
-
-  <% run_time(@restaurant.start_time, @restaurant.end_time) %>
-  <% @time_list.each do |time| %>
-    <span class = "major-btn">
-      <%= time %>
-    </span>
-  <% end %>
