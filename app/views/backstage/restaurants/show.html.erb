@@ -1,34 +1,30 @@
 <div class="mt-24">
   <h1><%= @restaurant.title %></h1>
-  <%= link_to "新增這家商店的座位資料", new_backstage_restaurant_seat_path(@restaurant), class: "major-btn" %>
-  
-  <h2>這邊是這家店的所有seat資訊</h2>
-
-  <table>
-    <tr>
-      <td class="pr-4">restaurant id</td>
-      <td class="pr-4">seat id</td>
-      <td class="pr-4">seat kind</td>
-      <td class="pr-4">seat capacity</td>
-      <td class="pr-4">seat deposit</td>
-      <td class="pr-4">seat 資訊修改</td>
-      <td class="pr-4">seat 刪除</td>
-    </tr>
-    <% @seats.each do |seat| %>
+  <%= link_to "新增座位 ", new_backstage_restaurant_seat_path(@restaurant), class: "major-btn" %>
+  <div>
+    <h2>座位資訊</h2>
+    <table>
       <tr>
-        <td><%= @restaurant.id %></td>
-        <td><%= link_to seat.id, backstage_seat_path(seat.id), class: "major-btn" %></td>
-        <td><%= seat.kind %></td>
-        <td><%= seat.capacity %></td>
-        <td><%= seat.deposit %></td>
-        <td><%= link_to "edit", edit_backstage_seat_path(seat.id), class: "major-btn" %></td>
-        <td><%= link_to "delete", backstage_seat_path(seat.id), method: "delete", data: {confirm: "sure??"}, class: "major-btn" %>
-        </td>
+        <td class="pr-4">seat id</td>
+        <td class="pr-4">seat kind</td>
+        <td class="pr-4">seat capacity</td>
+        <td class="pr-4">seat deposit</td>
+        <td class="pr-4">seat 資訊修改</td>
+        <td class="pr-4">seat 刪除</td>
       </tr>
-    <% end %>
-  </table>
+      <% @seats.each do |seat| %>
+        <tr>
+          <td><%= link_to seat.id, backstage_seat_path(seat.id), class: "major-btn" %></td>
+          <td><%= seat.kind %></td>
+          <td><%= seat.capacity %></td>
+          <td><%= seat.deposit %></td>
+          <td><%= link_to "edit", edit_backstage_seat_path(seat.id), class: "major-btn" %></td>
+          <td><%= link_to "x", backstage_seat_path(seat.id), method: "delete", data: {confirm: "sure??"}, class: "major-btn" %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>  
 
-
-  <%= link_to "回到管理者的所有商店頁面", backstage_root_path, class: "major-btn" %>
+  <%= link_to "管理者頁面", backstage_root_path, class: "major-btn" %>
 
 </div>
