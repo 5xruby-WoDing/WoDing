@@ -4,32 +4,13 @@ class UsersController < ApplicationController
   before_action :find_seat_id, only: [:create]
 
   def create
-    name = params[:name]
-    email = params[:email]
-    phone = params[:phone]
-    gender = params[:gender]
-    arrival_time = params[:arrival_time]
-    adult_quantity = params[:adult_quantity]
-    child_quantity = params[:child_quantity]
 
-    @user = User.new(name: name, 
-                     email: email, 
-                     phone: phone, 
-                     gender: gender)
+    @user = User.new(params_user)
 
     if @user.save
-      reservation = Reservation.create!(name: name,
-                                        email: email,
-                                        phone: phone,
-                                        gender: gender,
-                                        arrival_time: arrival_time,
-                                        adult_quantity: adult_quantity,
-                                        child_quantity: child_quantity,
-                                        seat_id: @seat.id,
-                                        restaurant_id: @restaurant.id,
-                                        user_id: @user.id,)
+      reservation = Reservation.create!(params_reservation)
 
-      redirect_to checkout_reservation_path(reservation), notice: "User資料存入、order建立"
+      redirect_to checkout_reservation_path(id: reservation.serial), notice: "User資料存入、order建立"
     else
       render "restaurants/reserve"
     end
@@ -42,6 +23,14 @@ class UsersController < ApplicationController
 
   def find_seat_id
     @seat = Seat.find_by!(id: params[:seat_id])
+  end
+
+  def params_user
+    params.require(:user).permit(:name, :email, :phone, :gender)
+  end
+
+  def params_reservation
+    params.require(:user).permit(:name, :email, :phone, :gender, :arrival_time, :adult_quantity, :child_quantity).merge(seat: @seat, restaurant: @restaurant, user: @user) 
   end
   
 end
