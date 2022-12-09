@@ -1,4 +1,4 @@
-<main class="container mx-auto">
+<main class="container mx-auto mt-24">
   <section>
     <div class="py-8 space-y-2.5 border-b-2">
       <img src="https://picsum.photos/seed/picsum/1440/400" alt="">
@@ -47,6 +47,24 @@
       </div>
     </div>
   </section>  
+
+  <section>
+    <h3>我要訂位</h3>
+    <% @seats.each do |seat| %>
+      <div class="mt-4">
+        <%= seat.id %>
+        <%= seat.kind %>
+      </div>      
+      <div>
+        <%= form_with url: reserve_restaurant_path(@restaurant), method: "get" do |f| %>
+          
+          <input type="hidden" name="seat_id" value="<%= seat.id %>">
+          <%= f.submit "我要訂這個位子", class: "major-btn" %>
+        <% end %>
+      </div>
+      
+    <% end %>
+  </section>
   
   <section>
     <!-- maps -->

@@ -7,4 +7,6 @@ class Restaurant < ApplicationRecord
 
   belongs_to :manager
   has_many :seats
+
+  has_many :reservations
 end
