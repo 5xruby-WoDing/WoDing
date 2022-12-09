@@ -4,7 +4,7 @@ class RestaurantsController < ApplicationController
   before_action :find_seat_id, only: [:reserve]
 
   def show
-    @seats = Seat.all    
+    @seats = @restaurant.seats
   end
 
   def reserve
