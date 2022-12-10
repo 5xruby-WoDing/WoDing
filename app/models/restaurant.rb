@@ -1,6 +1,6 @@
 class Restaurant < ApplicationRecord
   acts_as_paranoid
-  
+
   validates :title, presence: true
   validates :address, presence: true
   validates :tel, presence: true
@@ -9,5 +9,5 @@ class Restaurant < ApplicationRecord
 
   belongs_to :manager
   has_many :seats
-  has_many :opening_times
+  has_many :opening_times  
 end

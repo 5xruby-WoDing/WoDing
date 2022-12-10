@@ -50,12 +50,22 @@
 
   <section>
     <% @time_list = [] %>
-
+    <% @rest_time_list = [] %>
+    <% @date_list = [] %>
+    <% set_end_time(@restaurant.period_of_reservation) %>
     <% run_time(@restaurant.start_time, @restaurant.end_time) %>
-    <% @time_list.each do |time| %>
-      <span class = "major-btn">
-        <%= time %>
-      </span>
+    <% rest_run_time("14:00".to_time, "17:30".to_time) %>
+    <% date_sort(Date.today) %>
+    <div class='grid grid-cols-7'>
+      <% @date_list.each do |date| %>
+        <div class='text-black bg-white major-btn hover:text-white hover:bg-major'>
+          <%= date %>
+        </div>
+      <% end %>
+    </div>
+    
+    <% (@time_list - @rest_time_list).each do |time| %>
+      <%= link_to time, root_path, class: 'major-btn' %>
     <% end %>
   </select>
   
