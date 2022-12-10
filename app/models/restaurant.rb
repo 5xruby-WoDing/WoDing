@@ -1,6 +1,6 @@
 class Restaurant < ApplicationRecord
   acts_as_paranoid
-  
+
   validates :title, presence: true
   validates :address, presence: true
   validates :tel, presence: true

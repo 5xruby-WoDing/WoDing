@@ -65,3 +65,7 @@ gem 'dotenv-rails', groups: [:development, :test]
 gem "paranoia", "~> 2.6"
 
 gem "rails-i18n", "~> 7.0"
+
+gem "ice_cube", "~> 0.16.4"
+
+gem "activesupport", "~> 6.1"
