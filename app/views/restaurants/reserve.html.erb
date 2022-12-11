@@ -11,6 +11,14 @@
   </ul>
 <% end %>
 
+<div>
+  <h4>人數</h4>
+  <%= @adult_quantity %>大人
+  <%= @child_quantity %>小孩
+  <h4>訂位時間</h4>
+  <%= @arrival_date %>
+  <%= @arrival_time %>
+</div>
 
 <div class="my-12">
   <%= form_with model: @user, url: users_path do |form| %>
