@@ -29,11 +29,40 @@
     @apply pb-8 border-b-2
   }
   .major-btn{
-    @apply border text-sm bg-major text-white rounded py-1 px-2 mr-2 hover:bg-yellow-600
+    @apply border 
+            text-sm bg-major 
+            text-white 
+            rounded 
+            py-1 
+            px-2 
+            mr-2 
+            hover:bg-yellow-600
   }
-  
   .member-system-flex{
-    @apply max-w-screen-lg py-10 m-auto mt-24 border rounded md:flex md:justify-between px-14
+    @apply max-w-screen-lg 
+            py-10 
+            m-auto 
+            mt-24 
+            border 
+            rounded 
+            md:flex 
+            md:justify-between 
+            px-14
+  }
+  .reservation-btn{
+    @apply text-gray-800 
+            bg-gray-100
+            border-gray-200
+            rounded
+            hover:text-white
+            hover:bg-major border
+  }
+  .confirm-state{
+    @apply border
+          bg-major 
+          text-white 
+            rounded 
+
   }
 }
 
