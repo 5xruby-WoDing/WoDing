@@ -23,32 +23,6 @@
   <section>
   
   <section>
-    <div class="py-8 space-y-2.5 border-b-2">
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <h4 class="mb-4 text-lg font-bold">用餐人數</h4>
-          <div class="flex">
-            <select class="w-full py-1 mr-4 input-border-click">
-              <option value="">大人人數2</option>
-              <option value="">大人人數4</option>
-            </select>
-            <select class="w-full input-border-click">
-              <option value="">小孩人數2</option>
-              <option value="">小孩人數4</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <h4 class="mb-4 text-lg font-bold">用餐日期</h4>
-          <div>
-            <input type="date" class="w-full date input-border-click">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>  
-
-  <section>
     <% @time_list = [] %>
     <% @rest_time_list = [] %>
     <% @date_list = [] %>
@@ -56,40 +30,56 @@
     <% run_time(@restaurant.start_time, @restaurant.end_time) %>
     <% rest_run_time("14:00".to_time, "17:30".to_time) %>
     <% date_sort(Date.today) %>
-    <div class='grid grid-cols-7'>
-      <% @date_list.each do |date| %>
-        <div class='text-black bg-white major-btn hover:text-white hover:bg-major'>
-          <%= date %>
-        </div>
-      <% end %>
-    </div>
     
-    <% (@time_list - @rest_time_list).each do |time| %>
-      <%= link_to time, root_path, class: 'major-btn' %>
-    <% end %>
-  </select>
-
-  <section>
-    <h3>我要訂位</h3>
-    <% @seats.each do |seat| %>
-      <div class="mt-4">
-        <%= seat.id %>
-        <%= seat.kind %>
-      </div>      
+    <%# 選擇人數  %>
+    <%= form_with url: reserve_restaurant_path(@restaurant), method: "get" do |f| %>
+    <h4>用餐人數</h4>
       <div>
-        <%= form_with url: reserve_restaurant_path(@restaurant), method: "get" do |f| %>
-          
-          <input type="hidden" name="seat_id" value="<%= seat.id %>">
-          <%= f.submit "我要訂這個位子", class: "major-btn" %>
+        <%= f.select :adult_quantity, [['1位大人', 1], ['2位大人', 2], ['3位大人', 3], ['4位大人', 4], ['5位大人', 5]] %>
+      </div>
+      <div>
+        <%= f.select :child_quantity, [['0位小孩', 0], ['1位小孩', 1], ['2位小孩', 2], [' 3位小孩', 3], ['4位小孩', 4], [' 5位小孩', 5]] %>
+      </div>
+    <%# 選擇日期 %>
+    <h4>用餐日期</h4>
+      <div class='grid grid-cols-7' data-controller='date-btn'>
+        <% @date_list.each do |date| %>
+          <button class='reservation-btn'
+                  data-action='click->date-btn#getDate'
+          >
+            <%= f.date_field :arrival_date, value: date, class: 'hidden' %>
+            <%= date %>
+          </button>
         <% end %>
       </div>
+      <%# 選擇時間 %>
+      <h4>用餐時間</h4>
+      <div data-controller='time-btn'>
+        <% (@time_list - @rest_time_list).each do |time| %>
+          <button class='reservation-btn'
+                  data-action='click->time-btn#getTime'
+          >
+            <%= f.time_field :arrival_time, value: time, class: 'hidden' %>
+            <%= time %>
+          </button>
+        <% end %>
+      </div>
+      <%# 選擇座位 %>
+      <% @seats.each do |seat| %>
+        <div>
+          <button class='reservation-btn'
+                  data-controller='seat-btn'
+                  data-action='click->seat-btn#getSeat'  
+          >
+            <input type="hidden" name="seat_id" value="<%= seat.id %>">
+            <%= seat.kind %>
+          </button>
+        </div>
       
     <% end %>
-  </section>
-  
-  <section>
-    <!-- maps -->
-  </section>
+      <%= f.submit '訂位', class: 'major-btn' %>
+    <% end %>
+  </select>
   
   <section>
     <div class="py-8 space-y-2.5 border-b-2">

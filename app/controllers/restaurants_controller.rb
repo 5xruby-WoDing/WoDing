@@ -9,6 +9,7 @@ class RestaurantsController < ApplicationController
 
   def reserve
     @user = User.new
+
   end
 
 
