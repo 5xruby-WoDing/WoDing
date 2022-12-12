@@ -1,19 +1,22 @@
-<main class="container mx-auto mt-24">
+<main class="max-w-screen-lg mx-auto mt-24">
   <section>
-    <div class="py-8 space-y-2.5 border-b-2">
+    <div class="py-8 space-y-2.5">
       <img src="https://picsum.photos/seed/picsum/1440/400" alt="">
     </div>
     <article>
       <div class="py-8 space-y-2.5 border-b-2">  
-        <h1 class="text-4xl text-gray-800">台菜香檳本館</h1>
-        <p class="text-gray-500">台北市中山區樂群三路303號1F</p>
+        <h1 class="text-4xl font-bold">
+          <%= @restaurant.title %>
+          <%= @restaurant.branch %>
+        </h1>
+        <p class="font-bold text-gray-500"><%= @restaurant.address %></p>
         <div>
-          <i class="fa-light fa-phone">0939993443434</i>
+          <i class="fa-light fa-phone"><%= @restaurant.tel %></i>
           <i class="fa-light fa-map">地圖</i>
         </div>
       </div>
       <div class="py-8 space-y-2.5 border-b-2">
-        <h2 class="text-xl text-gray-800">訂位注意事項</h2>
+        <h2 class="text-x">訂位注意事項</h2>
         <p class="text-gray-500">1.目前開放「一個月內」的訂位，例如：要預訂3/1位置，請於2/1之後進行訂位。</p>
         <p class="text-gray-500">2.如有多人訂位需求，請撥打門店電話。</p>
         <p class="text-gray-500">3.訂位保留10分鐘，逾時將自動取消座位。</p>
@@ -23,57 +26,72 @@
   <section>
   
   <section>
-    <%= form_with url: reserve_restaurant_path(@restaurant), method: "get" do |f| %>
-      <h4>用餐人數</h4>
-      <div>
-        <%= f.select :adult_quantity, [['1位大人', 1], ['2位大人', 2], ['3位大人', 3], ['4位大人', 4], ['5位大人', 5]] %>
-      </div>
-      <div>
-        <%= f.select :child_quantity, [['0位小孩', 0], ['1位小孩', 1], ['2位小孩', 2], [' 3位小孩', 3], ['4位小孩', 4], [' 5位小孩', 5]] %>
-      </div>
+    <div>
+      <%= form_with url: reserve_restaurant_path(@restaurant), method: "get" do |f| %>
+        <div class='mx-2 lg:mx-0'>
+          <div class='gap-4 md:grid grid-cols-15'>
+            <div>
+              <h4 class='reservation-font'>用餐人數</h4>
+              <div class='flex gap-2'>
+                <%= f.select :adult_quantity, [['1位大人', 1], ['2位大人', 2], ['3位大人', 3], ['4位大人', 4], ['5位大人', 5]], {}, {class: 'input-border-click w-full py-1 px-2'} %>
+                <%= f.select :child_quantity, [['0位小孩', 0], ['1位小孩', 1], ['2位小孩', 2], [' 3位小孩', 3], ['4位小孩', 4], [' 5位小孩', 5]], {}, {class: 'input-border-click w-full py-1 px-2'} %>
+              </div>
+            </div>
+            <div>
+              <h4 class='reservation-font'>用餐日期</h4>
+              <div class='grid grid-cols-5 gap-3 md:grid-cols-7' data-controller='date-btn'>
+                <% date_range = RestaurantsHelper::DateRange.new([]) %>
+                <% date_range.set_end_day(@restaurant.period_of_reservation) %>
+                <% date_range.reservation_range_date(Date.today) %>
+                <% date_range.date_list.each do |date| %>
+                  <button class='w-full h-full reservation-btn'
+                            data-controller='date-btn'
+                            data-action='click->date-btn#getDate'>
+                    <input type="hidden" name="arrival_date" value="<%= date %>">
+                    <%= date %>
+                  </button>
+                <% end %>
+            </div>
+          </div>
+          </div>
 
-      <h4>用餐日期</h4>
-      <div class='grid grid-cols-7' data-controller='date-btn'>
-        <% date_range = RestaurantsHelper::DateRange.new([]) %>
-        <% date_range.set_end_day(@restaurant.period_of_reservation) %>
-        <% date_range.reservation_range_date(Date.today) %>
-        <% date_range.date_list.each do |date| %>
-          <button class='reservation-btn'
-                    data-controller='date-btn'
-                    data-action='click->date-btn#getDate'>
-            <input type="hidden" name="arrival_date" value="<%= date %>">
-            <%= date %>
-          </button>
-        <% end %>
-      </div>
- 
-      <h4>用餐時間</h4>
-      <div data-controller='time-btn'>
-        <% time_range = RestaurantsHelper::TimeRange.new([]) %>
-        <% time_range.intreval_time(@restaurant.start_time, @restaurant.end_time) %>
-        <% time_range.time_points.each do |time_point| %>
-          <button class='reservation-btn'
-                  data-controller='time-btn'
-                  data-action='click->time-btn#getTime'>
-            <input type="hidden" name="arrival_time" value="<%= time_point %>">
-            <%= time_point %>
-          </button>
-        <% end %>
-      </div>
+          <h4 class='reservation-font'>用餐時間</h4>
+          <div data-controller='time-btn'>
+            <% time_range = RestaurantsHelper::TimeRange.new([]) %>
+            <% time_range.intreval_time(@restaurant.start_time, @restaurant.end_time) %>
+            <div class='grid grid-cols-7 gap-3'>
+              <% time_range.time_points.each do |time_point| %>
+                <button class='reservation-btn'
+                        data-controller='time-btn'
+                        data-action='click->time-btn#getTime'>
+                  <input type="hidden" name="arrival_time" value="<%= time_point %>">
+                  <%= time_point %>
+                </button>
+              <% end %>
+            </div>
+          </div>
 
-      <% @seats.each do |seat| %>
-        <div>
-          <button class='reservation-btn'
-                  data-controller='seat-btn'
-                  data-action='click->seat-btn#getSeat'>
-            <input type="hidden" name="seat_id" value="<%= seat.id %>">
-            <%= seat.kind %>
-          </button>
+          <h4 class='reservation-font'>選擇座位</h4>
+          <div class='grid grid-cols-7 gap-3'>
+            <% @seats.each do |seat| %>
+              <button class='reservation-btn'
+                      data-controller='seat-btn'
+                      data-action='click->seat-btn#getSeat'>
+                <input type="hidden" name="seat_id" value="<%= seat.id %>">
+                <%= seat.kind %>
+              </button>
+            <% end %>
+          </div>
+        </div> 
+          
+      <div class="fixed z-40 w-full px-2 lg:px-0 max-w-1140 bottom-1 ">
+        <div class= "w-full mx-auto ">
+          <%= f.submit '訂位，下一步填寫資料', class:'major-btn w-full '%>
         </div>
-    <% end %>
-      <%= f.submit '訂位', class: 'major-btn' %>
-    <% end %>
-  </select>
+      </div>
+      <% end %>
+    </div>
+  </section>
   
   <section>
     <div class="py-8 space-y-2.5 border-b-2">
