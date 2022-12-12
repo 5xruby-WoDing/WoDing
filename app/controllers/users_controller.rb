@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :find_seat_id, only: [:create]
 
   def create
-
+    
     @user = User.new(params_user)
 
     if @user.save

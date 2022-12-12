@@ -16,12 +16,16 @@ Rails.application.routes.draw do
   resources :reservations, only: [] do
     member do
       get :checkout
+
+      # 這個是給店家老闆按的路徑，按下去訂單會打開
+      get :finish
     end
   end
   
   resources :restaurants, only: [:show] do
     member do
       get :reserve
+
     end    
   end
 

@@ -69,3 +69,4 @@ gem "rails-i18n", "~> 7.0"
 gem "ice_cube", "~> 0.16.4"
 
 gem "activesupport", "~> 6.1"
+gem "aasm", "~> 5.4"

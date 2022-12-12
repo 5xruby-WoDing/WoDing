@@ -9,6 +9,7 @@ class RestaurantsController < ApplicationController
   end
 
   def reserve
+    # render html: params
     @user = User.new
     # render html: params
   end

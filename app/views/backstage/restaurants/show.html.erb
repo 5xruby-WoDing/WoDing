@@ -1,16 +1,53 @@
 <div class="mt-24">
   <h1><%= @restaurant.title %></h1>
-  <%= link_to "新增座位 ", new_backstage_restaurant_seat_path(@restaurant), class: "major-btn" %>
-  <div>
-    <h2>座位資訊</h2>
-    <table>
+  <%= link_to "新增這家商店的座位資料", new_backstage_restaurant_seat_path(@restaurant), class: "major-btn" %>
+  
+  <h2>這邊是這家店的所有seat資訊</h2>
+
+  <table>
+    <tr>
+      <td class="pr-4">restaurant id</td>
+      <td class="pr-4">seat id</td>
+      <td class="pr-4">seat kind</td>
+      <td class="pr-4">seat capacity</td>
+      <td class="pr-4">seat deposit</td>
+      <td class="pr-4">seat 資訊修改</td>
+      <td class="pr-4">seat 刪除</td>
+      <td class="pr-4">seat 狀態</td>
+      <td class="pr-4">Reservation id</td>
+      <td class="pr-4">Reservation 狀態</td>
+      <td class="pr-4">結束此張預約單</td>
+    </tr>
+    <% @seats.each do |seat| %>
       <tr>
-        <td class="pr-4">seat id</td>
-        <td class="pr-4">seat kind</td>
-        <td class="pr-4">seat capacity</td>
-        <td class="pr-4">seat deposit</td>
-        <td class="pr-4">seat 資訊修改</td>
-        <td class="pr-4">seat 刪除</td>
+        <td><%= @restaurant.id %></td>
+        <td><%= link_to seat.id, backstage_seat_path(seat.id), class: "major-btn" %></td>
+        <td><%= seat.kind %></td>
+        <td><%= seat.capacity %></td>
+        <td><%= seat.deposit %></td>
+        <td><%= link_to "edit", edit_backstage_seat_path(seat.id), class: "major-btn" %></td>
+        <td><%= link_to "delete", backstage_seat_path(seat.id), method: "delete", data: {confirm: "sure??"}, class: "major-btn" %>
+        </td>
+        <td><%= seat.state %></td>
+
+        <% if seat.reservations %>
+          <td>
+            <% seat.reservations.each do |s| %>
+            <li><%= s.id %></li>
+            <% end %>
+          </td>
+          <td>
+            <% seat.reservations.each do |s| %>
+            <li><%= s.state %></li>
+            <% end %>
+          </td>
+          <td>
+            <% seat.reservations.each do |s| %>
+            <li><%= link_to "結束此張訂單", finish_reservation_path(s), class: "major-btn" %></li>
+            <% end %>
+          </td>
+ 
+        <% end %>
       </tr>
       <% @seats.each do |seat| %>
         <tr>
