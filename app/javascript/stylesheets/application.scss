@@ -35,8 +35,8 @@
             rounded 
             py-1 
             px-2 
-            mr-2 
             hover:bg-yellow-600
+            border-none
   }
   .member-system-flex{
     @apply max-w-screen-lg 
@@ -64,9 +64,13 @@
             rounded 
 
   }
+  .reservation-font{
+    @apply text-lg my-4 font-bold
+  }
 }
 
 .date{
   padding: 2px;
 } 
+
 
