@@ -1,73 +1,80 @@
-<div class="mt-24">
-  <h3>確認訂位與填寫聯絡資訊</h3>
-</div>
-
-<% if (@user.errors.any?) %>
-  <ul>
-    <% @user.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<div>
-  <h4>人數</h4>
-  <%= @adult_quantity %>大人
-  <%= @child_quantity %>小孩
-  <h4>訂位時間</h4>
-  <%= @arrival_date %>
-  <%= @arrival_time %>
-</div>
-
-<div class="my-12">
-  <%= form_with model: @user, url: users_path do |form| %>
-
-    <input type="hidden" name="seat_id" value="<%= @seat.id %>">
-    <input type="hidden" name="restaurant_id" value="<%= @restaurant.id %>">
-    <div>
-      <%= form.label :訂位人姓名 %>
-      <%= form.text_field :name, class: "input-border-click" %>
-    </div>
-  
-    <div>
-      <%= form.label :信箱 %>
-      <%= form.email_field :email, class: "input-border-click" %>
-    </div>
-
-    <div>
-      <%= form.label :電話 %>
-      <%= form.telephone_field :phone, class: "input-border-click" %>
-    </div>
-
-    <div>
-      <%= form.select :gender, User.genders.keys %>
-    </div>
-  
-    <div>
-      <%= form.label :訂位時間 %>
-      <%= form.time_field :arrival_time, class: "border", value: @arrival_time %>
-    </div>
-  
-    <div>
-      <%= form.label :大人人數 %>
-      <%= form.number_field :adult_quantity, class: "border" %>
-    </div>
-  
-    <div>
-      <%= form.label :小孩人數 %>
-      <%= form.number_field :child_quantity, class: "border" %>
-    </div>
-  
-    <div>
-      <%= form.submit "確認定位", class: "major-btn" %>
-    </div>
-    
+<main class="max-w-screen-lg px-4 mx-auto mt-24">
+  <section>
+    <h1 class='mx-auto mb-4 text-xl font-bold text-center'>確認訂位與填寫聯絡資訊</h1>
+  </section>
+  <% if (@user.errors.any?) %>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
   <% end %>
-</div>
-
-
-<%= link_to "回上一頁", restaurant_path(@restaurant) %>
-
-
-
+  <div class='gap-4 md:grid md:grid-cols-1-2'>
+    <section class='mb-4'>
+      <div data-controller='reservation-info' class='px-4 py-5 border rounded'>
+        <div class='pb-2 mb-4 border-b-2'>
+          <h2 class='text-xl font-bold '>
+            <%= @restaurant.title %>
+            <%= @restaurant.branch %>
+          </h2>
+          <h3 class='text-gray-500'>
+            <%= @restaurant.address %>
+          </h3>
+        </div>
+        <div class='flex items-center'>
+          <i class="mr-2 fa-regular fa-user"></i>
+          <p class='mr-2'><%= @adult_quantity %>位大人</p>
+          <p><%= @child_quantity %>位小孩</p>
+        </div>
+        <div class='flex items-center my-4'>
+          <i class="mr-2 fa-regular fa-clock"></i>
+          <p><%= @arrival_time %></p>
+          <% catch_time(@arrival_time) %>
+        </div>
+        <div class='flex items-center'>
+          <i class="mr-2 fa-regular fa-calendar-days"></i>
+          <p><%= @arrival_date %></p>
+          <% catch_date(@arrival_date) %>
+        </div>
+      </div>
+    </section>
   
+    <section class='px-4 py-5 border rounded'>
+      <%= form_with model: @user, url: users_path do |form| %>
+
+        <div class='mb-3 reservation-input'>
+          <%= form.label :name, '訂位人姓名', class: 'mb-3' %>
+            <div class='grid grid-cols-2 gap-3'>
+              <%= form.text_field :name, class: 'input-border-click ' %>
+              <%= form.select :gender, User.genders.keys, {}, {class: 'input-border-click w-full'} %>
+            </div>
+        </div>
+
+        <div class='mb-3 reservation-input'>
+          <%= form.label :email, 'Email', class: 'mb-3' %>
+          <%= form.email_field :email, class: 'input-border-click' %>
+        </div>
+
+        <div class='mb-3 reservation-input'>
+          <%= form.label :phone, '手機號碼', class: 'mb-3' %>
+          <%= form.telephone_field :phone, class: 'input-border-click' %>
+        </div>
+      
+        <input type="hidden" name="seat_id" value="<%= @seat.id %>">
+        <input type="hidden" name="restaurant_id" value="<%= @restaurant.id %>">
+        <%= form.text_field :arrival_date, class: 'hidden',value: @date  %>
+        <%= form.text_field :arrival_time, class: 'hidden', value: @time %>
+        <%= form.number_field :adult_quantity, class: "hidden", value: @adult_quantity %>
+        <%= form.number_field :child_quantity, class: "hidden", value: @child_quantity %>
+          
+        <div>
+          <%= form.submit "確認定位", class: "major-btn w-full py-3 text-lg mb-3" %>
+          <%= link_to "回上一頁", restaurant_path(@restaurant), class: 'gray-btn block text-center text-lg py-3' %>
+        </div>
+      <% end %>
+
+    </section>
+  </div>
+
+</main>
+

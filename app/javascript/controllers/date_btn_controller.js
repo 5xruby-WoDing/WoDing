@@ -9,7 +9,7 @@ export default class extends Controller {
 
   getDate(e){
     e.preventDefault()
-    e.target.classList.remove("reservation-btn")
+    e.target.classList.remove("gray-btn")
     e.target.classList.add("confirm-state")
     const date = e.target.textContent
     this.setDate(date)

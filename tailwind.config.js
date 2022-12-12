@@ -16,7 +16,8 @@ module.exports = {
         lg: '1140px'
       },
       gridTemplateColumns: {
-        '15': '1fr 2fr'
+        '1-2': '1fr 2fr'
+
       },
       maxWidth: {
         '1140': '1140px'

@@ -9,7 +9,7 @@ export default class extends Controller {
 
   getTime(e){
     e.preventDefault()
-    e.target.classList.remove("reservation-btn")
+    e.target.classList.remove("gray-btn")
     e.target.classList.add("confirm-state")
     const time = e.target.textContent
     this.setTime(time)
