@@ -10,8 +10,8 @@
       <%= restaurant.address %>
       <span>
         營業時間：
-        <%= restaurant.start_time.strftime('%H:%M') %> -  
-        <%= restaurant.end_time.strftime('%H:%M') %>
+        <%= restaurant&.start_time.strftime('%H:%M') %> -  
+        <%= restaurant&.end_time.strftime('%H:%M') %>
       </span>
       <%= link_to "編輯餐廳資訊", edit_backstage_restaurant_path(restaurant), class: "major-btn"%>
       <%= link_to "刪除", backstage_restaurant_path(restaurant), method: "delete", class: "major-btn"%>
