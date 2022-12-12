@@ -1,7 +1,7 @@
 <div class="mt-24">
   <h1><%= @restaurant.title %></h1>
   <%= link_to "新增這家商店的座位資料", new_backstage_restaurant_seat_path(@restaurant), class: "major-btn" %>
-  
+  <div>
   <h2>這邊是這家店的所有seat資訊</h2>
 
   <table>
@@ -60,7 +60,12 @@
         </tr>
       <% end %>
     </table>
+    <% end %>
+
+    
   </div>  
+
+  
 
   <%= link_to "管理者頁面", backstage_root_path, class: "major-btn" %>
 
