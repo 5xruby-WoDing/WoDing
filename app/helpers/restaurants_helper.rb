@@ -23,7 +23,7 @@ module RestaurantsHelper
     end
 
     def set_end_day(period_of_day)
-      @end_day = Date.today + period_of_day.days
+      @end_day = Date.yesterday + period_of_day.days
     end
 
     def reservation_range_date(start_date)

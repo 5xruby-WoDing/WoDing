@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 import log from "tailwindcss/lib/util/log";
 
 export default class extends Controller {
-  static targets = [ '' ]
+  static targets = [ 'input' ]
 
   connect() {
   }
@@ -11,5 +11,10 @@ export default class extends Controller {
     e.preventDefault()
     e.target.classList.remove("reservation-btn")
     e.target.classList.add("confirm-state")
+    const time = e.target.textContent
+    this.setTime(time)
+  }
+  setTime(time){
+    this.inputTarget.value = time
   }
 }
