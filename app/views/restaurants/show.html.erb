@@ -1,4 +1,4 @@
-<main class="max-w-screen-lg mx-auto mt-24">
+<main class="max-w-screen-lg mx-auto mt-24 ">
   <section>
     <div class="py-8 space-y-2.5">
       <img src="https://picsum.photos/seed/picsum/1440/400" alt="">
@@ -29,7 +29,7 @@
     <div>
       <%= form_with url: reserve_restaurant_path(@restaurant), method: "get" do |f| %>
         <div class='mx-2 lg:mx-0'>
-          <div class='gap-4 md:grid grid-cols-15'>
+          <div class='gap-4 md:grid grid-cols-1-2'>
             <div>
               <h4 class='reservation-font'>用餐人數</h4>
               <div class='flex gap-2'>
@@ -46,7 +46,7 @@
               <div class='grid grid-cols-5 gap-3 md:grid-cols-7' data-controller='date-btn'>
 
                 <% date_range.date_list.each do |date| %>
-                  <button class='w-full h-full reservation-btn'
+                  <button class='w-full h-full gray-btn'
                           data-action='click->date-btn#getDate'>
                     <%= date %>
                   </button>
@@ -64,7 +64,7 @@
               
               <div class='grid grid-cols-7 gap-3'>
                 <% time_range.time_points.each do |time_point| %>
-                  <button class='reservation-btn'
+                  <button class='gray-btn'
                           data-action='click->time-btn#getTime'>
                     <%= time_point %>
                   </button>
@@ -78,7 +78,7 @@
             <h4 class='reservation-font'>選擇座位</h4>
             <div class='grid grid-cols-7 gap-3'>
               <% @seats.each do |seat| %>
-                <button class='reservation-btn'
+                <button class='gray-btn'
                         data-action='click->seat-btn#getSeat'>
                   <%= seat.kind %>
                   <span class='hidden' data-seat-btn-target='id'>

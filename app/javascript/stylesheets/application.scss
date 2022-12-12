@@ -15,7 +15,8 @@
             focus:border-major
               focus:outline-none
               border
-              rounded 
+              rounded
+              py-1
   }
   .input-box{
     @apply  focus:ring-major
@@ -38,7 +39,7 @@
             hover:bg-yellow-600
             border-none
   }
-  .member-system-flex{
+  .container-1140{
     @apply max-w-screen-lg 
             py-10 
             m-auto 
@@ -49,7 +50,7 @@
             md:justify-between 
             px-14
   }
-  .reservation-btn{
+  .gray-btn{
     @apply text-gray-800 
             bg-gray-100
             border-gray-200
@@ -66,6 +67,9 @@
   }
   .reservation-font{
     @apply text-lg my-4 font-bold
+  }
+  .reservation-input{
+    @apply flex flex-col
   }
 }
 
