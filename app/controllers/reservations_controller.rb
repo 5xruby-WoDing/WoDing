@@ -3,7 +3,6 @@ class ReservationsController < ApplicationController
   before_action :find_reservation, only: [:checkout]
   
   def checkout
-    # render html: params
   end
 
   private
