@@ -8,7 +8,10 @@ class UsersController < ApplicationController
     @user = User.new(params_user)
 
     if @user.save
+      
       reservation = Reservation.create!(params_reservation)
+      # ReserveMailer.reserve_notify('lin034506618@gmail.com').deliver
+      ReserveMailJob.perform_later(reservation)
 
       redirect_to checkout_reservation_path(id: reservation.serial), notice: "User資料存入、order建立"
     else
