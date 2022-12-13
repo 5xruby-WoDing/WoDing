@@ -2,7 +2,7 @@
   <section>
     <div>
       <img src="https://picsum.photos/seed/picsum/1440/400" alt="">
-    </div>
+    </div>  
     <article>
       <div class="py-8 space-y-2.5 border-b-2">  
         <h1 class="text-4xl font-bold">
@@ -47,11 +47,13 @@
 
                 <% date_range.date_list.each do |date| %>
                   <button class='w-full h-full gray-btn'
-                          data-action='click->date-btn#getDate'>
+                          data-action='click->date-btn#getDate'
+                          data-date-btn-target='btn'
+                          value='<%= date %>'>
                     <%= date %>
                   </button>
                 <% end %>
-                <input type="hidden" name="arrival_date" data-date-btn-target='input'>
+                <input type="hidden" name="arrival_date" data-date-btn-target='input'>    
               </div>
             </div>
           </div>
@@ -65,7 +67,9 @@
               <div class='grid grid-cols-7 gap-3'>
                 <% time_range.time_points.each do |time_point| %>
                   <button class='gray-btn'
-                          data-action='click->time-btn#getTime'>
+                          data-action='click->time-btn#getTime'
+                          data-time-btn-target='btn'
+                          value='<%= time_point %>'>
                     <%= time_point %>
                   </button>
                 <% end %>
@@ -79,21 +83,30 @@
             <div class='grid grid-cols-7 gap-3'>
               <% @seats.each do |seat| %>
                 <button class='gray-btn'
-                        data-action='click->seat-btn#getSeat'>
+                        data-action='click->seat-btn#getSeat'
+                        data-seat-btn-target='btn'
+                        value='<%= seat.id %>'>
                   <%= seat.kind %>
                   <span class='hidden' data-seat-btn-target='id'>
-                    <%=  seat.id %>
+                    <%= seat.id %>
                   </span>
                 </button>
               <% end %>
               <input type="hidden" name="seat_id" data-seat-btn-target='input'>
-            </div>
+            </div>  
           </div>
         </div> 
           
       <div class="fixed z-40 w-full px-2 lg:px-0 max-w-1140 bottom-1 ">
-        <div class= "w-full mx-auto ">
-          <%= f.submit '訂位，下一步填寫資料', class:'major-btn w-full '%>
+        <div class= "w-full mx-auto" data-controller='submit'>
+          <%= f.submit '訂位，下一步填寫資料', 
+                        class:'major-btn w-full', 
+                        data: {
+                          submit_target: 'submit', 
+                          state: 'false', 
+                          action: 'input-time@window->submit#setState',
+                          action: 'input-seat@window->submit#setState'}
+            %>
         </div>
       </div>
       <% end %>
