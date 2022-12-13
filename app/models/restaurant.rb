@@ -11,4 +11,26 @@ class Restaurant < ApplicationRecord
   has_many :seats
 
   has_many :reservations
+
+  
+  has_many :restaurant_tags
+  has_many :tags, through: :restaurant_tags
+
+  def tag_list=(arr)
+    self.tags = arr.split(",").map do |tag|
+      Tag.where(name: tag.strip).first_or_create!
+    end
+  end
+
+  def tag_list
+    tags.map(&:name).join(', ')
+  end
+
+  def self.tagged_with(name)
+    Tag.find_by!(name: name).restaurants
+  end
+
+
+
+
 end
