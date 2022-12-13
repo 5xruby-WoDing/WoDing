@@ -34,6 +34,11 @@
     <%= f.label :period_of_reservation, "預定期限：" %>
     <%= f.number_field :period_of_reservation, class: "input-box" %>
   </div>
+
+  <div>
+    <%= f.label "標籤：" %>
+    <%= f.text_field :tag_list, class: "input-box", placeholder: "義式, 美式, 中式" %>
+  </div>
   
   <%= f.submit "編輯餐廳",class: "major-btn" %>
   <% end %>
