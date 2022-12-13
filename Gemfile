@@ -66,6 +66,5 @@ gem "paranoia", "~> 2.6"
 
 gem "rails-i18n", "~> 7.0"
 
-gem "activesupport", "~> 6.1"
 
 gem "rqrcode", "~> 2.1"

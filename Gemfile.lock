@@ -243,7 +243,6 @@ PLATFORMS
   arm64-darwin-21
 
 DEPENDENCIES
-  activesupport (~> 6.1)
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)

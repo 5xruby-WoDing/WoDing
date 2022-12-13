@@ -55,15 +55,14 @@
             bg-gray-100
             border-gray-200
             rounded
-            hover:text-white
-            hover:bg-major border
+            hover:border-major 
+            border
   }
   .confirm-state{
     @apply border
           bg-major 
           text-white 
             rounded 
-
   }
   .reservation-font{
     @apply text-lg my-4 font-bold
