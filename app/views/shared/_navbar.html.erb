@@ -1,18 +1,18 @@
-<nav class="fixed top-0 left-0 w-full p-5 bg-white shadow md:flex md-items-center md:justify-between z-50">
+<nav class="fixed top-0 left-0 z-50 w-full px-3 py-2 bg-white shadow md:flex md-items-center md:justify-between">
   <div class="flex items-center justify-between w-full">
     <span class="text-2xl cursor-pointer">
-      <%= link_to image_tag("/assets/IMG_2349.PNG", width: 150), root_path %>
+      <%= link_to image_tag("/assets/IMG_2349.PNG", width: 110), root_path %>
     </span>
   <ul class="flex">
     <div class="flex">
-      <div class="flex rounded">
+      <div class="flex hidden mr-3 rounded md:block">
         <input type="search" 
                name="search" 
                id="search" 
-               placeholder="立即下訂" 
-               class="w-40 px-4 py-2 text-gray-900 bg-gray-200 border-none rounded outline-none focus:outline-none"
+               placeholder="搜尋餐廳" 
+               class="max-w-sm px-4 py-1 bg-gray-100 input-border-click"
         >
-        <button class="px-4 py-2 ml-1 text-base major-btn bg-minor">搜尋</button>
+        <button class="px-2 py-1 ml-2 text-base major-btn bg-major">搜尋</button>
       </div>
       <div class="flex items-center">
         <% if current_manager %>
