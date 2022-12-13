@@ -14,7 +14,10 @@
   預約人稱謂 <%= @reservation.gender %>
 </li>
 <li>
-  預約時間 <%= @reservation.arrival_time %>
+  預約日期 <%= @reservation.arrival_date %>
+</li>
+<li>
+  預約時間 <%= @reservation.arrival_time.strftime('%R') %>
 </li>
 <li>
   預約的位置類型 <%= @reservation.seat.kind %>
