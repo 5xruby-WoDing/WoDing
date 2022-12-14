@@ -43,22 +43,11 @@
             <h2><%= link_to restaurant.title, restaurant_path(restaurant), class: "mb-3 text-3xl" %></h2>
             <p class="mb-3 text-gray-500"><%= restaurant.address %></p>
             <%= restaurant.branch %></p>
-            <p class="text-sm text-red-500">12月3日 的 2 人尚不開放線上訂位，其他可訂位日期：</p>
-            <ul class="flex mt-2 date-list">
-              <li class="major-btn">
-                12月12號
-              </li>
-              <li class="major-btn">
-                12月12號
-              </li>
-              <li class="major-btn">
-                12月12號
-              </li>
-            </ul>
+           
             <div class="mt-4">
               商店標籤：
               <% restaurant.tags.each do |tag| %>
-                <span class="border p-2"><%= tag.name %></span>
+                <span class="p-2 border"><%= tag.name %></span>
               <% end %>
             </div>
           </div>

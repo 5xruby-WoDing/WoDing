@@ -31,7 +31,8 @@
   }
   .major-btn{
     @apply border 
-            text-sm bg-major 
+            text-sm 
+            bg-major 
             text-white 
             rounded 
             py-1 
@@ -69,6 +70,15 @@
   }
   .reservation-input{
     @apply flex flex-col
+  }
+
+  .disabled-btn{
+    @apply border 
+            text-sm
+            text-white
+            bg-gray-200 
+            rounded 
+            border-none
   }
 }
 

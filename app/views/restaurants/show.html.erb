@@ -9,10 +9,11 @@
           <%= @restaurant.title %>
           <%= @restaurant.branch %>
         </h1>
-        <p class="font-bold text-gray-500"><%= @restaurant.address %></p>
+        <p class="text-gray-500 "><%= @restaurant.address %></p>
         <div>
-          <i class="fa-light fa-phone"><%= @restaurant.tel %></i>
-          <i class="fa-light fa-map">地圖</i>
+          <i class="fa-regular fa-phone-office"></i>
+          <%= @restaurant.tel %>
+          <i class="fa-regular fa-map">地圖</i>
         </div>
       </div>
       <div class="py-8 space-y-2.5 border-b-2">
@@ -26,7 +27,7 @@
   </section>
   
   <section>
-    <div>
+    <div data-controller='restaurant-reservation'>
       <%= form_with url: reserve_restaurant_path(@restaurant), method: "get" do |f| %>
         <div class='mx-2 lg:mx-0'>
           <div class='gap-4 md:grid grid-cols-1-2'>
@@ -43,17 +44,17 @@
               <% date_range.reservation_range_date(Date.yesterday) %>
 
               <h4 class='reservation-font'>用餐日期</h4>
-              <div class='grid grid-cols-5 gap-3 md:grid-cols-7' data-controller='date-btn'>
+              <div class='grid grid-cols-5 gap-3 md:grid-cols-7'>
 
                 <% date_range.date_list.each do |date| %>
                   <button class='w-full h-full gray-btn'
-                          data-action='click->date-btn#getDate'
-                          data-date-btn-target='btn'
+                          data-action='click->restaurant-reservation#getDate'
+                          data-restaurant-reservation-target='date'
                           value='<%= date %>'>
                     <%= date %>
                   </button>
                 <% end %>
-                <input type="hidden" name="arrival_date" data-date-btn-target='input'>    
+                <input type="hidden" name="arrival_date" data-restaurant-reservation-target='dateInput'>    
               </div>
             </div>
           </div>
@@ -62,50 +63,47 @@
             <% time_range.intreval_time(@restaurant.start_time - 30.minutes, @restaurant.end_time) %>
 
             <h4 class='reservation-font'>用餐時間</h4>
-            <div data-controller='time-btn'>
-              
-              <div class='grid grid-cols-7 gap-3'>
-                <% time_range.time_points.each do |time_point| %>
-                  <button class='gray-btn'
-                          data-action='click->time-btn#getTime'
-                          data-time-btn-target='btn'
-                          value='<%= time_point %>'>
-                    <%= time_point %>
-                  </button>
-                <% end %>
-                <input type="hidden" name="arrival_time" data-time-btn-target='input'>
-              </div>
+
+            <div class='grid grid-cols-7 gap-3'>
+              <% time_range.time_points.each do |time_point| %>
+                <button class='gray-btn'
+                        data-action='click->restaurant-reservation#getTime'
+                        data-restaurant-reservation-target='time'
+                        value='<%= time_point %>'>
+                  <%= time_point %>
+                </button>
+              <% end %>
+              <input type="hidden" name="arrival_time" data-restaurant-reservation-target='timeInput'>
             </div>
           </div>
-          
-          <div data-controller='seat-btn'>
+
+          <div>
             <h4 class='reservation-font'>選擇座位</h4>
             <div class='grid grid-cols-7 gap-3'>
               <% @seats.each do |seat| %>
                 <button class='gray-btn'
-                        data-action='click->seat-btn#getSeat'
-                        data-seat-btn-target='btn'
+                        data-action='click->restaurant-reservation#getSeat'
+                        data-restaurant-reservation-target='seat'
                         value='<%= seat.id %>'>
                   <%= seat.kind %>
-                  <span class='hidden' data-seat-btn-target='id'>
+                  <span class='hidden'>
                     <%= seat.id %>
                   </span>
                 </button>
               <% end %>
-              <input type="hidden" name="seat_id" data-seat-btn-target='input'>
+              <input type="hidden" name="seat_id" data-restaurant-reservation-target='seatInput'>
             </div>  
           </div>
         </div> 
           
       <div class="fixed z-40 w-full px-2 lg:px-0 max-w-1140 bottom-1 ">
-        <div class= "w-full mx-auto" data-controller='submit'>
+        <div class= "w-full mx-auto">
           <%= f.submit '訂位，下一步填寫資料', 
-                        class:'major-btn w-full', 
+                        class:'disabled-btn w-full py-2',
+                        disabled: true,
                         data: {
-                          submit_target: 'submit', 
-                          state: 'false', 
-                          action: 'input-time@window->submit#setState',
-                          action: 'input-seat@window->submit#setState'}
+                          restaurant_reservation_target: 'submit'
+                        }
             %>
         </div>
       </div>
