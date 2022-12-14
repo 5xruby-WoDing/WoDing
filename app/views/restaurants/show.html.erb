@@ -28,7 +28,6 @@
   
   <section>
     <div>
-
       <%= form_with url: reserve_restaurant_path(@restaurant), method: "get", data: {
         controller: 'restaurant-reservation'
       } do |f| %>
@@ -76,7 +75,6 @@
                         data-restaurant-reservation-target='time'
                         value='<%= time_point %>'
                         data-id='<%=@restaurant.id%>'
-                        data-date='1'
                         disabled>
                   <%= time_point %>
                 </button>
