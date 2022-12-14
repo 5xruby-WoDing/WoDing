@@ -11,6 +11,12 @@
         <td class="pr-4">seat deposit</td>
         <td class="pr-4">seat 資訊修改</td>
         <td class="pr-4">seat 刪除</td>
+        <td class="pr-4">seat 狀態</td>
+        <td class="pr-4">Reservation id</td>
+        <td class="pr-4">Reservation 狀態</td>
+        <td class="pr-4">標記此張訂單</td>
+        
+        
       </tr>
       <% @seats.each do |seat| %>
         <tr>
@@ -20,6 +26,31 @@
           <td><%= seat.deposit %></td>
           <td><%= link_to "edit", edit_backstage_seat_path(seat.id), class: "major-btn" %></td>
           <td><%= link_to "x", backstage_seat_path(seat.id), method: "delete", data: {confirm: "sure??"}, class: "major-btn" %></td>
+          <td class="pr-4"><%= seat.state %></td>
+        <% if seat.reservations %>
+          <td>
+            <% seat.reservations.each do |s| %>
+              <li><%= s.id %></li>
+            <% end %>
+          </td>
+          <td>
+            <% seat.reservations.each do |s| %>
+              <li><%= s.state %></li>
+            <% end %>
+          </td>
+          <td>
+            <% seat.reservations.each do |s| %>
+              <li data-controller="mark-reservation" 
+                  data-id="<%= s.id %>" 
+                  data-marked="<%= current_manager.marked_reservations.include?(s) %>">
+               <button class="border" data-action="click->mark-reservation#marked">
+                 <span data-mark-reservation-target="text"></span>
+                <i class="fa-regular fa-star" data-mark-reservation-target="icon"></i>                
+               </button>
+              </li>
+            <% end %>
+          </td>
+        <% end %>  
         </tr>
       <% end %>
     </table>

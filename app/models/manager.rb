@@ -12,4 +12,6 @@ class Manager < ApplicationRecord
   end
 
   has_many :restaurants
+  has_many :mark_reservations
+  has_many :marked_reservations, through: :mark_reservations, source: :reservation
 end

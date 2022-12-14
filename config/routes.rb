@@ -4,7 +4,13 @@ Rails.application.routes.draw do
   namespace :backstage do
     resources :managers, only: [:show] do
       resources :restaurants, shallow: true, only: [:new, :create, :show, :edit, :update, :destroy] do
-        resources :seats, shallow: true, only: [:new, :create, :show, :edit, :update, :destroy]
+        resources :seats, shallow: true, only: [:new, :create, :show, :edit, :update, :destroy] do
+          resources :reservations, shallow: true, only: [:destroy] do
+            member do
+              patch :mark
+            end
+          end
+        end
         
       end  
     end
