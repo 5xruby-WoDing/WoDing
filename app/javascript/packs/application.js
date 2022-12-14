@@ -20,4 +20,3 @@ import "swiper_carousel"
 
 import "@fortawesome/fontawesome-free/css/all.css";
 
-

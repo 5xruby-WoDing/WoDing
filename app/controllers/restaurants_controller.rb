@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
 
-  before_action :find_restaurant, only: [:show, :reserve]
+  before_action :find_restaurant, only: [:show, :reserve, :determine_time]
   before_action :find_seat_id, only: [:reserve]
   before_action :find_reservation_info, only: [:reserve]
 
@@ -10,6 +10,18 @@ class RestaurantsController < ApplicationController
 
   def reserve
     @user = User.new
+  end 
+
+  def determine_time
+    @date = params[:date].gsub(/月/, '/' ).gsub(/日/, '').to_date
+    reservation_list = []
+    @restaurant.reservations.each do |reservation|
+      if reservation.arrival_date == @date
+        reservation_list << reservation
+      end
+    end
+
+    render json: {date: @date, reservations: reservation_list}
   end
 
   private
