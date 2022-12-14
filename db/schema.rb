@@ -82,13 +82,6 @@ ActiveRecord::Schema.define(version: 2022_12_13_180835) do
     t.index ["manager_id"], name: "index_restaurants_on_manager_id"
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "seats", force: :cascade do |t|
     t.integer "kind"
     t.integer "capacity"
