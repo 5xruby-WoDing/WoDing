@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   
   resources :restaurants, only: [:show] do
     member do
+      post :determine_time
       get :reserve
     end    
   end

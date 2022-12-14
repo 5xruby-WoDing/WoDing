@@ -42,5 +42,23 @@ module RestaurantsHelper
   def catch_time(time)
     @time = time.to_time
   end
+
+  # class SortDate
+  #   attr_reader :info
+  #   def initialize(info)
+  #     @info = info
+  #   end
+
+  #   def sort_time(reservation_infos)
+  #     reservation_infos.each do |info|
+  #       if info.arrival_date >= Date.today
+  #         @info << [info.arrival_time.strftime('%R'), info.arrival_date, info.seat_id]
+  #       end
+  #     end
+  #     @info
+  #   end
+  # end
+
 end
 
+  

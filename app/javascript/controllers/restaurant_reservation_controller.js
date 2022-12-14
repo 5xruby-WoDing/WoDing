@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 import log from "tailwindcss/lib/util/log";
 
 export default class extends Controller {
-  static targets = [ 'date', 'dateInput', 'time', 'timeInput', 'seat', 'seatInput', 'submit']
+  static targets = [ 'date', 'dateInput', 'time', 'timeInput', 'seat', 'seatInput', 'submit', 'baseDate']
 
   connect() {
     this.state = !this.submitTarget.dataset.state
@@ -13,6 +13,7 @@ export default class extends Controller {
     e.preventDefault()
     const date = e.target.textContent.replace(/\s/g, '')
     this.setDate(date)
+    this.fetchDate(e)
     
     const btn = e.target
     const btnContent = btn.textContent.replace(/\s/g, '')
@@ -23,6 +24,36 @@ export default class extends Controller {
       this.dateTargets.forEach(btn => btn.classList.remove('confirm-state'))
       btn.classList.add('confirm-state')
     }
+  }
+
+  fetchDate(e){
+
+    const token = document.querySelector("meta[name='csrf-token']").content;
+    const id = e.target.dataset.id
+    const time_point = this.timeTargets
+    time_point.forEach(time_point => {
+      console.log(time_point.value)
+    })
+
+
+    fetch(`/restaurants/${id}/determine_time`,{
+      method: 'POST',
+      headers: {
+        "X-CSRF-Token": token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        date: this.dateInputTarget.value,
+      })
+    }).then((resp) => resp.json())
+    .then(({reservations}) => {
+      reservations.forEach((reservation) => {
+        if (reservation.arrival_time){}
+      })
+    })
+    .catch(() => {
+      console.log("error!!");
+    });
   }
 
   setDate(date){
