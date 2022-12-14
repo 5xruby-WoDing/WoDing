@@ -18,17 +18,15 @@
     height: 100%;
 }
 
+.container{
+    height: 100%;
+    padding-top: 83px;
+}
  .side-menu {
     background-color: rgb(39, 42, 82);
     width: 80px;
     height: 100%;
     position: fixed;
-}
-
-.pic {
-    display: flex;
-    justify-content: center;
-    padding: 10px 5px;
 }
 
 .side-menu-btn li{

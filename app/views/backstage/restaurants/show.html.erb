@@ -1,20 +1,20 @@
-<div class="side-menu">
-  <div class="pic">
-    <%= link_to image_tag("/assets/IMG_2349.PNG", width: 150), root_path %>
+<div class="container">
+  <div class="side-menu">
+    <nav class="side-nav" data-controller="backstage">
+      <ul class="side-menu-btn">
+        <li data-action="click->backstage#btn1">店家資訊
+        <div class="page" data-backstage-target="content1"><%= render "content1" %></div>
+        </li>
+        <li data-action="click->backstage#btn2">
+          訂位狀態
+          <div class="page" data-backstage-target="content2"><%= render "content2" %></div>
+        </li>
+        <li data-action="click->backstage#btn3">
+          設定
+          <div class="page" data-backstage-target="content3"><%= render "content3" %></div>
+        </li>
+      </ul>
+    </nav>
   </div>
-  <nav class="side-nav" data-controller="backstage">
-    <ul class="side-menu-btn">
-      <li data-action="click->backstage#btn1">店家資訊
-      <div class="page" data-backstage-target="content1"><%= render "content1" %></div>
-      </li>
-      <li data-action="click->backstage#btn2">
-        訂位狀態
-        <div class="page" data-backstage-target="content2"><%= render "content2" %></div>
-      </li>
-      <li data-action="click->backstage#btn3">
-        設定
-        <div class="page" data-backstage-target="content3"><%= render "content3" %></div>
-      </li>
-    </ul>
-  </nav>
 </div>
+
