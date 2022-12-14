@@ -19,5 +19,9 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3"
-  }
+  },
+  "main": "index.js",
+  "repository": "git@github.com:5xruby-WoDing/WoDing.git",
+  "author": "emma <dogwolfpuma@gmail.com>",
+  "license": "MIT"
 }
