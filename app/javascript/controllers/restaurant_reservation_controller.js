@@ -11,94 +11,54 @@ export default class extends Controller {
 
   getDate(e){
     e.preventDefault()
-    const date = e.target.textContent.replace(/\s/g, '')
-    this.setDate(date)
-    this.fetchDate(e)
-    
-    const btn = e.target
-    const btnContent = btn.textContent.replace(/\s/g, '')
-    const dateInputValue = this.dateInputTarget.value
-  
-    if(dateInputValue === btnContent){
+    const btnContent = e.target.textContent.replace(/\s/g, '')
+    this.setDate(e, btnContent)
+    this.fetchOccupied(e)
+    this.resetInput()
+    this.resetState()
+  }
 
+  setDate(e, btnContent){
+    this.dateInputTarget.value = btnContent
+    if(this.dateInputTarget.value === btnContent){
       this.dateTargets.forEach(btn => btn.classList.remove('confirm-state'))
-      btn.classList.add('confirm-state')
+      e.target.classList.add('confirm-state')
     }
-  }
-
-  fetchDate(e){
-
-    const token = document.querySelector("meta[name='csrf-token']").content;
-    const id = e.target.dataset.id
-    const time_point = this.timeTargets
-    time_point.forEach(time_point => {
-      console.log(time_point.value)
-    })
-
-
-    fetch(`/restaurants/${id}/determine_time`,{
-      method: 'POST',
-      headers: {
-        "X-CSRF-Token": token,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        date: this.dateInputTarget.value,
-      })
-    }).then((resp) => resp.json())
-    .then(({reservations}) => {
-      reservations.forEach((reservation) => {
-        if (reservation.arrival_time){}
-      })
-    })
-    .catch(() => {
-      console.log("error!!");
-    });
-  }
-
-  setDate(date){
-    this.dateInputTarget.value = date
     this.determineSubmit()
   }
 
   getTime(e){
     e.preventDefault()
-    const time = e.target.textContent.replace(/\s/g, '')
-    this.setTime(time)
-  
-    const btn = e.target
-    const btnContent = btn.textContent.replace(/\s/g, '')
-    const timeInputValue = this.timeInputTarget.value
-  
-    if(timeInputValue === btnContent ){
-      this.timeTargets.forEach(btn => btn.classList.remove('confirm-state'))
-      btn.classList.add('confirm-state')
-    }
+    const btnContent = e.target.textContent.replace(/\s/g, '')
+    this.setTime(e, btnContent)
+    this.fetchOccupied(e)
+    this.seatInputTarget.value = ''
+    this.resetSubmit()
+    this.seatTargets.forEach(btn => btn.classList.remove('confirm-state'))
   }
 
-  setTime(time){
-    this.timeInputTarget.value = time
+  setTime(e, btnContent){
+    this.timeInputTarget.value = btnContent
+
+    if(this.timeInputTarget.value === btnContent ){
+      this.timeTargets.forEach(btn => btn.classList.remove('confirm-state'))
+      e.target.classList.add('confirm-state')
+    }
     this.determineSubmit()
   }
 
   getSeat(e){
     e.preventDefault()
-
-    const btn = e.target
-    const btnValue = btn.value
-
     const seat = e.target.children[0].textContent.replace(/\s/g, '')
-    this.setSeat(seat)
-    const seatInputValue = this.seatInputTarget.value
-
-    if(seatInputValue === btnValue){
-      this.seatTargets.forEach(btn => btn.classList.remove('confirm-state'))
-      btn.classList.add('confirm-state')
-    }
+    this.setSeat(e, seat)
   }
 
-  setSeat(seat){ 
+  setSeat(e, seat){ 
     this.seatInputTarget.value = seat
+    if(this.seatInputTarget.value === seat){
+      this.seatTargets.forEach(btn => btn.classList.remove('confirm-state'))
+      e.target.classList.add('confirm-state')
+    }
     this.determineSubmit()
   }
 
@@ -107,7 +67,7 @@ export default class extends Controller {
     let timeState = this.timeInputTarget.value
     let seatState = this.seatInputTarget.value
 
-    if(dateState != '' && timeState != '' && seatState != ''){
+    if(dateState && timeState && seatState){
       this.setSubmit()
     }
   }
@@ -117,8 +77,73 @@ export default class extends Controller {
     this.submitTarget.classList.add('major-btn')
     this.submitTarget.disabled = false
   }
+
+  releaseTimeBtn(pending_time){
+    this.timeTargets.forEach(btn => {
+      btn.classList.add('disabled-btn')
+      btn.classList.remove('gray-btn')
+      btn.disabled = true
+      if(btn.value != pending_time){
+        btn.classList.remove('disabled-btn')
+        btn.classList.add('gray-btn')
+        btn.disabled = false
+      }
+    })
+  }
+
+  releaseSeatBtn(occupied_seats){
+    this.seatTargets.forEach(btn => {
+      btn.classList.add('disabled-btn')
+      btn.classList.remove('gray-btn')
+      btn.disabled = true
+      if(btn.value != occupied_seats){
+        btn.classList.remove('disabled-btn')
+        btn.classList.add('gray-btn')
+        btn.disabled = false
+      }
+    })
+  }
+
+  resetInput(){
+    this.timeInputTarget.value = ''
+    this.seatInputTarget.value = ''
+    this.resetSubmit()
+  }
+
+  resetState(){
+    this.timeTargets.forEach(btn => btn.classList.remove('confirm-state'))
+    this.seatTargets.forEach(btn => btn.classList.remove('confirm-state'))
+  }
+  resetSubmit(){
+    this.submitTarget.classList.add('disabled-btn')
+    this.submitTarget.classList.remove('major-btn')
+    this.submitTarget.disabled = true
+  }
+
+  fetchOccupied(e){
+    const token = document.querySelector("meta[name='csrf-token']").content
+    const id = e.target.dataset.id
+
+    fetch(`/restaurants/${id}/determine_occupied`,{
+      method: 'POST',
+      headers: {
+        "X-CSRF-Token": token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        date: this.dateInputTarget.value,
+        time: this.timeInputTarget.value,
+      })
+    }).then((resp) => resp.json())
+    .then(({occupied_time, occupied_seats}) => {
+      this.releaseTimeBtn(occupied_time)
+      this.releaseSeatBtn(occupied_seats)
+      
+    })
+    .catch(() => {
+      console.log("error!!");
+    });
+  }
+
 }
-
-
-
 
