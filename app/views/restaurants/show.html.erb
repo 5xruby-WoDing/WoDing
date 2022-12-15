@@ -28,7 +28,7 @@
   
   <section>
     <div>
-      <%# infos = RestaurantsHelper::SortDate.new([]) %> 
+
       <%= form_with url: reserve_restaurant_path(@restaurant), method: "get", data: {
         controller: 'restaurant-reservation'
       } do |f| %>
@@ -50,7 +50,7 @@
               <div class='grid grid-cols-5 gap-3 md:grid-cols-7'>
 
                 <% date_range.date_list.each do |date| %>
-                  <button class='w-full h-full gray-btn'
+                  <button class='w-full h-full py-1 gray-btn'
                           data-action='click->restaurant-reservation#getDate'
                           data-restaurant-reservation-target='date'
                           data-id='<%=@restaurant.id%>'
@@ -75,6 +75,8 @@
                         data-action='click->restaurant-reservation#getTime'
                         data-restaurant-reservation-target='time'
                         value='<%= time_point %>'
+                        data-id='<%=@restaurant.id%>'
+                        data-date='1'
                         disabled>
                   <%= time_point %>
                 </button>
@@ -90,7 +92,8 @@
                 <button class='py-1 disabled-btn'
                         data-action='click->restaurant-reservation#getSeat'
                         data-restaurant-reservation-target='seat'
-                        value='<%= seat.id %>'>
+                        value='<%= seat.id %>'
+                        disabled>
                   <%= seat.kind %>
                   <span class='hidden'>
                     <%= seat.id %>
