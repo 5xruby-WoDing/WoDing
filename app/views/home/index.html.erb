@@ -5,8 +5,11 @@
     </div>
   
     <div class="my-6">
-      <span class="text-lg font-bold">搜尋餐廳：</span>
-      <input type="text" class="input-border-click" placeholder='輸入搜尋餐廳'>
+      <%= form_with(url: root_path, method: :get )do |form|%>
+      <%= form.label :搜尋餐廳, class: "text-lg font-bold" %>
+      <%= form.text_field :search, placeholder: "輸入搜尋餐廳", class: "input-border-click"%>
+      <%= form.submit "搜尋", name: nil, class: "major-btn"%>
+      <% end %>
     </div>
 
     <div class="grid grid-cols-2 gap-4">
@@ -47,7 +50,7 @@
             <div class="mt-4">
               商店標籤：
               <% restaurant.tags.each do |tag| %>
-                <span class="p-2 border"><%= link_to tag.name, root_path(query: tag.name) %></span>
+               <span class="p-2 border"><%= link_to tag.name, root_path(query: tag.name) %></span>
               <% end %>
             </div>
           </div>
