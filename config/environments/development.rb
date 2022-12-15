@@ -85,9 +85,9 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:              'smtp.mailgun.org',
     port:                 587,
-    domain:               'fintech.com',
-    user_name:            'postmaster@sandboxbe45c9f860934404a8b47fc607a4ed63.mailgun.org',
-    password:             '9ea57a7c05c1406c8fa66fa37dd9041d-48d7d97c-fb847ff7',
+    domain:               ENV["RESERVATION_DOMAIN"],
+    user_name:            ENV["RESERVATION_MAILGUN_USERNAME"],
+    password:             ENV["RESERVATION_MAILGUN_PASSWORD"],
     authentication:       'plain',
     enable_starttls_auto: true,
     open_timeout:         5,
