@@ -10,6 +10,11 @@ class UsersController < ApplicationController
     if @user.save
       
       reservation = Reservation.create!(params_reservation)
+
+      if reservation.may_reserve? && reservation.seat.deposit == 0
+        reservation.reserve!
+      end
+
       ReserveMailJob.perform_later(reservation)
 
       redirect_to checkout_reservation_path(id: reservation.serial), notice: "User資料存入、order建立"

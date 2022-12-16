@@ -5,6 +5,9 @@ class ReservationsController < ApplicationController
   def checkout
   end
 
+
+
+
   private
 
   def find_reservation
