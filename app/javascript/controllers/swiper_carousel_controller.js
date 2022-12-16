@@ -1,7 +1,9 @@
+import { Controller } from "stimulus";
 import Swiper from 'swiper/swiper-bundle';
 
-const sliderEffect = document.addEventListener("DOMContentLoaded",() => {
-  var getSwiperClass = document.querySelector(".mySwiper");
+export default class extends Controller {
+  connect() {
+    var getSwiperClass = document.querySelector(".mySwiper");
     if (getSwiperClass){
       const swiper = new Swiper(".mySwiper", {
         effect: "coverflow",
@@ -20,5 +22,5 @@ const sliderEffect = document.addEventListener("DOMContentLoaded",() => {
         },
       });
     }
-})
-export {sliderEffect};
+  }
+}
