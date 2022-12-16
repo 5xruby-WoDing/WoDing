@@ -1,17 +1,18 @@
-<main class="max-w-screen-lg mx-auto mt-14 md:mt-20 ">
+<main class="max-w-screen-lg mx-auto">
   <section>
     <div class="swiper mySwiperTop" data-controller="swiper-carousel-top">
       <div class="swiper-wrapper">
-        <% @restaurant.images.each do |i| %>
+        <% @restaurant.images.each do |image| %>
           <div class="swiper-slide">
-            <%= image_tag (i.url), :size => "500x500" %>
+            <%= image_tag (image.url),class:"object-cover"%>
           </div>
         <% end %>
       </div>
-    <div class="swiper-button-next swiper-button-next-top"></div>
-    <div class="swiper-button-prev swiper-button-prev-top"></div>
-    <div class="swiper-pagination swiper-pagination-top"></div>
-    </div>   
+      <div class="swiper-button-next swiper-button-next-top"></div>
+      <div class="swiper-button-prev swiper-button-prev-top"></div>
+      <div class="swiper-pagination swiper-pagination-top"></div>
+    </div> 
+
     <div>
       <div class="py-8 space-y-2.5 border-b-2">  
         <h1 class="text-4xl font-bold">
@@ -181,16 +182,18 @@
  
   
   <section>
-    <div class="py-8 space-y-2.5 border-b-2">
+    <div class="py-8 space-y-2.5 border-b-2" data-controller="swiper-carousel">
       <div style="display: flex; justify-content:center; align-items: center" >
         <div class="swiper mySwiper">
           <div class="swiper-wrapper">
-            <% @restaurant.images.each do |i| %>
+            <% @restaurant.images.each do |image| %>
               <div class="swiper-slide">
-                <%= image_tag (i.url), :size => "500x500" %>
+                <%= image_tag (image.url), class:"object-cover" %>
               </div>
             <% end %>
           </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
           <div class="swiper-pagination"></div>
         </div>
       </div>
