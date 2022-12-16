@@ -1,9 +1,18 @@
 <main class="max-w-screen-lg mx-auto mt-14 md:mt-20 ">
   <section>
+    <div class="swiper mySwiperTop" data-controller="swiper-carousel-top">
+      <div class="swiper-wrapper">
+        <% @restaurant.images.each do |i| %>
+          <div class="swiper-slide">
+            <%= image_tag (i.url), :size => "500x500" %>
+          </div>
+        <% end %>
+      </div>
+    <div class="swiper-button-next swiper-button-next-top"></div>
+    <div class="swiper-button-prev swiper-button-prev-top"></div>
+    <div class="swiper-pagination swiper-pagination-top"></div>
+    </div>   
     <div>
-      <img src="https://picsum.photos/seed/picsum/1440/400" alt="">
-    </div>    
-    <article>
       <div class="py-8 space-y-2.5 border-b-2">  
         <h1 class="text-4xl font-bold">
           <%= @restaurant.title %>
@@ -22,7 +31,7 @@
         <p class="text-gray-500">2.本餐廳保留條款內容變更與解釋、暫停或終止本線上訂位之權利。</p>
         <p class="text-gray-500">3.用餐時間<%= @restaurant.dining_time %>分鐘。</p>
       </div>
-    </article>
+    </div>
   </section>
   
   <section class='pb-6 mx-2 mb-6 border-b-2 lg:mx-0'>
@@ -176,18 +185,11 @@
       <div style="display: flex; justify-content:center; align-items: center" >
         <div class="swiper mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-            </div>
+            <% @restaurant.images.each do |i| %>
+              <div class="swiper-slide">
+                <%= image_tag (i.url), :size => "500x500" %>
+              </div>
+            <% end %>
           </div>
           <div class="swiper-pagination"></div>
         </div>
