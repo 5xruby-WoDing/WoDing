@@ -80,28 +80,32 @@ export default class extends Controller {
 
   releaseTimeBtn(pending_time){
     this.timeTargets.forEach(btn => {
-      btn.classList.add('disabled-btn')
-      btn.classList.remove('gray-btn')
-      btn.disabled = true
+      this.disabledBtn(btn)
       if(btn.value != pending_time){
-        btn.classList.remove('disabled-btn')
-        btn.classList.add('gray-btn')
-        btn.disabled = false
+        this.releaseBtn(btn)
       }
     })
   }
 
   releaseSeatBtn(occupied_seats){
     this.seatTargets.forEach(btn => {
-      btn.classList.add('disabled-btn')
-      btn.classList.remove('gray-btn')
-      btn.disabled = true
+      this.disabledBtn(btn)
       if(btn.value != occupied_seats){
-        btn.classList.remove('disabled-btn')
-        btn.classList.add('gray-btn')
-        btn.disabled = false
+        this.releaseBtn(btn)
       }
     })
+  }
+
+  releaseBtn(btn){
+    btn.classList.remove('disabled-btn')
+    btn.classList.add('gray-btn')
+    btn.disabled = false
+  }
+  
+  disabledBtn(btn){
+    btn.classList.add('disabled-btn')
+    btn.classList.remove('gray-btn')
+    btn.disabled = true
   }
 
   resetInput(){
