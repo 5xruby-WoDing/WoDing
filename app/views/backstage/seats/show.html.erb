@@ -2,19 +2,22 @@
   <h2>我是seat類別的個別頁面</h2>
   
   <table>
-      <tr>
-          <td class="pr-4">seat id</td>
-          <td class="pr-4">seat kind</td>
-          <td class="pr-4">seat capacity</td>
-          <td class="pr-4">seat deposit</td>
-      </tr>
+    <tr>
+      <td class="pr-4">seat 狀態</td>
+      <td class="pr-4">seat id</td>
+      <td class="pr-4">seat kind</td>
+      <td class="pr-4">seat capacity</td>
+      <td class="pr-4">seat deposit</td>
+    </tr>
       
-      <tr>
-          <td><%= @seat.id %></td>
-          <td><%= @seat.kind %></td>
-          <td><%= @seat.capacity %></td>
-          <td><%= @seat.deposit %></td>
-      </tr>
+    <tr>
+      <td><%= @seat.state %></td>
+      <td><%= @seat.id %></td>
+      <td><%= @seat.kind %></td>
+      <td><%= @seat.capacity %></td>
+      <td><%= @seat.deposit %></td>
+      
+    </tr>
       
   </table>
   
