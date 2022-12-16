@@ -66,5 +66,6 @@ gem "paranoia", "~> 2.6"
 
 gem "rails-i18n", "~> 7.0"
 
-
 gem "rqrcode", "~> 2.1"
+
+gem "aws-sdk-s3", require: false
