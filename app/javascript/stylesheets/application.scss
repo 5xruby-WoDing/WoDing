@@ -81,8 +81,22 @@
             border-none
             cursor-auto
   }
-}
+  .backstage-nav-btn{
+    @apply px-3
+            py-4
+            hover:bg-hoverGray
+            hover:text-gray-800
+            rounded-l-lg
+    }
+  .restaurant-info{
+    @apply py-3
+            border-b
+            text-left
 
+  }
+
+
+}
 .date{
   padding: 2px;
 } 
