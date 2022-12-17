@@ -18,14 +18,17 @@
         <i class="fa-solid fa-location-dot"></i>
         <%= @restaurant.address %>
       </div>
-    </div>
+      <div class='restaurant-info'>
+        <span>用餐時間</span>
+        <%= @restaurant.dining_time %>
+        <span>分鐘</span>
+      </div>
+    </div>  
   </div>
 
-  <div class='w-9/12'>
-  <p class='py-3 border-b border-gray-200'>編輯餐廳</p>
-  <%= render "error", restaurant: @restaurant %>
-  <%= render 'form', restaurant: @restaurant, url: backstage_restaurant_path(@restaurant) %>
-
-    
+  <div class='px-8 py-6 mx-auto mb-auto text-left bg-white rounded-md '>
+    <p class='pb-3 text-center border-b border-gray-200'>編輯餐廳</p>
+    <%= render "error", restaurant: @restaurant %>
+    <%= render 'form', restaurant: @restaurant, url: backstage_restaurant_path(@restaurant) %>  
   </div>
 </section>

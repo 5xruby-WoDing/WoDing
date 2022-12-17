@@ -8,7 +8,6 @@ class UsersController < ApplicationController
     @user = User.new(params_user)
 
     if @user.save
-      
       reservation = Reservation.create!(params_reservation)
       ReserveMailJob.perform_later(reservation)
 
@@ -32,7 +31,7 @@ class UsersController < ApplicationController
   end
 
   def params_reservation
-    params.require(:user).permit(:name, :email, :phone, :gender, :arrival_time, :adult_quantity, :child_quantity, :arrival_date).merge(seat: @seat, restaurant: @restaurant, user: @user) 
+    params.require(:user).permit(:name, :email, :phone, :gender, :arrival_time, :adult_quantity, :child_quantity, :arrival_date, :end_time).merge(seat: @seat, restaurant: @restaurant, user: @user) 
   end
   
 end
