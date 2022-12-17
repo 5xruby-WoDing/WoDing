@@ -1,0 +1,31 @@
+<section class='grid h-full grid-cols-1-2'>
+  <div class='px-6'>
+    <p class='py-3 border-b border-gray-200'>餐廳資訊</p>
+    <div>
+      <div class='restaurant-info'>
+        <i class="fa-solid fa-utensils"></i>
+        <%= @restaurant.title %>
+      </div>
+      <div class='restaurant-info'>
+        <i class="fa-solid fa-store"></i>
+        <%= @restaurant.branch %>
+      </div>
+      <div class='restaurant-info'>
+        <i class="fa-solid fa-phone"></i>
+        <%= @restaurant.tel %>
+      </div>
+      <div class='restaurant-info'>
+        <i class="fa-solid fa-location-dot"></i>
+        <%= @restaurant.address %>
+      </div>
+    </div>
+  </div>
+
+  <div class='w-9/12'>
+  <p class='py-3 border-b border-gray-200'>編輯餐廳</p>
+  <%= render "error", restaurant: @restaurant %>
+  <%= render 'form', restaurant: @restaurant, url: backstage_restaurant_path(@restaurant) %>
+
+    
+  </div>
+</section>
