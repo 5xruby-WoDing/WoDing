@@ -36,7 +36,7 @@ class Backstage::RestaurantsController < Backstage::ManagersController
 
   private
   def params_restaurant
-    params.require(:restaurant).permit(:title, :tel, :address, :branch, :start_time, :end_time, :period_of_reservation, :tag_list)
+    params.require(:restaurant).permit(:title, :tel, :address, :branch, :start_time, :end_time, :period_of_reservation, :tag_list, :dining_time)
   end
 
   def find_restaurant

@@ -18,10 +18,9 @@
       </div>
       <div class="py-8 space-y-2.5 border-b-2">
         <h2 class="text-x">訂位注意事項</h2>
-        <p class="text-gray-500">1.目前開放「一個月內」的訂位，例如：要預訂3/1位置，請於2/1之後進行訂位。</p>
-        <p class="text-gray-500">2.如有多人訂位需求，請撥打門店電話。</p>
-        <p class="text-gray-500">3.訂位保留10分鐘，逾時將自動取消座位。</p>
-        <p class="text-gray-500">4.本餐廳保留條款內容變更與解釋、暫停或終止本線上訂位之權利。</p>
+        <p class="text-gray-500">1.如有多人訂位需求，請撥打門店電話。</p>
+        <p class="text-gray-500">2.本餐廳保留條款內容變更與解釋、暫停或終止本線上訂位之權利。</p>
+        <p class="text-gray-500">3.用餐時間<%= @restaurant.dining_time %>分鐘。</p>
       </div>
     </article>
   </section>
@@ -65,7 +64,7 @@
           <div>
             <% time_range = RestaurantsHelper::TimeRange.new([]) %>
             <% time_range.intreval_time(@restaurant.start_time - 30.minutes, @restaurant.end_time) %>
-
+            
             <h4 class='reservation-font'>用餐時間</h4>
 
             <div class='grid grid-cols-7 gap-3'>
