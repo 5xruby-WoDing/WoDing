@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_13_180835) do
+ActiveRecord::Schema.define(version: 2022_12_17_084940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2022_12_13_180835) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.date "arrival_date"
+    t.time "end_time"
     t.index ["deleted_at"], name: "index_reservations_on_deleted_at"
     t.index ["restaurant_id"], name: "index_reservations_on_restaurant_id"
     t.index ["seat_id"], name: "index_reservations_on_seat_id"
@@ -78,6 +79,7 @@ ActiveRecord::Schema.define(version: 2022_12_13_180835) do
     t.time "start_time"
     t.time "end_time"
     t.integer "period_of_reservation", default: 1
+    t.integer "dining_time", default: 0
     t.index ["deleted_at"], name: "index_restaurants_on_deleted_at"
     t.index ["manager_id"], name: "index_restaurants_on_manager_id"
   end
