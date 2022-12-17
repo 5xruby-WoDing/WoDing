@@ -3,7 +3,7 @@ import Swiper from 'swiper/swiper-bundle';
 
 export default class extends Controller {
   connect() {
-    var getSwiperTopClass = document.querySelector(".mySwiperTop");
+    const getSwiperTopClass = document.querySelector(".mySwiperTop");
     if (getSwiperTopClass){
       var swiperTop = new Swiper(".mySwiperTop", {
         spaceBetween: 30,
