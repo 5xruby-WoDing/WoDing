@@ -1,28 +1,37 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-    static targets = ["content1", "content2", "content3"]
-
-
+    static targets = ["info", "reservationInfo", "setting", 'seat']
 
     connect() {
 
     }
-    btn1() {
-        this.content1Target.classList.remove('hidden')
-        this.content2Target.classList.add('hidden')
-        this.content3Target.classList.add('hidden')
+    info() {
+        this.infoTarget.classList.remove('hidden')
+        this.reservationInfoTarget.classList.add('hidden')
+        this.settingTarget.classList.add('hidden')
+        this.seatTarget.classList.add('hidden')
     }
 
-    btn2() {
-        this.content1Target.classList.add('hidden')
-        this.content2Target.classList.remove('hidden')
-        this.content3Target.classList.add('hidden')
+    reservatoinBtn() {
+        
+        this.infoTarget.classList.add('hidden')
+        this.reservationInfoTarget.classList.remove('hidden')
+        this.settingTarget.classList.add('hidden')
+        this.seatTarget.classList.add('hidden')
     }
-    btn3() {
-        this.content1Target.classList.add('hidden')
-        this.content2Target.classList.add('hidden')
-        this.content3Target.classList.remove('hidden')
+
+    seat() {
+        this.infoTarget.classList.add('hidden')
+        this.reservationInfoTarget.classList.add('hidden')
+        this.settingTarget.classList.add('hidden')
+        this.seatTarget.classList.remove('hidden')
+    }
+    setting() {
+        this.infoTarget.classList.add('hidden')
+        this.reservationInfoTarget.classList.add('hidden')
+        this.settingTarget.classList.remove('hidden')
+        this.seatTarget.classList.add('hidden')
     }
 
 }

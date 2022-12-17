@@ -1,23 +1,23 @@
-<div class="mt-24">
+<div>
   <%= form_with(model: [:backstage, :manager, @restaurant],url: url) do |f| %>
-  <div>
+  <div class='py-3 text-gray-400'>
     <%= f.label :title, "餐廳名稱：" %>
-    <%= f.text_field :title, class: "input-box" %>
+    <%= f.text_field :title, class: "input-box", disabled: true %>
   </div>
 
-  <div>
+  <div class='text-gray-400'>
     <%= f.label :address, "餐廳地址：" %>
-    <%= f.text_field :address, class: "input-box" %>
+    <%= f.text_field :address, class: "input-box", disabled: true %>
   </div>
 
-  <div>
+  <div class='text-gray-400'>
     <%= f.label :branch, "餐廳分店：" %>
-    <%= f.text_field :branch, class: "input-box", placeholder: "例如：復興店" %>
+    <%= f.text_field :branch, class: "input-box", placeholder: "例如：復興店", disabled: true %>
   </div>
 
-  <div>
+  <div class='text-gray-400'>
     <%= f.label :tel, "餐廳電話：" %>
-    <%= f.phone_field :tel, class: "input-box" %>
+    <%= f.phone_field :tel, class: "input-box", disabled: true %>
   </div>
   
   <div>

@@ -11,6 +11,8 @@ module.exports = {
       colors:{
         'major': "#fb8500",
         'minor': "#ffb703", 
+        'darkBlue': '#14213d',
+        'hoverGray': '#f8f9fa',
       },
       screens:{
         lg: '1140px'
