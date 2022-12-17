@@ -21,6 +21,29 @@
   <li>餐廳名稱: <%= @reservation.seat.restaurant.title %></li>
 </div>
 
+
+<% if @reservation.seat.deposit != 0 %>
+<div class="ml-12 mt-8">
+  <h3>付款金額：<%= @reservation.seat.deposit %></h3>
+  <%= form_with url: "https://ccore.spgateway.com/MPG/mpg_gateway" do |form| %>
+    <input type="hidden" id="MerchantID" name="MerchantID" value="<%= @form_MerchantID %>">
+    <input type="hidden" id="TradeInfo" name="TradeInfo" value="<%= @form_TradeInfo %>">
+    <input type="hidden" id="TradeSha" name="TradeSha" value="<%= @form_TradeSha %>">
+    <input type="hidden" id="RespondType" name="RespondType" value="JSON">
+    <input type="hidden" id="TimeStamp" name="TimeStamp" value="<%= @reservation.created_at %>">
+    <input type="hidden" id="Version" name="Version" value="1.5">
+    <input type="hidden" id="MerchantOrderNo" name="MerchantOrderNo" value="<%= @reservation.serial %>">
+    <input type="hidden" id="Amt" name="Amt" value="<%= @reservation.seat.deposit %>">
+    <input type="hidden" id="ItemDesc" name="ItemDesc" value="<%= @reservation.seat.kind %>">
+    <input type="hidden" id="Email" name="Email" value=<%= @reservation.email %>>
+    <input type="hidden" id="LoginType" name="LoginType" value="是否需要登入會員">
+
+  <%= form.submit "藍新信用卡付款", class: "major-btn" %>
+  <% end %>
+</div>
+<% end %>
+
+
 <div class="my-8 ml-12">
   <li>User model的資料</li>
    <li><%= @reservation.user.name %></li>
@@ -30,6 +53,7 @@
 </div>
 
 <%= link_to "回首頁", root_path, class: "major-btn ml-12" %>
+
 
 
 
