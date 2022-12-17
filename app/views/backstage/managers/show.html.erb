@@ -15,14 +15,11 @@
       </span>
       <%= link_to "編輯餐廳資訊", edit_backstage_restaurant_path(restaurant), class: "major-btn"%>
       <%= link_to "刪除", backstage_restaurant_path(restaurant), method: "delete", class: "major-btn"%>
-      <table>
-        <tr>
-          <% restaurant.images.each do |i| %>
-                <td style="width: 150px; height: 150px;"><%= image_tag (i.url) %></td>
-            </div>
-          <% end %>
-        </tr>
-      </table>
+      <div class="flex flex-row">
+        <% restaurant.images.each do |i| %>
+          <div class="w-60 h-44"><%= image_tag (i.url) %></div>
+        <% end %>
+      </div>
     </div>
   <% end %> 
 </div>
