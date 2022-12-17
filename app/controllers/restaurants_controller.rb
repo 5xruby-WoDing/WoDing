@@ -13,7 +13,6 @@ class RestaurantsController < ApplicationController
   end 
 
   def determine_occupied
-
     reservated_date = params[:date].gsub(/月/, '/' ).gsub(/日/, '').to_date
     reservated_time = params[:time]
 

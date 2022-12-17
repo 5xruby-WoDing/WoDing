@@ -1,11 +1,11 @@
 class Reservation < ApplicationRecord
 
-  include AASM
   belongs_to :user
   belongs_to :restaurant
   belongs_to :seat
 
   include Gender
+  include AASM
 
   validates :name, presence: true
   validates :phone, presence: true

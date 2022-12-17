@@ -1,45 +1,48 @@
 <div>
   <%= form_with(model: [:backstage, :manager, @restaurant],url: url) do |f| %>
-  <div class='py-3 text-gray-400'>
+  
+  <div class='py-1 text-gray-400'>
     <%= f.label :title, "餐廳名稱：" %>
     <%= f.text_field :title, class: "input-box", disabled: true %>
   </div>
 
-  <div class='text-gray-400'>
+  <div class='py-1 text-gray-400'>
     <%= f.label :address, "餐廳地址：" %>
     <%= f.text_field :address, class: "input-box", disabled: true %>
   </div>
 
-  <div class='text-gray-400'>
+  <div class='py-1 text-gray-400'>
     <%= f.label :branch, "餐廳分店：" %>
     <%= f.text_field :branch, class: "input-box", placeholder: "例如：復興店", disabled: true %>
   </div>
 
-  <div class='text-gray-400'>
+  <div class='py-1 text-gray-400'>
     <%= f.label :tel, "餐廳電話：" %>
     <%= f.phone_field :tel, class: "input-box", disabled: true %>
   </div>
   
-  <div>
-    <%= f.label :start_time, "用餐開始時間：" %>
-    <%= f.time_select :start_time, class: "input-box" %>
-  </div>
-  
-  <div>
-    <%= f.label :end_time, "用餐結束時間：" %>
+  <div class='py-1'>
+    <%= f.label :start_time, "營業時間：" %>
+    <%= f.time_select :start_time, class: "input-box" %> 至
     <%= f.time_select :end_time, class: "input-box" %>
   </div>
+  
+  <div class='py-1'>
+    <%= f.label :end_time, "用餐時間：" %>
+    <%= f.number_field :dining_time, class: "input-box" %>分鐘
+  </div>
 
-  <div>
-    <%= f.label :period_of_reservation, "預定期限：" %>
+  <div class='py-1'>
+    <%= f.label :period_of_reservation, "訂位期限：" %>
     <%= f.number_field :period_of_reservation, class: "input-box" %>
   </div>
 
-  <div>
+  <div class='py-1'>
     <%= f.label "標籤：" %>
     <%= f.text_field :tag_list, class: "input-box", placeholder: "義式, 美式, 中式" %>
   </div>
-  
-  <%= f.submit "編輯餐廳",class: "major-btn" %>
+  <div class='text-center'>
+    <%= f.submit "編輯餐廳",class: "major-btn" %>
+  </div>
   <% end %>
 </div>

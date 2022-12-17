@@ -2,13 +2,7 @@
   <section>
     <h1 class='mx-auto mb-4 text-xl font-bold text-center'>確認訂位與填寫聯絡資訊</h1>
   </section>
-  <% if (@user.errors.any?) %>
-    <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  <% end %>
+
   <div class='gap-4 md:grid md:grid-cols-1-2'>
     <section class='mb-4'>
       <div data-controller='reservation-info' class='px-4 py-5 border rounded'>
@@ -21,21 +15,31 @@
             <%= @restaurant.address %>
           </h3>
         </div>
+
         <div class='flex items-center'>
           <i class="mr-2 fa-regular fa-user"></i>
           <p class='mr-2'><%= @adult_quantity %>位大人</p>
           <p><%= @child_quantity %>位小孩</p>
         </div>
+
         <div class='flex items-center my-4'>
           <i class="mr-2 fa-regular fa-clock"></i>
           <p><%= @arrival_time %></p>
           <% catch_time(@arrival_time) %>
         </div>
+
         <div class='flex items-center'>
           <i class="mr-2 fa-regular fa-calendar-days"></i>
           <p><%= @arrival_date %></p>
           <% catch_date(@arrival_date) %>
         </div>
+
+        <div class='flex items-center mt-4'>
+          <i class="mr-2 fa-regular fa-clock"></i>
+          <p><%= @restaurant.dining_time %>分鐘用餐時間</p>
+          <% catch_dining_time(@restaurant.dining_time) %>
+        </div>
+        
       </div>
     </section>
   
@@ -64,6 +68,7 @@
         <input type="hidden" name="restaurant_id" value="<%= @restaurant.id %>">
         <%= form.text_field :arrival_date, class: 'hidden',value: @date  %>
         <%= form.text_field :arrival_time, class: 'hidden', value: @time %>
+        <%= form.text_field :end_time, class: 'hidden', value: @dining_end_time %>
         <%= form.number_field :adult_quantity, class: "hidden", value: @adult_quantity %>
         <%= form.number_field :child_quantity, class: "hidden", value: @child_quantity %>
           
