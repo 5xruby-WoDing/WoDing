@@ -1,5 +1,5 @@
-<div class="mt-24">
-  <h2>我是編輯seat類別的頁面</h2>
+<div class="mt-14">
+  <h2 class="m-3 text-3xl">請修改座位資訊</h2>
 
 
   <% if @seat.errors.any? %>
@@ -12,25 +12,24 @@
 
 
   <%= form_with model: @seat, url: backstage_seat_path(@seat) do |f| %>
-    <div>
-      <%= f.label :kind %>
+    <div class="seat-form">
+      <%= f.label "種類" %>
       <%= f.select :kind, Seat.kinds.keys %>
     </div>
-    <div>
-      <%= f.label :capacity %>
+    <div class="seat-form">
+      <%= f.label "容納人數" %>
       <%= f.select :capacity, [[1, 1], [2, 2], [3, 3]] %>
     </div>
-    <div>
-    <div>
-      <%= f.label :deposit %>
+    <div class="seat-form">
+      <%= f.label "訂金" %>
       <%= f.text_field :deposit %>
     </div>
-    <div>
-      <%= f.label :state %>
+    <div class="seat-form">
+      <%= f.label "狀態" %>
       <%= f.text_field :state %>
     </div>
   
-    <%= f.submit %>
+    <%= f.submit "修改座位", class: 'major-btn css-btn'%>
   <% end %>
 
 </div>
