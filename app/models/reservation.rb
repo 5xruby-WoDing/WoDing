@@ -9,6 +9,7 @@ class Reservation < ApplicationRecord
 
   validates :name, presence: true
   validates :phone, presence: true
+  validates :email, presence: true
   validates :serial, presence: true
 
   before_validation :generate_serial
