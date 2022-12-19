@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */ 
- @import "./actiontext.scss";
+ /* @import "./actiontext.scss"; */
 
   .home-slide-height {
     height: 300px
