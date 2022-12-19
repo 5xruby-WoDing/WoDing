@@ -1,4 +1,4 @@
-<main class="max-w-screen-lg mx-auto mt-14 md:mt-20">
+<main class="max-w-screen-lg mx-auto mt-14 md:mt-20 ">
   <section>
     <div>
       <img src="https://picsum.photos/seed/picsum/1440/400" alt="">
@@ -18,21 +18,19 @@
       </div>
       <div class="py-8 space-y-2.5 border-b-2">
         <h2 class="text-x">訂位注意事項</h2>
-        <p class="text-gray-500">1.目前開放「一個月內」的訂位，例如：要預訂3/1位置，請於2/1之後進行訂位。</p>
-        <p class="text-gray-500">2.如有多人訂位需求，請撥打門店電話。</p>
-        <p class="text-gray-500">3.訂位保留10分鐘，逾時將自動取消座位。</p>
-        <p class="text-gray-500">4.本餐廳保留條款內容變更與解釋、暫停或終止本線上訂位之權利。</p>
+        <p class="text-gray-500">1.如有多人訂位需求，請撥打門店電話。</p>
+        <p class="text-gray-500">2.本餐廳保留條款內容變更與解釋、暫停或終止本線上訂位之權利。</p>
+        <p class="text-gray-500">3.用餐時間<%= @restaurant.dining_time %>分鐘。</p>
       </div>
     </article>
   </section>
   
-  <section>
+  <section class='pb-6 mx-2 mb-6 border-b-2 lg:mx-0'>
     <div>
-
       <%= form_with url: reserve_restaurant_path(@restaurant), method: "get", data: {
         controller: 'restaurant-reservation'
       } do |f| %>
-        <div class='mx-2 lg:mx-0'>
+        <div>
           <div class='gap-4 md:grid grid-cols-1-2'>
             <div>
               <h4 class='reservation-font'>用餐人數</h4>
@@ -66,7 +64,7 @@
           <div>
             <% time_range = RestaurantsHelper::TimeRange.new([]) %>
             <% time_range.intreval_time(@restaurant.start_time - 30.minutes, @restaurant.end_time) %>
-
+            
             <h4 class='reservation-font'>用餐時間</h4>
 
             <div class='grid grid-cols-7 gap-3'>
@@ -76,7 +74,6 @@
                         data-restaurant-reservation-target='time'
                         value='<%= time_point %>'
                         data-id='<%=@restaurant.id%>'
-                        data-date='1'
                         disabled>
                   <%= time_point %>
                 </button>
@@ -112,13 +109,52 @@
                         disabled: true,
                         data: {
                           restaurant_reservation_target: 'submit'
-                        }
-            %>
+                        }%>
         </div>
       </div>
       <% end %>
     </div>
   </section>
+
+  <section>
+    <div class='grid-cols-2 pb-6 mx-2 mb-6 border-b-2 md:grid lg:mx-0 md:gap-4'>
+      <div class='mb-6'>
+        <iframe
+        class='w-full h-full border-none'
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps/embed/v1/place?key=<%= ENV['GOOGLE_MAP_KEY']%>
+          &q=<%= @restaurant.address%>">
+        </iframe>
+      </div>
+      <div class='px-4'>
+        <div class='pb-2 mb-2 border-b-2'>
+          <p class='mb-2'>位置</p>
+          <p class='text-gray-600'>
+            <%= @restaurant.address%>
+          </p>
+        </div>
+        <div class='pb-2 mb-2 border-b-2'>
+          <p class='mb-2'>電話</p>
+          <p class='text-gray-600'>
+            <%= @restaurant.tel%>
+            </p>
+        </div>
+        <div class='pb-2 mb-2 border-b-2'>
+          <p class='mb-2'>營業時間</p>
+          <p class='text-gray-600'>
+            <%= @restaurant.start_time.strftime('%R')%> - 
+            <%= @restaurant.end_time.strftime('%R')%>
+          </p>
+        </div>
+        <div class='pb-2 mb-2 border-b-2'>
+          <p class='mb-2'>料理類型</p>
+        </div>
+      </div>
+    </div>
+   
+  </section>
+ 
   
   <section>
     <div class="py-8 space-y-2.5 border-b-2">
@@ -181,4 +217,3 @@
     </div>
   </section>
 </main>
-

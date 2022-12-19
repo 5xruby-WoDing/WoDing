@@ -1,0 +1,16 @@
+<div>
+    <h2>座位資訊</h2>
+
+    <% @seats.each do |seat| %>
+      <tr>
+        <td><%= link_to seat.id, backstage_seat_path(seat.id), class: "major-btn" %></td>
+        <td><%= seat.kind %></td>
+        <td><%= seat.capacity %></td>
+        <td><%= seat.deposit %></td>
+        <td><%= link_to "edit", edit_backstage_seat_path(seat.id), class: "major-btn" %></td>
+        <td><%= link_to "x", backstage_seat_path(seat.id), method: "delete", data: {confirm: "sure??"}, class: "major-btn" %></td>
+      </tr>
+    <% end %>
+
+    <%= link_to "新增座位 ", new_backstage_restaurant_seat_path(@restaurant), class: "major-btn" %>
+</div>

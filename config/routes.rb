@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :reservations, only: [] do
     member do
       get :checkout
+      post :information
     end
   end
   
