@@ -1,30 +1,24 @@
-<div class="mt-24">
-  <h2>我是seat類別的個別頁面</h2>
+<div class="mt-14">
+  <h2 class="seat-title">我是seat類別的個別頁面</h2>
   
-  <table>
-    <tr>
-      <td class="pr-4">seat 狀態</td>
-      <td class="pr-4">seat id</td>
-      <td class="pr-4">seat kind</td>
-      <td class="pr-4">seat capacity</td>
-      <td class="pr-4">seat deposit</td>
+  <table class="seat-table">
+    <tr class="seat-item-title">
+      <td>id</td>
+      <td>種類</td>
+      <td>容納人數</td>
+      <td>訂金</td>
     </tr>
       
-    <tr>
-      <td><%= @seat.state %></td>
+    <tr class="seat-item-text">
       <td><%= @seat.id %></td>
       <td><%= @seat.kind %></td>
       <td><%= @seat.capacity %></td>
       <td><%= @seat.deposit %></td>
-      
     </tr>
       
   </table>
   
-  
-  <%= link_to "回餐廳的show頁面", backstage_restaurant_path(@seat.restaurant), class: "major-btn" %>
-
-
+  <button class= "major-btn css-btn"><%= link_to "回餐廳首頁", backstage_restaurant_path(@seat.restaurant), class: "major-btn" %></button>
 
 </div>
 
