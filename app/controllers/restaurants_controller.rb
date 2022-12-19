@@ -13,14 +13,16 @@ class RestaurantsController < ApplicationController
   end 
 
   def determine_occupied
+    people = params[:people]
     reservated_date = params[:date].gsub(/月/, '/' ).gsub(/日/, '').to_date
     reservated_time = params[:time]
 
     sum_of_seat = @restaurant.seats.size
-    seats = @restaurant.seats.reduce([]){|arr, seat| arr << seat.id}
-
     reservated_list = []
     occupied_seats = []
+
+   
+
     @restaurant.reservations.each do |reservation|
       if reservated_date == reservation.arrival_date
         reservated_list << [reservation.arrival_time.strftime('%R'), reservation.seat_id]
@@ -31,12 +33,14 @@ class RestaurantsController < ApplicationController
       end
     end
 
-    occupied_time = reservated_list.group_by{|h| h[0]}.map{|k, v| k}
+    @restaurant.seats.each {|c| occupied_seats << c.id if c.capacity < people}
+
+    occupied_time = reservated_list.group_by{|h| h[0]}.keys
     occupied_seat_total = reservated_list.group_by{|h| h[0]}.map{|k, v| v.size}
     each_time_total_occupied = Hash[occupied_time.zip(occupied_seat_total)]
     occupied_time = each_time_total_occupied.map{|el| el.first if el[1] >= sum_of_seat}.compact
 
-    render json: {occupied_time: occupied_time, occupied_seats: occupied_seats}
+    render json: {occupied_time: occupied_time, occupied_seats: occupied_seats, people: people}
   end
 
   private

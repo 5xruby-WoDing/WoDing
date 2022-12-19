@@ -2,11 +2,9 @@ import { Controller } from "stimulus"
 import log from "tailwindcss/lib/util/log";
 
 export default class extends Controller {
-  static targets = [ 'date', 'dateInput', 'time', 'timeInput', 'seat', 'seatInput', 'submit']
+  static targets = [ 'date', 'dateInput', 'time', 'timeInput', 'seat', 'seatInput', 'submit', 'adult', 'child', 'notice', 'seatBtn', 'timeBtn']
 
   connect() {
-    this.state = !this.submitTarget.dataset.state
-    this.determineSubmit(this.state)
   }
 
   getDate(e){
@@ -49,7 +47,7 @@ export default class extends Controller {
 
   getSeat(e){
     e.preventDefault()
-    const seat = e.target.children[0].textContent.replace(/\s/g, '')
+    const seat = e.target.value
     this.setSeat(e, seat)
   }
 
@@ -81,17 +79,28 @@ export default class extends Controller {
   releaseTimeBtn(pending_time){
     this.timeTargets.forEach(btn => {
       this.disabledBtn(btn)
-      if(btn.value != pending_time){
-        this.releaseBtn(btn)
+
+      if(!(pending_time.includes(btn.value))){
+        this.releaseBtn(btn)  
       }
     })
   }
 
-  releaseSeatBtn(occupied_seats){
+  releaseSeatBtn(occupied_seat){
     this.seatTargets.forEach(btn => {
       this.disabledBtn(btn)
-      if(btn.value != occupied_seats){
+      let occupied_seats = [...new Set(occupied_seat)]
+      if(!(occupied_seats.includes(+btn.value))){
         this.releaseBtn(btn)
+        this.noticeTarget.classList.add('hidden')
+        this.seatBtnTarget.classList.remove('hidden')
+        this.timeBtnTarget.classList.remove('hidden')
+      }else if(occupied_seats.length == this.seatTargets.length){
+        this.noticeTarget.classList.remove('hidden')
+        this.seatBtnTarget.classList.add('hidden')
+        this.timeBtnTarget.classList.add('hidden')
+        this.seatInputTarget.value = ''
+        this.resetSubmit()
       }
     })
   }
@@ -127,6 +136,7 @@ export default class extends Controller {
   fetchOccupied(e){
     const token = document.querySelector("meta[name='csrf-token']").content
     const id = e.target.dataset.id
+    const people = (+this.adultTarget.value ) + (+this.childTarget.value)
 
     fetch(`/restaurants/${id}/determine_occupied`,{
       method: 'POST',
@@ -137,12 +147,13 @@ export default class extends Controller {
       body: JSON.stringify({
         date: this.dateInputTarget.value,
         time: this.timeInputTarget.value,
+        people: people
       })
     }).then((resp) => resp.json())
     .then(({occupied_time, occupied_seats}) => {
+
       this.releaseTimeBtn(occupied_time)
       this.releaseSeatBtn(occupied_seats)
-      
     })
     .catch(() => {
       console.log("error!!");
