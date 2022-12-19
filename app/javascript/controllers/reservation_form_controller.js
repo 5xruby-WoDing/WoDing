@@ -8,13 +8,14 @@ export default class extends Controller {
     this.state = false
   }
 
-
-  setform() {
+  inputName() {
     this.determineSubmit()
   }
-
-  setName() {
-
+  inputEmail() {
+    this.determineSubmit()
+  }
+  inputPhone() {
+    this.determineSubmit()
   }
 
   determineSubmit() {
@@ -23,13 +24,11 @@ export default class extends Controller {
     let phoneState = this.phoneInputTarget.value
 
     if (nameState && emailState && phoneState) {
-      this.openSubmit()
-      this.state = true
+      this.openSubmit()      
     } else {
       this.closeSubmit()
-      this.state = false
     }
-
+    this.state = !this.state
   }
 
   openSubmit() {
@@ -49,18 +48,3 @@ export default class extends Controller {
 
 
 
-
-// setform() {
-//   //   const formField = document.querySelector(".form")
-//   //   const el = `<div>名字為必填欄位</div>`
-
-//   //   if (this.nameInputTarget.value === "" ) {
-//   //     formField.insertAdjacentHTML("afterbegin", el)
-//   //   } else {
-//   //     el.remove()
-//     // }
-
-//     this.determineSubmit()
-//     this.state = true
-
-//   }
