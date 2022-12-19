@@ -4,29 +4,29 @@
     <img src="/assets/123.svg" alt="logo" class='w-16 pb-6 mx-auto mt-6'>
     <div class="flex flex-col mx-auto text-center">
       
-      <button data-action="click->backstage#reservatoinBtn" class='text-sm text-gray-300 backstage-nav-btn'>
+      <button data-action="click->backstage#reservatoinBtn" class='backstage-nav-btn text-hoverGray'>
         訂位
         <div class="page" data-backstage-target="reservationInfo">
           <%= render "reservation_info" %>
         </div>
       </button>
 
-      <button data-action="click->backstage#info" class='text-gray-300 backstage-nav-btn'>
-        資訊 
+      <button data-action="click->backstage#info" class='backstage-nav-btn text-hoverGray'>
+        資訊
         <div class="hidden page" data-backstage-target="info">
           <%= render "restaurant_info" %>  
         </div>
       </button>
 
-      <button data-action="click->backstage#seat" class='text-gray-300 backstage-nav-btn'>
+      <button data-action="click->backstage#seat" class='backstage-nav-btn text-hoverGray'>
         座位
         <div class="hidden page" data-backstage-target="seat">
           <%= render "restaurant_seat" %>  
         </div>
       </button>
 
-      <button data-action="click->backstage#setting" class='text-gray-300 backstage-nav-btn'>
-        <i class="text-lg fa-solid fa-gear"></i>
+      <button data-action="click->backstage#setting" class='backstage-nav-btn text-hoverGray'>
+        <i class="text-sm text-lg fa-solid fa-gear"></i>
         <div class="hidden page" data-backstage-target="setting">
           <%= render "setting" %>
         </div>
@@ -36,7 +36,6 @@
   
   <div class='text-center'>
     <%= link_to "返回", backstage_root_path, class: "backstage-nav-btn text-gray-300 text-sm block" %>
-
     <h1 class='text-sm text-center text-gray-300'>
       <%= @restaurant.title %>
     </h1>

@@ -7,30 +7,27 @@ export default class extends Controller {
 
     }
     info() {
+        this.resetBtn()
         this.infoTarget.classList.remove('hidden')
-        this.reservationInfoTarget.classList.add('hidden')
-        this.settingTarget.classList.add('hidden')
-        this.seatTarget.classList.add('hidden')
     }
 
     reservatoinBtn() {
-        
-        this.infoTarget.classList.add('hidden')
+        this.resetBtn()
         this.reservationInfoTarget.classList.remove('hidden')
-        this.settingTarget.classList.add('hidden')
-        this.seatTarget.classList.add('hidden')
     }
 
     seat() {
-        this.infoTarget.classList.add('hidden')
-        this.reservationInfoTarget.classList.add('hidden')
-        this.settingTarget.classList.add('hidden')
+        this.resetBtn()
         this.seatTarget.classList.remove('hidden')
     }
     setting() {
+        this.resetBtn()
+        this.settingTarget.classList.remove('hidden')
+    }
+    resetBtn(){
         this.infoTarget.classList.add('hidden')
         this.reservationInfoTarget.classList.add('hidden')
-        this.settingTarget.classList.remove('hidden')
+        this.settingTarget.classList.add('hidden')
         this.seatTarget.classList.add('hidden')
     }
 
