@@ -35,8 +35,22 @@
             <div>
               <h4 class='reservation-font'>用餐人數</h4>
               <div class='flex gap-2'>
-                <%= f.select :adult_quantity, [['1位大人', 1], ['2位大人', 2], ['3位大人', 3], ['4位大人', 4], ['5位大人', 5]], {}, {class: 'input-border-click w-full py-1 px-2'} %>
-                <%= f.select :child_quantity, [['0位小孩', 0], ['1位小孩', 1], ['2位小孩', 2], [' 3位小孩', 3], ['4位小孩', 4], [' 5位小孩', 5]], {}, {class: 'input-border-click w-full py-1 px-2'} %>
+                <%= f.select :adult_quantity, [['1位大人', 1], ['2位大人', 2], ['3位大人', 3], ['4位大人', 4], ['5位大人', 5]],
+                  {},
+                  {class: 'input-border-click w-full py-1 px-2',
+                    data: {restaurant_reservation_target: 'adult',
+                            action: 'change->restaurant-reservation#fetchOccupied',
+                            id: @restaurant.id    
+                    }
+                  }%>
+                <%= f.select :child_quantity, [['0位小孩', 0], ['1位小孩', 1], ['2位小孩', 2], [' 3位小孩', 3], ['4位小孩', 4], [' 5位小孩', 5]],
+                  {},
+                  {class: 'input-border-click w-full py-1 px-2',
+                    data: {restaurant_reservation_target: 'child',
+                            action: 'change->restaurant-reservation#fetchOccupied',
+                            id: @restaurant.id   
+                    }
+                  } %>
               </div>
             </div>
             <div> 
@@ -61,13 +75,17 @@
               </div>
             </div>
           </div>
+          
           <div>
             <% time_range = RestaurantsHelper::TimeRange.new([]) %>
             <% time_range.intreval_time(@restaurant.start_time - 30.minutes, @restaurant.end_time) %>
             
             <h4 class='reservation-font'>用餐時間</h4>
 
-            <div class='grid grid-cols-7 gap-3'>
+            <div class='hidden text-center border rounded'  data-restaurant-reservation-target='notice'>
+              <div class='text-red-500 '>座位已滿</div>
+            </div>
+            <div class='grid grid-cols-7 gap-3'  data-restaurant-reservation-target='timeBtn'>
               <% time_range.time_points.each do |time_point| %>
                 <button class='py-1 disabled-btn'
                         data-action='click->restaurant-reservation#getTime'
@@ -84,7 +102,7 @@
 
           <div>
             <h4 class='reservation-font'>選擇座位</h4>
-            <div class='grid grid-cols-7 gap-3'>
+            <div class='grid grid-cols-7 gap-3' data-restaurant-reservation-target='seatBtn'>
               <% @seats.each do |seat| %>
                 <button class='py-1 disabled-btn'
                         data-action='click->restaurant-reservation#getSeat'
@@ -92,9 +110,6 @@
                         value='<%= seat.id %>'
                         disabled>
                   <%= seat.kind %>
-                  <span class='hidden'>
-                    <%= seat.id %>
-                  </span>
                 </button>
               <% end %>
               <input type="hidden" name="seat_id" data-restaurant-reservation-target='seatInput'>
