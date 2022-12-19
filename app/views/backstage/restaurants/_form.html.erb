@@ -1,24 +1,24 @@
 <div>
   <%= form_with(model: [:backstage, :manager, @restaurant],url: url) do |f| %>
   
-  <div class='py-1 text-gray-400'>
+  <div class='py-1'>
     <%= f.label :title, "餐廳名稱：" %>
-    <%= f.text_field :title, class: "input-box", disabled: true %>
+    <%= f.text_field :title, class: "input-box" %>
   </div>
 
-  <div class='py-1 text-gray-400'>
+  <div class='py-1'>
     <%= f.label :address, "餐廳地址：" %>
-    <%= f.text_field :address, class: "input-box", disabled: true %>
+    <%= f.text_field :address, class: "input-box" %>
   </div>
 
-  <div class='py-1 text-gray-400'>
+  <div class='py-1'>
     <%= f.label :branch, "餐廳分店：" %>
-    <%= f.text_field :branch, class: "input-box", placeholder: "例如：復興店", disabled: true %>
+    <%= f.text_field :branch, class: "input-box", placeholder: "例如：復興店"  %>
   </div>
 
-  <div class='py-1 text-gray-400'>
+  <div class='py-1'>
     <%= f.label :tel, "餐廳電話：" %>
-    <%= f.phone_field :tel, class: "input-box", disabled: true %>
+    <%= f.phone_field :tel, class: "input-box"  %>
   </div>
   
   <div class='py-1'>
