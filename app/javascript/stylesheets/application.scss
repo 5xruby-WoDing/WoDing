@@ -81,6 +81,11 @@
             border-none
             cursor-auto
   }
+  .seat-form{
+    @apply  px-5
+            py-3
+            bg-gray-200
+  }
 }
 
 .date{
