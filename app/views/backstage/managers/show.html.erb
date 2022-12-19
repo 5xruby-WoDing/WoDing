@@ -16,9 +16,9 @@
       <%= link_to "編輯餐廳資訊", edit_backstage_restaurant_path(restaurant), class: "major-btn"%>
       <%= link_to "刪除", backstage_restaurant_path(restaurant), method: "delete", class: "major-btn"%>
       <div class="flex flex-row">
-        <% restaurant.images.each do |image| %>
-          <div class="w-60 h-44"><%= image_tag (image.url) %></div>
-        <% end %>
+        <%# <% restaurant.images.each do |image| %> %>
+          <%# <div class="w-60 h-44"><%= image_tag (image.url) %></div> %>
+        <%# <% end %> %>
       </div>
     </div>
   <% end %> 
