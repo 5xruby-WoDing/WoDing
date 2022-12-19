@@ -1,1 +1,82 @@
-測試文字456
+<section class='grid grid-cols-3 grid-rows-2 gap-4 p-6 cursor-default text-gary-800'>
+  <div class='bg-white border rounded'>
+    <h2 class='py-2 text-2xl font-bold border-b' >
+      <%= Time.current.strftime('%Y %m 月 %d 日 %A') %>
+    </h2>
+    <div class='p-6 text-left'>
+      <h2 class='pb-4 text-2xl font-bold'>今日統計</h2>
+      <div class='grid grid-cols-2'>
+        <div class='pb-4'>
+          <p class='text-4xl font-bold'>
+            <%= @restaurant.reservations.size %>
+          </p>
+          <h3 class='text-lg'>
+            客人組數
+          </h3> 
+        </div>
+        <div>
+          <p class='text-4xl font-bold'>
+            <%= @restaurant.reservations.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
+          </p>
+          <h3 class='text-lg'>
+            總人數
+          </h3>
+        </div>
+        <div>
+          <h3>已入座組數</h3>
+        </div>
+        <div>
+          <h3>剩餘組數</h3>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+ 
+  <div class='col-span-2 row-span-2 py-0 mb-auto bg-white border rounded'>
+    <h2 class='py-2 my-2 text-2xl font-bold border-b'>今日訂位</h2>
+    <div>
+      <input type="text" class='input-border-click'>
+    </div>
+    <div>
+      <% @restaurant.reservations.sort_by{|r| r.arrival_time.to_i}.each do |reservation| %>
+        <% if reservation.arrival_date == Date.today %>
+          <div class='grid grid-cols-4 p-4 border-b'>
+            <div class='flex flex-col text-left'>
+              <p>
+                <%= reservation.name %>
+                <%= reservation.gender %>
+              </p>
+              <p class='text-sm text-gray-500'><%= reservation.phone %></p>
+            </div>
+            <div class='flex'>
+              <p class='my-auto mr-3 text-2xl text-major'>
+                <%= reservation.adult_quantity + reservation.child_quantity %>
+                位
+              </p>
+              <p class='my-auto text-sm'>
+                <%= reservation.adult_quantity %>大人<br>
+                <%= reservation.child_quantity %>小孩
+              </p>
+            </div>
+            
+            <p class='my-auto text-2xl'>
+              <%= reservation.seat_id %>
+              <span class='px-2 text-lg border rounded '>
+                <%= reservation.state %>
+              </span>
+            </p>
+            <p class='my-auto'>
+              <%= reservation.arrival_time.strftime('%R') %>
+            </p>
+          </div>
+        <% end %>
+
+      <% end %>
+    </div>
+  </div>
+
+ 
+    
+  
+</section>
