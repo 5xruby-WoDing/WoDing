@@ -8,6 +8,7 @@ Rails.application.routes.draw do
           resources :reservations, shallow: true, only: [] do
             member do
               get :finish
+              patch :note
             end
           end
         end

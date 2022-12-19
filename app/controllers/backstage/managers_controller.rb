@@ -5,5 +5,6 @@ class Backstage::ManagersController < ApplicationController
 
   def show
     @restaurants = current_manager.restaurants
+    @reservations = Reservation.all
   end
 end

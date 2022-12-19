@@ -3,6 +3,8 @@ class Reservation < ApplicationRecord
   belongs_to :user
   belongs_to :restaurant
   belongs_to :seat
+  has_many :manager_reservations
+  has_many :be_noted_managers, through: :manager_reservations, source: :manager
 
   include Gender
   include AASM
