@@ -1,7 +1,7 @@
 
 development:
-  address: <%=ENV['MAILGUN_SMTP_SERVER']%>
-  port: <%=ENV['MAILGUN_SMTP_PORT']%>
+  address: <%='[MAILGUN_SMTP_SERVER]'%>
+  port: <%='[MAILGUN_SMTP_PORT]'%>
   domain: <%=ENV['MAILGUN_DOMAIN']%>
   authentication: "plain"
   user_name: <%=ENV['MAILGUN_SMTP_LOGIN']%>
