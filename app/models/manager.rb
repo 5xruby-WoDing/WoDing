@@ -12,4 +12,12 @@ class Manager < ApplicationRecord
   end
 
   has_many :restaurants
+  has_many :manager_reservations
+  has_many :noted_important_reservations, through: :manager_reservations, source: :reservation
+
+
+  def noted_important_reservation?(reservation)
+    self.noted_important_reservations.include?(reservation)
+  end
+  
 end
