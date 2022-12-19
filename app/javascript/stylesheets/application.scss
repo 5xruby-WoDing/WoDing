@@ -94,9 +94,13 @@
             text-left
 
   }
-
-
+  .seat-form{
+    @apply  px-5
+            py-3
+            bg-gray-200
+  }
 }
+
 .date{
   padding: 2px;
 } 
