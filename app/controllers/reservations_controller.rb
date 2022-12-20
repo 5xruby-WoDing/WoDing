@@ -1,5 +1,5 @@
 class ReservationsController < ApplicationController
-
+  skip_before_action :verify_authenticity_token, only: [:information]
   before_action :find_reservation, only: [:checkout]
   
   def checkout
@@ -8,6 +8,18 @@ class ReservationsController < ApplicationController
     @form_MerchantID = @form_info[:MerchantID]
     @form_TradeInfo = @form_info[:TradeInfo]
     @form_TradeSha = @form_info[:TradeSha]
+
+  end
+
+  def information
+    response = Newebpay::MpgResponse.new(params[:TradeInfo])
+    @MerchantID = response.result["MerchantID"] 
+    @ItemDesc = response.result["ItemDesc"]
+    @Amt = response.result["Amt"]
+    @PayTime = response.result["PayTime"]
+    @TradeNo = response.result["TradeNo"]
+    @MerchantOrderNo = response.result["MerchantOrderNo"]
+    
 
   end
 

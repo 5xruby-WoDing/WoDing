@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     member do
       get :checkout
       post :information
+      post :reservation_status
     end
   end
   
