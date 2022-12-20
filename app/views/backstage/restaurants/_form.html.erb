@@ -1,59 +1,59 @@
 <div>
   <%= form_with(model: [:backstage, :manager, @restaurant],url: url) do |f| %>
   
-  <div class="seat-form">
-    <%= f.label :title, "餐廳名稱：" %>
-    <%= f.text_field :title, class: "input-box  " %>
+  <div>
+    <%= f.label :title, '餐廳名稱：' %>
+    <%= f.text_field :title, class: 'input-box' %>
   </div>
 
-  <div class="seat-form">
-    <%= f.label :address, "餐廳地址：" %>
-    <%= f.text_field :address, class: "input-box" %>
+  <div class='py-1'>
+    <%= f.label :address, '餐廳地址：' %>
+    <%= f.text_field :address, class: 'input-box' %>
   </div>
 
-  <div class="seat-form">
-    <%= f.label :branch, "餐廳分店：" %>
-    <%= f.text_field :branch, class: "input-box", placeholder: "例如：復興店"  %>
+  <div class='py-1'>
+    <%= f.label :branch, '餐廳分店：' %>
+    <%= f.text_field :branch, class: 'input-box', placeholder: '例如：復興店' %>
   </div>
 
-  <div class="seat-form">
-    <%= f.label :tel, "餐廳電話：" %>
-    <%= f.phone_field :tel, class: "input-box"  %>
+  <div class='py-1'>
+    <%= f.label :tel, '餐廳電話：' %>
+    <%= f.phone_field :tel, class: 'input-box' %>
   </div>
   
-  <div class="seat-form">
-    <%= f.label :start_time, "營業時間：" %>
-    <%= f.time_select :start_time, class: "input-box" %> 至
-    <%= f.time_select :end_time, class: "input-box" %>
+  <div class=seat-form>
+    <%= f.label :start_time, '營業時間：' %>
+    <%= f.time_select :start_time, class: 'input-box' %> 至
+    <%= f.time_select :end_time, class: 'input-box' %>
   </div>
   
-  <div class="seat-form">
-    <%= f.label :end_time, "用餐時間：" %>
-    <%= f.number_field :dining_time, class: "input-box" %>分鐘
+  <div class=seat-form>
+    <%= f.label :end_time, '用餐時間：' %>
+    <%= f.number_field :dining_time, class: 'input-box' %>分鐘
   </div>
 
-  <div class="seat-form">
-    <%= f.label :period_of_reservation, "訂位期限：" %>
-    <%= f.number_field :period_of_reservation, class: "input-box" %>
+  <div class=seat-form>
+    <%= f.label :period_of_reservation, '訂位期限：' %>
+    <%= f.number_field :period_of_reservation, class: 'input-box' %>
   </div>
 
-  <div class="seat-form">
-    <%= f.label "標籤：" %>
-    <%= f.text_field :tag_list, class: "input-box", placeholder: "義式, 美式, 中式" %>
+  <div class=seat-form>
+    <%= f.label '標籤：' %>
+    <%= f.text_field :tag_list, class: 'input-box', placeholder: '義式, 美式, 中式' %>
   </div>
 
    <div class='py-1'>
-    <%= f.label :images, "新增照片：" %>
+    <%= f.label :images, '新增照片：' %>
     <%= f.file_field :images, multiple: true, accept: 'image/png, image/gif, image/jpeg', class: 'border rounded p-2' %>
   </div>
 
-  <div class="px-2">
+  <div class='px-2'>
     <%= f.label :content %>
     <%= f.rich_text_area :content %>
   </div>
 
   <div class='text-center'>
-    <%= f.submit "編輯餐廳",class: "major-btn" %>
+    <%= f.submit '編輯餐廳',class: 'major-btn' %>
   </div>
   <% end %>
 </div>

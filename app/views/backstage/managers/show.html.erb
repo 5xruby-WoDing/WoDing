@@ -1,37 +1,88 @@
-<h1 class="backstage-top-bar">新增餐廳</h1>
-<div class="page-background">
-  <h2 class="px-3">歡迎登入: <%= current_manager.name %></h2>
-  <div class="flex">
-    <%= link_to "+ 新增餐廳", new_backstage_manager_restaurant_path(current_manager.id), class: "major-btn css-btn" %>
-  </div>
-  <table class="seat-table">
-    <tr class="text-lg">
-      <td>餐廳名稱</td>
-      <td>電話</td>
-      <td>分店</td>
-      <td>地址</td>
-      <td>營業時間</td>
-    </tr>
-    <% @restaurants.each do |restaurant| %>
-      <tr>
-        <td><%= link_to restaurant.title, backstage_restaurant_path(restaurant) %></td>
-        <td><%= restaurant.tel %></td>
-        <td><%= restaurant.branch %></td>
-        <td><%= restaurant.address %></td>
-        <td>
-          <%= restaurant&.start_time.strftime('%H:%M') %> -  
-          <%= restaurant&.end_time.strftime('%H:%M') %>
-        </td>
-        <td><%= link_to "編輯餐廳資訊", edit_backstage_restaurant_path(restaurant), class: "major-btn"%></td>
-        <td><%= link_to "刪除", backstage_restaurant_path(restaurant), method: "delete", class: "major-btn"%></td>
-      </tr>
-      <div class="flex flex-row">
-        <% restaurant.images.each do |image| %>
-          <div class="w-60 h-44"><%= image_tag (image.url) %></div>
-        <% end %>
+<main>
+  <div class='max-w-screen-lg px-3 mx-auto mt-8'>
+    <section class='mb-4'>
+      <h2 class="mb-4 text-xl">
+        你好
+        <%= current_manager.name %>
+      </h2>
+      <div>
+        <span class='mr-2 major-btn'>
+          <i class="fa-solid fa-plus">
+            <%= link_to " 新增餐廳", new_backstage_manager_restaurant_path(current_manager.id)%>
+          </i>
+        </span>
+        <span class='mr-2 major-btn'>
+         <i class="fa-solid fa-gear"></i>
+        </span>
+        <span class='mr-2 major-btn'>
+          <a href="/">
+            <i class="fa-solid fa-house"></i>
+          </a>
+        </span>
       </div>
-    </div>
-  <% end %> 
-</div>
+    </section>
+    
+    <section class='p-4 my-4'>
+      <% @restaurants.each do |restaurant| %>
+        <div class='flex flex-col p-4 m-auto mb-4 border rounded md:w-2/3'>
+          <h2 class='mb-4 text-2xl'>
+           <%= restaurant.title %>
+            <%= restaurant.branch %>
+          </h2>
+          <div class='flex flex-col mb-4 md:flex-row md:gap-4'>
+            <div class='grid grid-cols-2 gap-4 p-4 mb-4 text-center border rounded md:mb-0'>
+              <span>
+                <p class='text-3xl text-major'>
+                  <%= restaurant.reservations.size %>
+                </p>
+                <p>今日組數</p>
+              </span>
+              <span>
+                <p class='text-3xl text-major'>
+                  4
+                </p>
+                <p>以報到</p>
+              </span>
+              <span>
+                <p class='text-3xl text-major'>
+                  <%= restaurant.seats.size %>
+                </p>
+                <p>容納上限</p>
+              </span>
+              <div>
+                <% if Time.current.strftime('%H:%M') >= restaurant.start_time.strftime('%H:%M') && Time.current.strftime('%H:%M') <= restaurant.end_time.strftime('%H:%M') %>
+                  <span class='text-3xl text-green-500'>營業中</span>
+                <% else %>
+                  <span class='text-3xl text-red-500'>打烊</span>
+                <% end %>
+                <p>營業狀況</p> 
+              </div>
+            </div>
+            
+            <div>
+              <h3>
+                餐廳資訊
+              </h3>
+              <div>
+                <i class="fa-solid fa-phone"></i>
+                <%= restaurant.tel %>
+              </div>
+              <div class='mb-4'>
+                <i class="fa-solid fa-location-dot"></i>
+                <%= restaurant.address %>
+              </div>
+              <div class='flex'>
+                <%= link_to '查看此店', backstage_restaurant_path(restaurant), class: 'major-btn mr-4'%>
+                <%= link_to "編輯餐廳資訊", edit_backstage_restaurant_path(restaurant), class: "major-btn"%>
+              </div>
+
+            </div>
+          </div>
+          
+        </div>
+      <% end %> 
+    </section>
+  </div>  
+</main>
 
       
