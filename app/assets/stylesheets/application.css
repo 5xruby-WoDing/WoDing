@@ -12,7 +12,8 @@
  *
  *= require_tree .
  *= require_self
- */
+ */ 
+ @import "./actiontext.scss";
 
  html,
  body {
@@ -47,7 +48,6 @@
      width: 100vw;
      height: 100%;
      position: absolute;
-     background-color: rgb(229, 231, 235);
      color: black;
      top: 0;
      left: 80px;

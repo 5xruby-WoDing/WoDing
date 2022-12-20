@@ -6,7 +6,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @seats = @restaurant.seats
-    
+    @content = @restaurant.content
   end
 
   def reserve
