@@ -55,11 +55,11 @@
  
  /* 座位欄 */
  .seat-table{
-   display: table;
-   border-collapse: separate;
-   border-spacing: 10px 10px;
- }
- 
- .css-btn{
-   margin: 10px;
- }
+  display: table;
+  border-collapse: separate;
+  border-spacing: 10px 10px;
+}
+
+.css-btn{
+  margin: 10px;
+}
