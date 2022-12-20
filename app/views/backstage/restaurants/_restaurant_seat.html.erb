@@ -1,16 +1,58 @@
 <div>
-    <h2>座位資訊</h2>
+  <h1 class="flex px-6 py-3 text-3xl bg-white">座位資訊</h1>
+  <table class="seat-table">
+    <tr class="text-lg">
+      <td>id</td>
+      <td>類型</td>
+      <td>容納人數</td>
+      <td>訂金</td>
+      <td>修改</td>
+      <td>刪除</td>
+      <td>此位子的訂單ID</td>
+      <td>定位日期</td>
+      <td>定位時間</td>
+      <td>訂單狀態</td>
+      <td>釋放此張預約單</td>
+    </tr>
+      <% @seats.each do |seat| %>
+    <tr>
+      <td><%= link_to seat.id, backstage_seat_path(seat.id), class: "major-btn" %></td>
+      <td><%= seat.kind %></td>
+      <td><%= seat.capacity %></td>
+      <td><%= seat.deposit %></td>
+      <td><%= link_to "edit", edit_backstage_seat_path(seat.id), class: "major-btn" %></td>
+      <td><%= link_to "x", backstage_seat_path(seat.id), method: "delete", data: {confirm: "sure??"}, class: "major-btn" %></td>
+      <td>
+      <% seat.reservations.each do |reservation| %>
+        <li><%= reservation.id %></li>
+      <% end %>
+      </td>
+      <td>
+        <% seat.reservations.each do |reservation| %>
+          <li><%= reservation.arrival_date %></li>
+        <% end %>
+      </td>
+      <td>
+        <% seat.reservations.each do |reservation| %>
+          <li><%= reservation.arrival_time.strftime("%R") %></li>
+        <% end %>
+      </td>
 
-    <% @seats.each do |seat| %>
-      <tr>
-        <td><%= link_to seat.id, backstage_seat_path(seat.id), class: "major-btn" %></td>
-        <td><%= seat.kind %></td>
-        <td><%= seat.capacity %></td>
-        <td><%= seat.deposit %></td>
-        <td><%= link_to "edit", edit_backstage_seat_path(seat.id), class: "major-btn" %></td>
-        <td><%= link_to "x", backstage_seat_path(seat.id), method: "delete", data: {confirm: "sure??"}, class: "major-btn" %></td>
-      </tr>
-    <% end %>
+      <td>
+        <% seat.reservations.each do |reservation| %>
+          <li><%= reservation.state %></li>
+        <% end %>
+      </td>
 
-    <%= link_to "新增座位 ", new_backstage_restaurant_seat_path(@restaurant), class: "major-btn" %>
+      <td>
+        <% seat.reservations.each do |reservation| %>
+          <li><%= link_to "手動關閉此張預約單", finish_backstage_reservation_path(reservation), class: "major-btn" %></li>
+        <% end %>
+      </td>
+    </tr>
+        <% end %>
+  </table>
+  <div class="flex">
+  <%= link_to "新增座位 ", new_backstage_restaurant_seat_path(@restaurant), class: "major-btn css-btn" %>
+  </div>  
 </div>
