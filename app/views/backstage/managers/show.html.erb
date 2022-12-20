@@ -1,29 +1,32 @@
-<div class="mt-24">
-  <h1><%= current_manager.name %></h1>
-  <%= link_to "+ 新增餐廳", new_backstage_manager_restaurant_path(current_manager.id), class: "major-btn" %>
-
-  <% @restaurants.each do |restaurant| %>
-    <div>
-      <%= link_to restaurant.title, backstage_restaurant_path(restaurant) %>
-      <%= restaurant.tel %>
-      <%= restaurant.branch %>
-      <%= restaurant.address %>
-      <span>
-        營業時間：
-        <%= restaurant&.start_time.strftime('%H:%M') %> -  
-        <%= restaurant&.end_time.strftime('%H:%M') %>
-      </span>
-      <%= link_to "編輯餐廳資訊", edit_backstage_restaurant_path(restaurant), class: "major-btn"%>
-      <%= link_to "刪除", backstage_restaurant_path(restaurant), method: "delete", class: "major-btn"%>
-      <div class="flex flex-row">
-        <% restaurant.images.each do |image| %>
-          <div class="w-60 h-44"><%= image_tag (image.url) %></div>
-        <% end %>
-      </div>
-    </div>
-  <% end %> 
-</div>
-
+<h1 class="backstage-top-bar">新增餐廳</h1>
+<div class="page-background">
+  <h2 class="px-3">歡迎登入: <%= current_manager.name %></h2>
+  <div class="flex">
+    <%= link_to "+ 新增餐廳", new_backstage_manager_restaurant_path(current_manager.id), class: "major-btn css-btn" %>
+  </div>
+  <table class="seat-table">
+    <tr class="text-lg">
+      <td>餐廳名稱</td>
+      <td>電話</td>
+      <td>分店</td>
+      <td>地址</td>
+      <td>營業時間</td>
+    </tr>
+    <% @restaurants.each do |restaurant| %>
+      <tr>
+        <td><%= link_to restaurant.title, backstage_restaurant_path(restaurant) %></td>
+        <td><%= restaurant.tel %></td>
+        <td><%= restaurant.branch %></td>
+        <td><%= restaurant.address %></td>
+        <td>
+          <%= restaurant&.start_time.strftime('%H:%M') %> -  
+          <%= restaurant&.end_time.strftime('%H:%M') %>
+        </td>
+        <td><%= link_to "編輯餐廳資訊", edit_backstage_restaurant_path(restaurant), class: "major-btn"%></td>
+        <td><%= link_to "刪除", backstage_restaurant_path(restaurant), method: "delete", class: "major-btn"%></td>
+      </tr>
+    <% end %> 
+  </table>
 
 <h2>所有訂單</h2>
 <div>
@@ -48,9 +51,3 @@
     <% end %>
   </table>
 </div>
-      
-
-
-
-
-

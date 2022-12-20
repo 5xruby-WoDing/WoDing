@@ -47,8 +47,19 @@
      width: 100vw;
      height: 100%;
      position: absolute;
-     background-color: rgb(211, 208, 208);
+     background-color: rgb(229, 231, 235);
      color: black;
      top: 0;
      left: 80px;
+ }
+ 
+ /* 座位欄 */
+ .seat-table{
+   display: table;
+   border-collapse: separate;
+   border-spacing: 10px 10px;
+ }
+ 
+ .css-btn{
+   margin: 10px;
  }
