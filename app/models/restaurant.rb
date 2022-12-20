@@ -16,13 +16,13 @@ class Restaurant < ApplicationRecord
   has_many :tags, through: :restaurant_tags
 
   def tag_list=(arr)
-    self.tags = arr.split(",").map do |tag|
+    self.tags = arr.strip.gsub(/\s+?[\s\/\,\，]\Z/, '').split(/[\s\/\,\，][\s]?/).map do |tag|
       Tag.where(name: tag.strip).first_or_create!
     end
   end
 
   def tag_list
-    tags.map(&:name).join(', ')
+    tags.map(&:name).join('/')
   end
 
   def self.tagged_with(name)
