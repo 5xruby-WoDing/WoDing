@@ -10,11 +10,14 @@ class Restaurant < ApplicationRecord
   belongs_to :manager
   has_many :seats
   has_many :reservations
-  has_many_attached :images
-  
   has_many :restaurant_tags
   has_many :tags, through: :restaurant_tags
 
+  has_many_attached :images
+  has_rich_text :content
+
+  Restaurant.all.with_rich_text_content_and_embeds
+  
   def tag_list=(arr)
     self.tags = arr.strip.gsub(/\s+?[\s\/\,\，]\Z/, '').split(/[\s\/\,\，][\s]?/).map do |tag|
       Tag.where(name: tag.strip).first_or_create!
@@ -28,8 +31,5 @@ class Restaurant < ApplicationRecord
   def self.tagged_with(name)
     Tag.find_by!(name: name).restaurants
   end
-
-
-
 
 end
