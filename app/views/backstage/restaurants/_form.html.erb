@@ -6,17 +6,17 @@
     <%= f.text_field :title, class: "input-box" %>
   </div>
 
-   <div class=seat-form>
+  <div class='py-1 text-gray-400'>
     <%= f.label :address, "餐廳地址：" %>
     <%= f.text_field :address, class: "input-box" %>
   </div>
 
- <div class=seat-form>
+  <div class='py-1 text-gray-400'>
     <%= f.label :branch, "餐廳分店：" %>
     <%= f.text_field :branch, class: "input-box", placeholder: "例如：復興店"  %>
   </div>
 
-   <div class=seat-form>
+  <div class='py-1 text-gray-400'>
     <%= f.label :tel, "餐廳電話：" %>
     <%= f.phone_field :tel, class: "input-box"  %>
   </div>
@@ -41,7 +41,6 @@
     <%= f.label "標籤：" %>
     <%= f.text_field :tag_list, class: "input-box", placeholder: "義式, 美式, 中式" %>
   </div>
-
   <div class='flex text-center'>
     <%= f.submit "編輯餐廳",class: "major-btn css-btn" %>
   </div>
