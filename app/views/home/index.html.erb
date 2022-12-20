@@ -1,8 +1,19 @@
-<main class="max-w-screen-lg mx-auto mt-14 md:mt-20">    
+<main class="max-w-screen-lg mx-auto">    
   <section class="home-img">
-    <div>
-      <img src="https://picsum.photos/seed/picsum/1440/400" alt="">
-    </div>
+    <div class="swiper mySwiperTop" data-controller="swiper-carousel-top">
+      <div class="swiper-wrapper">
+        <% @restaurants.each do |restaurant| %>
+          <% restaurant.images.each do |image| %>
+            <div class="swiper-slide">
+              <%= image_tag (image.url),class:"object-cover"%>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="swiper-button-next swiper-button-next-top"></div>
+      <div class="swiper-button-prev swiper-button-prev-top"></div>
+      <div class="swiper-pagination swiper-pagination-top"></div>
+    </div> 
   
     <div class="my-6">
       <%= form_with(url: root_path, method: :get )do |form|%>
@@ -38,9 +49,10 @@
   <section>
     <div>
       <% @restaurants.each do |restaurant| %>
+        
         <div class="flex py-4 my-6 border-b-2">
-          <div class="mr-6 rounded">
-            <img src="https://picsum.photos/seed/picsum/200/200" class="rounded" alt="">
+          <div class="mr-6 rounded w-1/4 h-1/4">
+            <%= image_tag restaurant.images[0] =%>
           </div>
           <div class="txt">
             <h2><%= link_to restaurant.title, restaurant_path(restaurant), class: "mb-3 text-3xl" %></h2>

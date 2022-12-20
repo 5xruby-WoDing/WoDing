@@ -1,6 +1,8 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "swiper/swiper-bundle";
+@import "swiper_carousel_top";
 @import "swiper_carousel";
 
 @layer base{
@@ -94,7 +96,13 @@
             text-left
 
   }
+  .seat-form{
+    @apply  px-5
+            py-3
+            bg-gray-200
+  }
 }
+
 .date{
   padding: 2px;
 } 
