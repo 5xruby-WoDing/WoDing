@@ -1,49 +1,49 @@
 <div>
   <%= form_with(model: [:backstage, :manager, @restaurant],url: url) do |f| %>
   
-  <div class='py-1'>
+  <div class=seat-form>
     <%= f.label :title, "餐廳名稱：" %>
     <%= f.text_field :title, class: "input-box" %>
   </div>
 
-  <div class='py-1'>
+   <div class=seat-form>
     <%= f.label :address, "餐廳地址：" %>
     <%= f.text_field :address, class: "input-box" %>
   </div>
 
-  <div class='py-1'>
+ <div class=seat-form>
     <%= f.label :branch, "餐廳分店：" %>
     <%= f.text_field :branch, class: "input-box", placeholder: "例如：復興店"  %>
   </div>
 
-  <div class='py-1'>
+   <div class=seat-form>
     <%= f.label :tel, "餐廳電話：" %>
     <%= f.phone_field :tel, class: "input-box"  %>
   </div>
   
-  <div class='py-1'>
+  <div class=seat-form>
     <%= f.label :start_time, "營業時間：" %>
     <%= f.time_select :start_time, class: "input-box" %> 至
     <%= f.time_select :end_time, class: "input-box" %>
   </div>
   
-  <div class='py-1'>
+  <div class=seat-form>
     <%= f.label :end_time, "用餐時間：" %>
     <%= f.number_field :dining_time, class: "input-box" %>分鐘
   </div>
 
-  <div class='py-1'>
+  <div class=seat-form>
     <%= f.label :period_of_reservation, "訂位期限：" %>
     <%= f.number_field :period_of_reservation, class: "input-box" %>
   </div>
 
-  <div class='py-1'>
+  <div class=seat-form>
     <%= f.label "標籤：" %>
     <%= f.text_field :tag_list, class: "input-box", placeholder: "義式, 美式, 中式" %>
   </div>
 
-  <div class='text-center'>
-    <%= f.submit "編輯餐廳",class: "major-btn" %>
+  <div class='flex text-center'>
+    <%= f.submit "編輯餐廳",class: "major-btn css-btn" %>
   </div>
 
   <div>
