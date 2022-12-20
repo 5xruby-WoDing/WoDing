@@ -32,7 +32,7 @@
       
     </div>
   </div>
- 
+
   <div class='col-span-2 row-span-2 py-0 mb-auto bg-white border rounded'>
     <h2 class='py-2 my-2 text-2xl font-bold border-b'>今日訂位</h2>
     <div>
@@ -41,13 +41,21 @@
     <div>
       <% @restaurant.reservations.sort_by{|r| r.arrival_time.to_i}.each do |reservation| %>
         <% if reservation.arrival_date == Date.today %>
-          <div class='grid grid-cols-4 p-4 border-b'>
-            <div class='flex flex-col text-left'>
-              <p>
-                <%= reservation.name %>
-                <%= reservation.gender %>
-              </p>
-              <p class='text-sm text-gray-500'><%= reservation.phone %></p>
+          <div class='grid grid-cols-4 p-4 border-b' 
+                data-controller="note-reservation"
+                data-id="<%= reservation.id %>"
+                data-noted="<%= current_manager.noted_important_reservation?(reservation) %>">
+            <div class='flex text-left'>
+              <div class='flex'>
+                <span data-action="click->note-reservation#noted" class='m-auto text-center text-major'>
+                  <i class="fa-regular fa-star" data-note-reservation-target="icon"></i>
+                </span>
+                <div>
+                  <%= reservation.name %>
+                  <%= reservation.gender %>
+                  <p class='text-sm text-gray-500'><%= reservation.phone %></p>
+                </div>
+              </div>
             </div>
             <div class='flex'>
               <p class='my-auto mr-3 text-2xl text-major'>
@@ -75,8 +83,5 @@
       <% end %>
     </div>
   </div>
-
- 
-    
-  
 </section>
+

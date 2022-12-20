@@ -3,7 +3,7 @@
   
   <div class="seat-form">
     <%= f.label :title, "餐廳名稱：" %>
-    <%= f.text_field :title, class: "input-box" %>
+    <%= f.text_field :title, class: "input-box  " %>
   </div>
 
   <div class="seat-form">
@@ -41,13 +41,14 @@
     <%= f.label "標籤：" %>
     <%= f.text_field :tag_list, class: "input-box", placeholder: "義式, 美式, 中式" %>
   </div>
-  <div class='flex text-center'>
-    <%= f.submit "編輯餐廳",class: "major-btn css-btn" %>
+
+   <div class='py-2'>
+    <%= f.label :images, "新增照片：" %>
+    <%= f.file_field :images, multiple: true, accept: 'image/png, image/gif, image/jpeg', class: 'border rounded p-2' %>
   </div>
 
-  <div>
-    <%= f.label :images, "新增照片：" %>
-    <%= f.file_field :images, multiple: true, accept: 'image/png, image/gif, image/jpeg' %>
+  <div class='text-center'>
+    <%= f.submit "編輯餐廳",class: "major-btn" %>
   </div>
   <% end %>
 </div>
