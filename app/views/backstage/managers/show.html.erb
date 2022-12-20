@@ -12,7 +12,8 @@
       <td>地址</td>
       <td>營業時間</td>
     </tr>
-    <% @restaurants.each do |restaurant| %>
+
+  <% @restaurants.each do |restaurant| %>
       <tr>
         <td><%= link_to restaurant.title, backstage_restaurant_path(restaurant) %></td>
         <td><%= restaurant.tel %></td>
@@ -27,29 +28,26 @@
       </tr>
     <% end %> 
   </table>
+</div>
 
-  <h2>所有訂單</h2>
-  <div>
-    <table>
-      <tr>
-        <td>id</td>
-        <td>註記</td>
-      </tr>
-      <% @reservations.each do |reservation| %>
-      <tr data-controller="note-reservation"
-          data-id="<%= reservation.id %>"
-          data-noted="<%= current_manager.noted_important_reservation?(reservation) %>">
-        <td><%= reservation.id %></td>
-        <td>
-          <button data-action="click->note-reservation#noted">
-            <span data-note-reservation-target="text">good</span>
-            <i class="ml-4 fa-regular fa-star" data-note-reservation-target="icon"></i>
-          </button>
-        </td>
-      </tr>
-          
-      <% end %>
-    </table>
-  </div>
 
+<h2>所有訂單</h2>
+<div>
+  <table>
+    <tr>
+      <td>id</td>
+      <td>註記</td>
+    </tr>
+    <% @reservations.each do |reservation| %>
+    <tr data-controller="note-reservation"
+        data-id="<%= reservation.id %>"
+        data-noted="<%= current_manager.noted_important_reservation?(reservation) %>">
+      <td><%= reservation.id %></td>
+      <td>
+        <button data-action="click->note-reservation#noted">
+          <span data-note-reservation-target="text">good</span>
+          <i class="ml-4 fa-regular fa-star" data-note-reservation-target="icon"></i>
+        </button>
+      </td>
+    </tr>
 </div>

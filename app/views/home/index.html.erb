@@ -5,7 +5,7 @@
         <% @restaurants.each do |restaurant| %>
           <% restaurant.images.each do |image| %>
             <div class="swiper-slide">
-              <%= image_tag (image.url),class:"object-cover"%>
+              <%= image_tag (image.url),class:"object-cover" %>
             </div>
           <% end %>
         <% end %>
@@ -51,7 +51,7 @@
       <% @restaurants.each do |restaurant| %>
         
         <div class="flex py-4 my-6 border-b-2">
-          <div class="mr-6 rounded w-1/4 h-1/4">
+          <div class="w-1/4 mr-6 rounded h-1/4">
             <%= image_tag restaurant.images[0] %>
           </div>
           <div class="txt">

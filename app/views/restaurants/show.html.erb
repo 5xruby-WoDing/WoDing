@@ -4,7 +4,7 @@
       <div class="swiper-wrapper">
         <% @restaurant.images.each do |image| %>
           <div class="swiper-slide">
-            <%= image_tag (image.url),class:"object-cover"%>
+            <%= image_tag (image.url),class:"object-cover" %>
           </div>
         <% end %>
       </div>
