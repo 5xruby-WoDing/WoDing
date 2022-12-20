@@ -29,8 +29,10 @@
         <% restaurant.images.each do |image| %>
           <div class="w-60 h-44"><%= image_tag (image.url) %></div>
         <% end %>
+      </div>
+    <% end %>
   </table>
-  h2>所有訂單</h2>
+  <h2>所有訂單</h2>
 <div>
   <table>
     <tr>
@@ -49,7 +51,6 @@
         </button>
       </td>
     </tr>
-        
     <% end %>
   </table>
 </div>
