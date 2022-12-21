@@ -6,5 +6,5 @@ AllCops:
     - 'db/schema.rb'  
     - 'bin/*'
     - 'db/migrate/*'
-    - 'config/*'
-    # - 'app/models/restaurant.rb'
+    - 'config/environments/*'
+    - 'config/routes.rb'
