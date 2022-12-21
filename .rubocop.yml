@@ -7,3 +7,4 @@ AllCops:
     - 'bin/*'
     - 'db/migrate/*'
     - 'config/*'
+    # - 'app/models/restaurant.rb'
