@@ -1,14 +1,54 @@
-<div class="mt-20"> 
-  <h2>訂單回傳資料</h2>
-  <div>
-    <div>MerchantID : <%= @MerchantID %></div>
-    <div>ItemDesc : <%= @ItemDesc %></div>
-    <div>Amt : <%= @Amt %></div>
-    <div>PayTime : <%= @PayTime %></div>
-    <div>TradeNo : <%= @TradeNo %></div>
-    <div>MerchantOrderNo : <%= @MerchantOrderNo %></div>   
+<section class="mt-24">
+  <div class="w-2/3 mx-auto py-10 bg-green-300">
+    <h3 class="text-center text-green-800 text-2xl">交易結果訊息 ： 付款成功 (Success)</h3>
   </div>
-  <div>
-  <%= link_to "回到首頁", root_path, class: "major-btn" %>
+
+  <h2 class="w-2/3 mx-auto pt-10 pb-4 text-xl text-red-800 border-b-4">付款資訊</h2>
+  <div class="w-2/3 mx-auto grid grid-rows-2 grid-cols-3 gap-4 border p-4">  
+
+    <div class="font-bold">交易編號</div>
+    <div class="col-span-2"><%= @trade_no %></div>
+    
+    <div class="font-bold">訂單金額</div>
+    <div class="col-span-2"><%= @amt %></div>
+    
+    <div class="font-bold">實際付款金額</div>
+    <div class="col-span-2"><%= @amt %></div>
+    
+    <div class="font-bold">付款方式</div>
+    <div class="col-span-2"><%= @payment_type %></div>
+    
+    <div class="font-bold">信用卡卡號</div>
+    <div class="col-span-2"><%= @card6_no %>******<%= @card4_no %></div>
+
+    <div class="font-bold">交易時間</div>
+    <div class="col-span-2"><%= @pay_time %></div>
+
   </div>
-</div>
+
+
+  <h2 class="w-2/3 mx-auto pt-10 pb-4 text-xl text-red-800 border-b-4">商店資訊</h2>
+  <div class="w-2/3 mx-auto grid grid-rows-2 grid-cols-3 gap-4 border p-4">  
+
+    <div class="font-bold">商店名稱</div>
+    <div class="col-span-2"><%= @merchant_id %></div>
+    
+    <div class="font-bold">商品名稱</div>
+    <div class="col-span-2"><%= @item_desc %></div>
+    
+    <div class="font-bold">商店訂單編號</div>
+    <div class="col-span-2"><%= @merchant_order_no %></div>
+    
+    <div class="font-bold">藍新金流交易序號</div>
+    <div class="col-span-2"><%= @trans_no %></div>
+
+  </div>  
+
+  <div class="mt-10">
+    <%= link_to "回到首頁", root_path, class: "major-btn" %>
+  </div>
+</section>
+
+
+
+

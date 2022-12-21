@@ -12,7 +12,7 @@ module Newebpay
       @trans_no = @result["TradeNo"]
     end
     def success?
-      status === 'SUCCESS'
+      status == 'SUCCESS'
     end
 
     private
