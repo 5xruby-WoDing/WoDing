@@ -30,7 +30,12 @@
     
     <div class='py-1'>
       <%= f.label :end_time, '用餐時間：' %>
-      <%= f.number_field :dining_time, class: 'input-box' %>分鐘
+      <%= f.number_field :dining_time, class: 'input-box', step: 15 %>分鐘
+    </div>
+    
+    <div class='py-1'>
+      <%= f.label :intreval_time, '訂位時段間隔：' %>
+      <%= f.number_field :intreval_time, step: 15, class: 'input-box' %>分鐘
     </div>
 
     <div class='py-1'>
