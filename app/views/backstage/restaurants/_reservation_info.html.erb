@@ -8,7 +8,13 @@
       <div class='grid grid-cols-2'>
         <div class='pb-4'>
           <p class='text-4xl font-bold'>
-            <%= @restaurant.reservations.size %>
+            <% reservations = [] %>
+            <% @restaurant.reservations.each do |reservation| %>
+              <% if reservation.arrival_date == Date.today %>
+                <% reservations << reservation %>
+              <% end %>
+            <% end %>
+            <%= reservations.size %>
           </p>
           <h3 class='text-lg'>
             客人組數
@@ -16,7 +22,13 @@
         </div>
         <div>
           <p class='text-4xl font-bold'>
-            <%= @restaurant.reservations.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
+            <% people = [] %>
+            <% @restaurant.reservations.each do |reservation| %>
+              <% if reservation.arrival_date == Date.today %>
+                <% people << reservation %>
+              <% end %>
+            <% end %>
+            <%= people.each.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
           </p>
           <h3 class='text-lg'>
             總人數
