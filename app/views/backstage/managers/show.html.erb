@@ -33,13 +33,21 @@
             <div class='grid grid-cols-2 gap-4 p-4 mb-4 text-center border rounded md:mb-0'>
               <span>
                 <p class='text-3xl text-major'>
-                  <%= restaurant.reservations.size %>
+                
+                <% reservations = [] %>
+                <% restaurant.reservations.each do |reservation| %>
+                  <% if reservation.arrival_date == Date.today %>
+                    <% reservations << reservation %>
+                  <% end %>  
+                <% end %>
+                 
+                <%= reservations.size %>
                 </p>
                 <p>今日組數</p>
               </span>
               <span>
                 <p class='text-3xl text-major'>
-                  4
+                  0
                 </p>
                 <p>以報到</p>
               </span>
@@ -53,7 +61,7 @@
                 <% if Time.current.strftime('%H:%M') >= restaurant.start_time.strftime('%H:%M') && Time.current.strftime('%H:%M') <= restaurant.end_time.strftime('%H:%M') %>
                   <span class='text-3xl text-green-500'>營業中</span>
                 <% else %>
-                  <span class='text-3xl text-red-500'>打烊</span>
+                  <span class='text-3xl text-red-500'>已打烊</span>
                 <% end %>
                 <p>營業狀況</p> 
               </div>
