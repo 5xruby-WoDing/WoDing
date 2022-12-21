@@ -1,14 +1,15 @@
 <div class="mt-20"> 
   <h2>訂單回傳資料</h2>
   <div>
-    <div>MerchantID : <%= @MerchantID %></div>
-    <div>ItemDesc : <%= @ItemDesc %></div>
-    <div>Amt : <%= @Amt %></div>
-    <div>PayTime : <%= @PayTime %></div>
-    <div>TradeNo : <%= @TradeNo %></div>
-    <div>MerchantOrderNo : <%= @MerchantOrderNo %></div>   
+    <div>店家的id : <%= @merchant_id %></div>
+    <div>商品描述 : <%= @item_desc %></div>
+    <div>座位價錢 : <%= @amt %></div>
+    <div>付款時間 : <%= @pay_time %></div>
+    <div>交易號碼 : <%= @trade_no %></div>
+    <div>商店訂單編號 : <%= @merchant_order_no %></div>   
   </div>
   <div>
   <%= link_to "回到首頁", root_path, class: "major-btn" %>
   </div>
 </div>
+

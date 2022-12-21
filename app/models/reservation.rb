@@ -1,5 +1,6 @@
-class Reservation < ApplicationRecord
+# frozen_string_literal: true
 
+class Reservation < ApplicationRecord
   belongs_to :user
   belongs_to :restaurant
   belongs_to :seat
@@ -16,8 +17,7 @@ class Reservation < ApplicationRecord
 
   before_validation :generate_serial
 
-
-  aasm column: "state", no_direct_assignment: true do
+  aasm column: 'state', no_direct_assignment: true do
     state :pending, initial: true
     state :reserved, :cancelled
 
@@ -26,14 +26,13 @@ class Reservation < ApplicationRecord
     end
 
     event :cancel do
-      transitions from: [:reserved, :pending], to: :cancelled
+      transitions from: %i[reserved pending], to: :cancelled
     end
-
   end
 
   private
-  def generate_serial
-    self.serial = SecureRandom.alphanumeric(12) 
-  end 
 
+  def generate_serial
+    self.serial = SecureRandom.alphanumeric(12)
+  end
 end
