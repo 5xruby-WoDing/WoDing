@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Restaurant < ApplicationRecord
   acts_as_paranoid
 
@@ -17,9 +18,9 @@ class Restaurant < ApplicationRecord
   has_rich_text :content
 
   Restaurant.all.with_rich_text_content_and_embeds
-  
+
   def tag_list=(arr)
-    self.tags = arr.strip.gsub(/\s+?[\s\/\,\，]\Z/, '').split(/[\s\/\,\，][\s]?/).map do |tag|
+    self.tags = arr.strip.gsub(/\s+?[\s\/,\，]\Z/, '').split(/[\s\/,\，][\]?).map do |tag|
       Tag.where(name: tag.strip).first_or_create!
     end
   end
@@ -29,7 +30,6 @@ class Restaurant < ApplicationRecord
   end
 
   def self.tagged_with(name)
-    Tag.find_by!(name: name).restaurants
+    Tag.find_by!(name:).restaurants
   end
-
 end

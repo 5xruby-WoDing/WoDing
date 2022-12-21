@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateOpeningTimes < ActiveRecord::Migration[6.1]
   def change
     create_table :opening_times do |t|
