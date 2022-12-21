@@ -2,17 +2,13 @@
 
 module RestaurantsHelper
   class TimeRange
-    attr_reader :time_points
-    def initialize(time_points, opening_time, intreval_time)
-      @time_points = time_points
+    def initialize(opening_time, intreval_time)
       @opening_time = opening_time
       @intreval_time = intreval_time.minutes.to_i
     end
 
     def time_collection
-      @opening_time.each do |time|
-        @time_points << (time.opening_time.to_i..time.closed_time.to_i)
-      end
+      @time_points = @opening_time.reduce([]){|arr, time| arr << (time.opening_time.to_i..time.closed_time.to_i)}
     end
 
     def intreval_time
