@@ -8,13 +8,7 @@
       <div class='grid grid-cols-2'>
         <div class='pb-4'>
           <p class='text-4xl font-bold'>
-            <% reservations = [] %>
-            <% @restaurant.reservations.each do |reservation| %>
-              <% if reservation.arrival_date == Date.today %>
-                <% reservations << reservation %>
-              <% end %>
-            <% end %>
-            <%= reservations.size %>
+            <%= @restaurant.reservations.select{|reservation| reservation.arrival_date == Date.today}.size %>
           </p>
           <h3 class='text-lg'>
             客人組數
@@ -22,12 +16,7 @@
         </div>
         <div>
           <p class='text-4xl font-bold'>
-            <% people = [] %>
-            <% @restaurant.reservations.each do |reservation| %>
-              <% if reservation.arrival_date == Date.today %>
-                <% people << reservation %>
-              <% end %>
-            <% end %>
+            <% people = @restaurant.reservations.select{|reservation| reservation.arrival_date == Date.today} %> 
             <%= people.each.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
           </p>
           <h3 class='text-lg'>

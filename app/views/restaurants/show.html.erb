@@ -84,7 +84,7 @@
           </div>
           
           <div>            
-            <% time_range = RestaurantsHelper::TimeRange.new([], @opening_time, @restaurant.intreval_time) %>
+            <% time_range = RestaurantsHelper::TimeRange.new(@opening_time, @restaurant.intreval_time) %>
             <% time_range.time_collection %>
             <% time_range.intreval_time %>
             <h4 class='reservation-font'>用餐時間</h4>
@@ -165,8 +165,12 @@
         <div class='pb-2 mb-2 border-b-2'>
           <p class='mb-2'>營業時間</p>
           <p class='text-gray-600'>
-            <%= @restaurant.start_time.strftime('%R')%> - 
-            <%= @restaurant.end_time.strftime('%R')%>
+            <% @restaurant.opening_times.each do |opening_time|%>
+              <div>
+                <%= opening_time.opening_time.strftime('%R') %> - 
+                <%= opening_time.closed_time.strftime('%R') %>
+              </div>
+            <% end %>
           </p>
         </div>
         <div class='pb-2 mb-2 border-b-2'>
