@@ -12,6 +12,7 @@ class Restaurant < ApplicationRecord
   belongs_to :manager
   has_many :seats
   has_many :reservations
+  has_many :opening_times
   has_many :restaurant_tags
   has_many :tags, through: :restaurant_tags
 

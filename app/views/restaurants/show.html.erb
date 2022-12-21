@@ -83,16 +83,17 @@
             </div>
           </div>
           
-          <div>
-            <% time_range = RestaurantsHelper::TimeRange.new([], @restaurant.intreval_time) %>
-            <% time_range.intreval_time(@restaurant.start_time - 30.minutes, @restaurant.end_time) %>
+          <div>            
+            <% time_range = RestaurantsHelper::TimeRange.new([], @opening_time, @restaurant.intreval_time) %>
+            <% time_range.time_collection %>
+            <% time_range.intreval_time %>
             <h4 class='reservation-font'>用餐時間</h4>
 
             <div class='hidden text-center border rounded' data-restaurant-reservation-target='notice'>
               <div class='text-red-500 '>座位已滿</div>
             </div>
             <div class='grid grid-cols-7 gap-3'  data-restaurant-reservation-target='timeBtn'>
-              <% time_range.time_points.each do |time_point| %>
+              <% time_range.intreval_time.each do |time_point| %>
                 <button class='py-1 disabled-btn'
                         data-action='click->restaurant-reservation#getTime'
                         data-restaurant-reservation-target='time'

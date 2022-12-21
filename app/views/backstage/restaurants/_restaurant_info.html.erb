@@ -26,9 +26,33 @@
     </div>  
   </div>
 
-  <div class='px-8 py-6 mx-auto mb-auto text-left bg-white rounded-md '>
-    <p class='pb-3 text-center border-b border-gray-200'>編輯餐廳</p>
-    <%= render "error", restaurant: @restaurant %>
-    <%= render 'form', restaurant: @restaurant, url: backstage_restaurant_path(@restaurant) %>  
+  <div>
+    <%= form_with(model: @opening_time, url: backstage_restaurant_opening_times_path(@restaurant.id) ) do |f| %>
+      <div>
+        <%= f.label :title, '名稱：'%>
+        <%= f.text_field :title, class: 'input-border-click' %>
+      </div>
+      <div>
+        <%= f.label :opening_time, '時段：'%>
+        <%= f.time_select :opening_time, class: 'input-border-click' %>至
+        <%= f.time_select :closed_time, class: 'input-border-click' %>
+        <%= f.submit '儲存', class: 'major-btn' %>
+      </div>
+    <% end %>
+    <% @opening_times.each do |time| %>
+      <div>
+        <%= time.title %>
+        <%= time.opening_time.strftime('%R') %>
+        <%= time.closed_time.strftime('%R') %>
+        <%= link_to 'edit', edit_backstage_opening_time_path(time) %>
+        <%= link_to 'x', backstage_opening_time_path(time), method: 'delete' %>
+      </div>
+    <% end %>
+    
   </div>
+  <%# <div class='px-8 py-6 mx-auto mb-auto text-left bg-white rounded-md '> %>
+    <%# <p class='pb-3 text-center border-b border-gray-200'>編輯餐廳</p> %>
+    <%# <%= render "error", restaurant: @restaurant %> %>
+    <%# <%= render 'form', restaurant: @restaurant, url: backstage_restaurant_path(@restaurant) %>   %>
+  <%# </div> %>
 </section>

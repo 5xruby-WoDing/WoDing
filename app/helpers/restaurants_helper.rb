@@ -3,34 +3,25 @@
 module RestaurantsHelper
   class TimeRange
     attr_reader :time_points
-
-    def initialize(time_points, intreval_time)
+    def initialize(time_points, opening_time, intreval_time)
       @time_points = time_points
-      @intreval_time = intreval_time.minutes
+      @opening_time = opening_time
+      @intreval_time = intreval_time.minutes.to_i
     end
 
-    def intreval_time(opening_time, closed_time)
-      return if opening_time >= closed_time
-
-      @time_points << (opening_time + @intreval_time).strftime('%R')
-      intreval_time(opening_time + @intreval_time, closed_time)
+    def time_collection
+      @opening_time.each do |time|
+        @time_points << (time.opening_time.to_i..time.closed_time.to_i)
+      end
     end
+
+    def intreval_time
+      @time_points.reduce([]) do |arr, time|
+        time.step(@intreval_time){|time| arr << Time.at(time).strftime('%R')}
+        arr
+      end
+    end 
   end
-  # class TimeRange
-  #   attr_reader :time_points
-  #   def initialize(time_points)
-  #     @time_points = time_points
-  #   end
-
-  #   def intreval_time(opening_time, closed_time)
-  #     return if opening_time >= closed_time
-
-  #     unless (opening_time + 30.minutes).between?('2000-01-01 14:00'.to_time, '2000-01-01 17:00'.to_time)
-  #       @time_points << (opening_time + 30.minutes).strftime('%R')
-  #     end
-  #     intreval_time(opening_time + 30.minutes, closed_time)
-  #   end
-  # end
 
   class DateRange
     attr_reader :date_list

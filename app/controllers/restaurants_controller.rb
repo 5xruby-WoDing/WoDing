@@ -8,6 +8,7 @@ class RestaurantsController < ApplicationController
   def show
     @seats = @restaurant.seats
     @content = @restaurant.content
+    @opening_time = @restaurant.opening_times
   end
 
   def reserve
