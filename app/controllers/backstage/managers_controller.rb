@@ -1,10 +1,14 @@
-class Backstage::ManagersController < ApplicationController
-  before_action :authenticate_manager!
+# frozen_string_literal: true
 
-  layout 'backstage'
+module Backstage
+  class ManagersController < ApplicationController
+    before_action :authenticate_manager!
 
-  def show
-    @restaurants = current_manager.restaurants
-    @reservations = Reservation.all
+    layout 'backstage'
+
+    def show
+      @restaurants = current_manager.restaurants
+      @reservations = Reservation.all
+    end
   end
 end

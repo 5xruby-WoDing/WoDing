@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemoveOpeningTime < ActiveRecord::Migration[6.1]
   def change
     drop_table :opening_times
