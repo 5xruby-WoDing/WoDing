@@ -27,9 +27,11 @@ module Backstage
       end
     end
 
-    def show
-      @seats = @restaurant.seats
-    end
+  def show
+    @seats = @restaurant.seats
+    @opening_time = OpeningTime.new
+    @opening_times = @restaurant.opening_times
+  end
 
     def destroy
       @restaurant.destroy
@@ -43,8 +45,11 @@ module Backstage
                                          :tag_list, :dining_time, :content, images: [])
     end
 
-    def find_restaurant
-      @restaurant = current_manager.restaurants.find(params[:id])
-    end
+  def find_restaurant
+    @restaurant = current_manager.restaurants.find(params[:id])
   end
+
+  def find_opening_time
+  end
+
 end
