@@ -15,12 +15,22 @@
       <div class="swiper-pagination swiper-pagination-top"></div>
     </div> 
   
-    <div class="my-6">
+    <div class="my-6" data-controller="home-tag">
       <%= form_with(url: root_path, method: :get )do |form| %>
         <%= form.label :搜尋餐廳, class: "text-lg font-bold" %>
         <%= form.text_field :search, placeholder: "輸入搜尋餐廳", class: "input-border-click" %>
         <%= form.submit "搜尋", name: nil, class: "major-btn" %>
-         <%= link_to "所有餐廳", root_path, class: "major-btn py-1.5" %>
+        <%= link_to "所有餐廳", root_path, class: "major-btn py-1.5" %>
+        <button class="major-btn" data-action="click->home-tag#setTagSection">標籤搜尋</button>
+
+        <div class="border-t-4 border-b-4 py-4 my-4 hidden" data-home-tag-target="tagSection">
+          <% @tags.each do |tag| %>
+            <span>
+              <%= link_to tag.name, root_path(query: tag.name), class: "p-2 m-2 border hover:bg-major hover:text-white cursor-pointer inline-block" %>
+            </span>
+          <% end %>
+        </div>
+
       <% end %>
     </div>
 
@@ -65,7 +75,9 @@
             <div class="mt-4">
               商店標籤：
               <% restaurant.tags.each do |tag| %>
-               <span class="p-2 border"><%= link_to tag.name, root_path(query: tag.name) %></span>
+               <span>
+                 <%= link_to tag.name, root_path(query: tag.name), class: "p-2 m-1 border hover:bg-major hover:text-white cursor-pointer inline-block" %>
+               </span>
               <% end %>
             </div>
           </div>

@@ -50,7 +50,7 @@
           <%= form.label :name, '訂位人姓名', class: 'mb-3' %>
             <div class='grid grid-cols-2 gap-3'>
               <%= form.text_field :name, class: 'input-border-click', data: {reservation_form_target: "nameInput",
-                                                                             action: "input->reservation-form#inputName"} %>
+                                                                             action: "input->reservation-form#input"} %>
               <%= form.select :gender, User.genders.keys, {}, {class: 'input-border-click w-full'} %>
             </div>
         </div>
@@ -58,13 +58,13 @@
         <div class='mb-3 reservation-input'>
           <%= form.label :email, 'Email', class: 'mb-3' %>
           <%= form.email_field :email, class: 'input-border-click', data: {reservation_form_target: "emailInput",
-                                                                           action: "input->reservation-form#inputEmail"} %>
+                                                                           action: "input->reservation-form#input"} %>
         </div>
 
         <div class='mb-3 reservation-input'>
           <%= form.label :phone, '手機號碼', class: 'mb-3' %>
           <%= form.telephone_field :phone, class: 'input-border-click', data: {reservation_form_target: "phoneInput",
-                                                                               action: "input->reservation-form#inputPhone"} %>
+                                                                               action: "input->reservation-form#input"} %>
         </div>
       
         <input type="hidden" name="seat_id" value="<%= @seat.id %>">

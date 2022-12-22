@@ -8,13 +8,7 @@ export default class extends Controller {
     this.state = false
   }
 
-  inputName() {
-    this.determineSubmit()
-  }
-  inputEmail() {
-    this.determineSubmit()
-  }
-  inputPhone() {
+  input() {
     this.determineSubmit()
   }
 
