@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Backstage
-  class ReservationsController < ApplicationController
-    before_action :authenticate_manager!
-    before_action :find_reservation_id, only: %i[finish note]
+  class ReservationsController < Backstage::ManagersController
+    before_action :find_reservation, only: %i[finish note]
 
     def finish
       @reservation = Reservation.find_by!(id: params[:id])
@@ -24,8 +23,8 @@ module Backstage
 
     private
 
-    def find_reservation_id
-      @reservation = Reservation.find_by!(id: params[:id])
+    def find_reservation
+      @reservation = Reservation.find(params[:id])
     end
   end
 end
