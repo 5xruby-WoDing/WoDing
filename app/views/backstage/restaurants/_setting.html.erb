@@ -1,1 +1,49 @@
-<h1>setting</h1>
+<section class='grid h-full grid-cols-3 grid-rows-2 gap-4 p-6 cursor-default text-gary-800 bg-hoverGray' >
+  <div class='bg-white border rounded' data-controller='opening-time'>
+    <h2 class='py-2 text-2xl font-bold border-b'>營業時段</h2>
+    <div class='grid grid-cols-2 p-6 text-left'>
+      <div>
+        <h3 class='inline py-2 text-xl font-bold'>新增營業時段</h3>
+        <span class='major-btn'>
+          <i class="fa-solid fa-lock"
+              data-action="click->opening-time#setLocked"
+              data-opening-time-target='locked'></i>
+        </span>
+        
+        <%= form_with(model: @opening_time, 
+                      url: backstage_restaurant_opening_times_path(@restaurant.id)) do |f| %>
+          <div>
+            <%= f.label :title, '時段名稱：'%>
+            <%= f.text_field :title, class: 'input-border-click' %>
+          </div>
+          <div>
+            <%= f.label :opening_time, '時段：'%>
+            <div class='text-center'>
+              <div>
+                <%= f.time_select :opening_time%>
+              </div>
+              <div>至</div>
+              <div class='mb-4'>
+                <%= f.time_select :closed_time %>
+              </div>
+              <%= f.submit '儲存', class: 'major-btn'  %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div>
+        <% @opening_times.each do |time| %>
+          <div class='flex items-center p-2 m-auto mb-2 text-sm border rounded'>
+            <%= time.title %>
+            <%= time.opening_time.strftime('%R') %> -
+            <%= time.closed_time.strftime('%R') %>
+            <%= link_to '編輯', edit_backstage_opening_time_path(time), class: 'major-btn mx-1' %>
+            <%= link_to 'x', backstage_opening_time_path(time), method: 'delete', class: 'major-btn' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+  
+</section>
