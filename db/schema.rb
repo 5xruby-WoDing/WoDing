@@ -113,37 +113,8 @@ ActiveRecord::Schema.define(version: 2022_12_21_134840) do
     t.index ["restaurant_id"], name: "index_reservations_on_restaurant_id"
     t.index ["seat_id"], name: "index_reservations_on_seat_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
-  create_table "reservations", force: :cascade do |t|
-    t.string "serial"
-    t.string "name"
-    t.string "phone"
-    t.string "email"
-    t.integer "gender", default: 0
-    t.time "arrival_time"
-    t.string "state", default: "pending"
-    t.datetime "deleted_at"
-    t.integer "adult_quantity", default: 1
-    t.integer "child_quantity", default: 0
-    t.bigint "user_id", null: false
-    t.bigint "restaurant_id", null: false
-    t.bigint "seat_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.date "arrival_date"
-    t.time "end_time"
-    t.index ["deleted_at"], name: "index_reservations_on_deleted_at"
-    t.index ["restaurant_id"], name: "index_reservations_on_restaurant_id"
-    t.index ["seat_id"], name: "index_reservations_on_seat_id"
-    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
-  create_table "restaurant_tags", force: :cascade do |t|
-    t.bigint "tag_id", null: false
-    t.bigint "restaurant_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["restaurant_id"], name: "index_restaurant_tags_on_restaurant_id"
-    t.index ["tag_id"], name: "index_restaurant_tags_on_tag_id"
   create_table "restaurant_tags", force: :cascade do |t|
     t.bigint "tag_id", null: false
     t.bigint "restaurant_id", null: false
@@ -178,34 +149,14 @@ ActiveRecord::Schema.define(version: 2022_12_21_134840) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["restaurant_id"], name: "index_seats_on_restaurant_id"
-  create_table "seats", force: :cascade do |t|
-    t.integer "kind"
-    t.integer "capacity"
-    t.integer "deposit", default: 0
-    t.string "state", default: "vacancy"
-    t.bigint "restaurant_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["restaurant_id"], name: "index_seats_on_restaurant_id"
   end
 
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  create_table "tags", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "phone"
-    t.integer "gender", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"

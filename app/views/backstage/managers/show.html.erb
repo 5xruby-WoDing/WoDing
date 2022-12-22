@@ -47,15 +47,15 @@
                 <p class='text-3xl text-major'>
                   <%= restaurant.seats.size %>
                 </p>
-                <p>容納上限</p>
+                <p>同時容納上限</p>
               </span>
               <div>
                 <% opening_time = restaurant.opening_times.reduce([]){|arr, opening_time| arr << (opening_time.opening_time.strftime('%R')..opening_time.closed_time.strftime('%R'))} %>  
-
-                <% if opening_time.each{|t| t.include?(Time.current.strftime('%R'))} %>
-                  <span class='text-3xl text-red-500'>已打烊</span>
-                <% else %>
+                <% opening_time = opening_time.select{|time_range| time_range.include?(Time.current.strftime('%R'))} %>
+                <% if opening_time.size > 0 %>
                   <span class='text-3xl text-green-500'>營業中</span>
+                <% else %>
+                  <span class='text-3xl text-red-500'>已打烊</span>
                 <% end %>
                 <p>營業狀況</p> 
               </div>
