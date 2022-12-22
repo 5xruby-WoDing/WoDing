@@ -26,9 +26,9 @@
 <div class="ml-12 mt-8">
   <h3>付款金額：<%= @reservation.seat.deposit %></h3>
   <%= form_with url: "https://ccore.spgateway.com/MPG/mpg_gateway" do |form| %>
-    <input type="hidden" id="MerchantID" name="MerchantID" value="<%= @form_MerchantID %>">
-    <input type="hidden" id="TradeInfo" name="TradeInfo" value="<%= @form_TradeInfo %>">
-    <input type="hidden" id="TradeSha" name="TradeSha" value="<%= @form_TradeSha %>">
+    <input type="hidden" id="MerchantID" name="MerchantID" value="<%= @form_merchant_id %>">
+    <input type="hidden" id="TradeInfo" name="TradeInfo" value="<%= @form_trade_info %>">
+    <input type="hidden" id="TradeSha" name="TradeSha" value="<%= @form_trade_sha %>">
     <input type="hidden" id="RespondType" name="RespondType" value="JSON">
     <input type="hidden" id="TimeStamp" name="TimeStamp" value="<%= @reservation.created_at %>">
     <input type="hidden" id="Version" name="Version" value="2.0">
