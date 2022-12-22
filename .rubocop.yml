@@ -8,6 +8,13 @@ AllCops:
     - 'db/migrate/*'
     - 'config/environments/*'
     - 'config/routes.rb'
+    - 'app/service/newebpay/mpg.rb'
 
 Metrics/MethodLength:
   Max: 20
+
+Naming/MethodParameterName:
+  MinNameLength: 2
+
+Metrics/AbcSize:
+  Max: 30
