@@ -6,14 +6,11 @@
   <ul class="flex">
     <div class="flex">
       <div class="flex hidden mr-3 rounded md:block">
-        <input type="search" 
-               name="search" 
-               id="search" 
-               placeholder="搜尋餐廳" 
-               class="max-w-sm px-4 py-1 bg-gray-100 input-border-click"
-        >
-        <button class="px-2 py-1 ml-2 text-base major-btn bg-major">搜尋</button>
+      <%= form_with(url: root_path, method: :get )do |form| %>
+        <%= form.text_field :search, placeholder: "輸入搜尋餐廳", class: "input-border-click" %>
+        <%= form.submit "搜尋", name: nil, class: "major-btn" %>
       </div>
+      <% end %>
       <div class="flex items-center">
         <% if current_manager %>
           <li><%= link_to current_manager.name, backstage_root_path, class:"mr-2 text-base hover:text-major" %></li>
