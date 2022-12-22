@@ -28,6 +28,7 @@ Rails.application.routes.draw do
       get :checkout
       post :information
       post :reservation_status
+      get :cancel
     end
   end
 
