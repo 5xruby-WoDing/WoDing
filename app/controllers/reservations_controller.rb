@@ -14,12 +14,20 @@ class ReservationsController < ApplicationController
 
   def information
     response = Newebpay::MpgResponse.new(params[:TradeInfo])
-    @merchant_id = response.result['MerchantID']
-    @item_desc = response.result['ItemDesc']
-    @amt = response.result['Amt']
-    @pay_time = response.result['PayTime']
-    @trade_no = response.result['TradeNo']
-    @merchant_order_no = response.result['MerchantOrderNo']
+
+    @merchant_id = response.result["MerchantID"] 
+    @item_desc = response.result["ItemDesc"]
+    @amt = response.result["Amt"]
+    @pay_time = response.result["PayTime"]
+    @trade_no = response.result["TradeNo"]
+    @merchant_order_no = response.result["MerchantOrderNo"]
+    @card6_no = response.result["Card6No"]
+    @card4_no = response.result["Card4No"]
+    @trade_no = response.result["TradeNo"]
+    @payment_type = response.result["PaymentType"]
+    @trans_no = response.trans_no
+
+
   end
 
   private
