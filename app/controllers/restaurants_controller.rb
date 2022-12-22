@@ -17,7 +17,7 @@ class RestaurantsController < ApplicationController
 
   def determine_occupied
     people = params[:people]
-    reservated_date = params[:date].gsub(/\D/, '/' ).strip.to_date
+    reservated_date = params[:date].gsub(/\D/, '/').strip.to_date
     reservated_time = params[:time]
 
     sum_of_seat = @restaurant.seats.size
