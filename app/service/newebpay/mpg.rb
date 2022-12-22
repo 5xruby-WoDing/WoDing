@@ -66,8 +66,8 @@ module Newebpay
       info[:RespondType] = 'JSON'
       info[:Version] = '2.0'
       info[:LoginType] = 0
-      info[:CREDIT] =  1,
-                       info[:VACC] = 1
+      info[:CREDIT] =  1
+      info[:VACC] = 1
       info[:ReturnURL] = "https://bd0e-2401-e180-88b1-450-d09a-3264-8cf-1f66.jp.ngrok.io/reservations/#{reservation.serial}/information"
       # info[:NotifyURL] = "http://localhost:3000/"
     end
