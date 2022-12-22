@@ -2,7 +2,7 @@
 
 class RestaurantsController < ApplicationController
   before_action :find_restaurant, only: %i[show reserve determine_occupied]
-  before_action :find_seat_id, only: [:reserve]
+  before_action :find_seat, only: [:reserve]
   before_action :find_reservation_info, only: [:reserve]
 
   def show
@@ -48,8 +48,8 @@ class RestaurantsController < ApplicationController
     @restaurant = Restaurant.find(params[:id])
   end
 
-  def find_seat_id
-    @seat = Seat.find_by!(id: params[:seat_id])
+  def find_seat
+    @seat = Seat.find(params[:seat_id])
   end
 
   def find_reservation_info
