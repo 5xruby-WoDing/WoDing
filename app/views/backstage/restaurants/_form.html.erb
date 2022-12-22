@@ -23,13 +23,7 @@
     </div>
     
     <div class='py-1'>
-      <%= f.label :start_time, '營業時間：' %>
-      <%= f.time_select :start_time, class: 'input-box' %> 至
-      <%= f.time_select :end_time, class: 'input-box' %>
-    </div>
-    
-    <div class='py-1'>
-      <%= f.label :end_time, '用餐時間：' %>
+      <%= f.label :dining_time, '用餐時間：' %>
       <%= f.number_field :dining_time, class: 'input-box', step: 15 %>分鐘
     </div>
     
