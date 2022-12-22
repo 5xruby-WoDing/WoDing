@@ -71,5 +71,5 @@ gem "rqrcode", "~> 2.1"
 
 gem "aasm", "~> 5.4"
 
-gem "aws-sdk-s3", require: false
+  gem "aws-sdk-s3", require: false
 

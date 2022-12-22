@@ -12,7 +12,6 @@ Rails.application.routes.draw do
             end
           end
         end
-        
       end  
     end
     root 'managers#show'
@@ -25,6 +24,7 @@ Rails.application.routes.draw do
       get :checkout
       post :information
       post :reservation_status
+      get :cancel
     end
   end
   
