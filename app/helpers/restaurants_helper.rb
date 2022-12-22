@@ -8,15 +8,14 @@ module RestaurantsHelper
     end
 
     def time_collection
-      @time_points = @opening_time.reduce([]){|arr, time| arr << (time.opening_time.to_i..time.closed_time.to_i)}
+      @time_points = @opening_time.reduce([]) { |arr, time| arr << (time.opening_time.to_i..time.closed_time.to_i) }
     end
 
     def intreval_time
-      @time_points.reduce([]) do |arr, time|
-        time.step(@intreval_time){|time| arr << Time.at(time).strftime('%R')}
-        arr
+      @time_points.each_with_object([]) do |time, arr|
+        time.step(@intreval_time) { |time| arr << Time.at(time).strftime('%R') }
       end
-    end 
+    end
   end
 
   class DateRange
@@ -39,7 +38,7 @@ module RestaurantsHelper
   end
 
   def catch_date(date)
-    @date = date.gsub(/\D/, '/' ).strip.to_date
+    @date = date.gsub(/\D/, '/').strip.to_date
   end
 
   def catch_time(time)
