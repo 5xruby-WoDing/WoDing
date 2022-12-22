@@ -17,7 +17,7 @@ module Newebpay
         MerchantID: @merchant_id,
         TradeInfo: trade_info,
         TradeSha: trade_sha,
-        Version: "2.0"
+        Version: '2.0'
       }
     end
 
@@ -62,25 +62,14 @@ module Newebpay
       info[:Amt] = reservation.seat.deposit
       info[:ItemDesc] = "訂位類型為#{reservation.seat.kind}、容納人數為#{reservation.seat.capacity}"
       info[:Email] = reservation.email
-<<<<<<< HEAD
       info[:TimeStamp] = Time.now.to_i
       info[:RespondType] = 'JSON'
-      info[:Version] = '1.6'
+      info[:Version] = '2.0'
       info[:LoginType] = 0
-      info[:CREDIT] =  1
-      info[:VACC] = 1
-      info[:ReturnURL] = "https://33d9-61-220-182-115.jp.ngrok.io/reservations/#{reservation.serial}/information"
-      # info[:NotifyURL] = "http://localhost:3000/"
-=======
-      info[:TimeStamp] = Time.now.to_i 
-      info[:RespondType] = "JSON"
-      info[:Version] = "2.0"
-      info[:LoginType] = 0 
       info[:CREDIT] =  1,
-      info[:VACC] = 1
+                       info[:VACC] = 1
       info[:ReturnURL] = "https://bd0e-2401-e180-88b1-450-d09a-3264-8cf-1f66.jp.ngrok.io/reservations/#{reservation.serial}/information"
-      # info[:NotifyURL] = "http://localhost:3000/"     
->>>>>>> f6ab99a (MPG response page design)
+      # info[:NotifyURL] = "http://localhost:3000/"
     end
   end
 end
