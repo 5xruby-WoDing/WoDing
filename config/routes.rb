@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
   resources :restaurants, only: [:show] do
     member do
-      post :determine_occupied
+      post :occupied
       get :reserve
     end
   end

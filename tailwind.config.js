@@ -13,6 +13,7 @@ module.exports = {
         'minor': "#ffb703", 
         'darkBlue': '#14213d',
         'hoverGray': '#f8f9fa',
+        'chosenOrange': '#ffc300'
       },
       screens:{
         sm: '350px',

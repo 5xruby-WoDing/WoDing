@@ -72,6 +72,7 @@
                   <button class='w-full h-full py-1 gray-btn'
                           data-action='click->restaurant-reservation#getDate'
                           data-restaurant-reservation-target='date'
+                          data-date=<%= date.gsub(/\D/, '/').strip.to_date %>
                           data-id='<%=@restaurant.id%>'
                           value='<%= date %>'
                           >
@@ -115,6 +116,7 @@
                         data-action='click->restaurant-reservation#getSeat'
                         data-restaurant-reservation-target='seat'
                         data-date=''
+                        data-time=''
                         data-state='true'
                         value='<%= seat.id %>'
                         data-id='<%=@restaurant.id%>'

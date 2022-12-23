@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
       ReserveMailJob.perform_later(reservation)
 
-      redirect_to checkout_reservation_path(id: reservation.serial), notice: 'User資料存入、order建立'
+      redirect_to checkout_reservation_path(id: reservation.serial)
     else
       render 'restaurants/reserve'
     end
