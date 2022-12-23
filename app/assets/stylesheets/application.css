@@ -63,3 +63,8 @@
   .css-btn{
     margin: 10px;
   }
+
+
+  .aspect-ratio {
+    aspect-ratio: 4 / 3;
+  }
