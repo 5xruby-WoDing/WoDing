@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(version: 2022_12_21_134840) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "branch", default: ""
+    t.string "image"
     t.integer "period_of_reservation", default: 1
     t.integer "dining_time", default: 0
     t.integer "intreval_time", default: 15
