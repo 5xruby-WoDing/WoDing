@@ -68,3 +68,16 @@
   .aspect-ratio {
     aspect-ratio: 4 / 3;
   }
+
+
+  .home-slide-height {
+    height: 300px
+  }
+
+  .swiper {
+    height: 300px;
+  }
+
+  .swiper-desktop {
+    height: 400px;
+  }
