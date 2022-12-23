@@ -1,11 +1,11 @@
-<main class="max-w-screen-lg mx-auto">    
+<main class="max-w-screen-lg p-2 mx-auto">    
   <section class="home-img">
     <div class="swiper mySwiperTop" data-controller="swiper-carousel-top">
       <div class="swiper-wrapper">
-        <% @restaurants.sample(1).each do |restaurant| %>
-          <% restaurant.images.each do |image| %>
+        <% @restaurants.each do |restaurant| %>
+          <% restaurant.images.sample(1).each do |image| %>
             <div class="swiper-slide">
-              <%= image_tag (image.url),class:"object-cover" %>
+              <%= image_tag (image.url) ,class:"object-cover" %>
             </div>
           <% end %>
         <% end %>
@@ -17,13 +17,15 @@
   
     <div class="my-6" data-controller="home-tag">
       <%= form_with(url: root_path, method: :get )do |form| %>
-        <%= form.label :搜尋餐廳, class: "text-lg font-bold" %>
-        <%= form.text_field :search, placeholder: "輸入搜尋餐廳", class: "input-border-click" %>
-        <%= form.submit "搜尋", name: nil, class: "major-btn" %>
-        <%= link_to "所有餐廳", root_path, class: "major-btn py-1.5" %>
-        <button class="major-btn" data-action="click->home-tag#setTagSection">標籤搜尋</button>
+        <%= form.label :搜尋餐廳, class: "text-lg font-bold hidden md:inline-block" %>
+        <%= form.text_field :search, placeholder: "輸入搜尋餐廳", class: "input-border-click w-full md:w-1/3" %>
+        <%= form.submit "搜尋", name: nil, class: "major-btn cursor-pointer w-1/3" %>
+        <button class="w-2/3">
+          <%= link_to "所有餐廳", root_path, class: "text-major border-2 border-major rounded text-sm p-1 hover:bg-major hover:text-white" %>
+        </button>
+        <button class="w-1/3 major-btn" data-action="click->home-tag#setTagSection">標籤搜尋</button>
 
-        <div class="border-t-4 border-b-4 py-4 my-4 hidden" data-home-tag-target="tagSection">
+        <div class="hidden py-4 my-4 border-t-4 border-b-4" data-home-tag-target="tagSection">
           <% @tags.each do |tag| %>
             <span>
               <%= link_to tag.name, root_path(query: tag.name), class: "p-2 m-2 border hover:bg-major hover:text-white cursor-pointer inline-block" %>
@@ -61,10 +63,10 @@
     <div>
       <% @restaurants.each do |restaurant| %>
         
-        <div class="flex py-4 my-6 border-b-2">
-          <div class="w-1/4 mr-6 rounded h-1/4">
+        <div class="flex flex-col pb-5 border-b-2 md:flex-row">
+          <div class="w-full mr-6 rounded md:w-1/4 h-1/4">
             <% if restaurant.images[0] %>
-              <%= image_tag restaurant.images[0] %>
+              <%= image_tag restaurant.images[0], class: "w-full object-cover" %>
             <% end %>
           </div>
           <div class="txt">
@@ -76,7 +78,7 @@
               商店標籤：
               <% restaurant.tags.each do |tag| %>
                <span>
-                 <%= link_to tag.name, root_path(query: tag.name), class: "p-2 m-1 border hover:bg-major hover:text-white cursor-pointer inline-block" %>
+                 <%= link_to tag.name, root_path(query: tag.name), class: "p-2 m-1 border hover:bg-major hover:text-white cursor-pointer inline-block text-sm" %>
                </span>
               <% end %>
             </div>

@@ -15,6 +15,8 @@ module.exports = {
         'hoverGray': '#f8f9fa',
       },
       screens:{
+        sm: '350px',
+        md: '768px',
         lg: '1140px'
       },
       gridTemplateColumns: {
