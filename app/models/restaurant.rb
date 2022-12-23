@@ -32,4 +32,6 @@ class Restaurant < ApplicationRecord
   def self.tagged_with(name)
     Tag.find_by!(name:).restaurants
   end
+
+
 end
