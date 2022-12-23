@@ -2,7 +2,7 @@
   <section class="home-img">
     <div class="swiper mySwiperTop" data-controller="swiper-carousel-top">
       <div class="swiper-wrapper">
-        <% @restaurants.each do |restaurant| %>
+        <% @restaurants.sample(1).each do |restaurant| %>
           <% restaurant.images.each do |image| %>
             <div class="swiper-slide">
               <%= image_tag (image.url),class:"object-cover" %>
@@ -52,8 +52,10 @@
       <% @restaurants.each do |restaurant| %>
         
         <div class="flex py-4 my-6 border-b-2">
-          <div class="w-1/4 mr-6 rounded h-1/4">            
-            <%= image_tag restaurant.images[0] %>            
+          <div class="w-1/4 mr-6 rounded h-1/4">
+            <% if restaurant.images[0] %>
+              <%= image_tag restaurant.images[0] %>
+            <% end %>
           </div>
           <div class="txt">
             <h2><%= link_to restaurant.title, restaurant_path(restaurant), class: "mb-3 text-3xl" %></h2>
