@@ -17,9 +17,10 @@
   
     <div class="my-6">
       <%= form_with(url: root_path, method: :get )do |form| %>
-      <%= form.label :搜尋餐廳, class: "text-lg font-bold" %>
-      <%= form.text_field :search, placeholder: "輸入搜尋餐廳", class: "input-border-click" %>
-      <%= form.submit "搜尋", name: nil, class: "major-btn" %>
+        <%= form.label :搜尋餐廳, class: "text-lg font-bold" %>
+        <%= form.text_field :search, placeholder: "輸入搜尋餐廳", class: "input-border-click" %>
+        <%= form.submit "搜尋", name: nil, class: "major-btn" %>
+         <%= link_to "所有餐廳", root_path, class: "major-btn py-1.5" %>
       <% end %>
     </div>
 
