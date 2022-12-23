@@ -1,55 +1,76 @@
-<div class="my-24 ml-12">
-  <h2>這個是消費者最後看到的頁面</h2>
-  
-</div>
+<section class="mx-5">
+  <main class="mx-auto my-14 text-center md:w-6/12 lg:w-4/12">
+    <div  class='px-5 py-4 border rounded'>
+      <div class='py-1'>
+        <h1 class='text-2xl font-bold'>
+          <%= @reservation.name %><%= @reservation.gender %>
+        </h1>
+        <p class="text-xl font-bold pt-1">以下是您的訂位資訊</p>
+      </div>
 
-<div class="ml-12">
-  <li>預約單id: <%= @reservation.id %></li>
-  <li>serial: <%= @reservation.serial %></li>
-  <li>name: <%= @reservation.name %></li>
-  <li>phone: <%= @reservation.phone %></li>
-  <li>email: <%= @reservation.email %></li>
-  <li>gender: <%= @reservation.gender %></li>
-  <li>arrival_time: <%= @reservation.arrival_time %></li>
-  <li>arrival_date: <%= @reservation.arrival_date %></li>
-  <li>adult_quantity: <%= @reservation.adult_quantity %></li>
-  <li>child_quantity: <%= @reservation.child_quantity %></li>
-  <li>user_id: <%= @reservation.user_id %></li>
-  <li>seat_id: <%= @reservation.seat_id %></li>
-  <li>椅子類型: <%= @reservation.seat.kind %></li>
-  <li>椅子容量: <%= @reservation.seat.capacity %></li>
-  <li>餐廳名稱: <%= @reservation.seat.restaurant.title %></li>
-</div>
+      <div class='flex justify-center w-full bg-yellow-500 py-3'>
+        <div class="text-xl font-bold text-white"><%= @reservation.seat.restaurant.title %></div>
+      </div>
 
+      <div class='flex justify-center py-1'>
+        <p class="text-lg">訂單編號：<%= @reservation.serial %></p>
+      </div>
 
-<% if @reservation.seat.deposit != 0 %>
-<div class="ml-12 mt-8">
-  <h3>付款金額：<%= @reservation.seat.deposit %></h3>
-  <%= form_with url: "https://ccore.spgateway.com/MPG/mpg_gateway" do |form| %>
-    <input type="hidden" id="MerchantID" name="MerchantID" value="<%= @form_merchant_id %>">
-    <input type="hidden" id="TradeInfo" name="TradeInfo" value="<%= @form_trade_info %>">
-    <input type="hidden" id="TradeSha" name="TradeSha" value="<%= @form_trade_sha %>">
-    <input type="hidden" id="RespondType" name="RespondType" value="JSON">
-    <input type="hidden" id="TimeStamp" name="TimeStamp" value="<%= @reservation.created_at %>">
-    <input type="hidden" id="Version" name="Version" value="2.0">
-    <input type="hidden" id="MerchantOrderNo" name="MerchantOrderNo" value="<%= @reservation.serial %>">
-    <input type="hidden" id="Amt" name="Amt" value="<%= @reservation.seat.deposit %>">
-    <input type="hidden" id="ItemDesc" name="ItemDesc" value="<%= @reservation.seat.kind %>">
-    <input type="hidden" id="Email" name="Email" value=<%= @reservation.email %>>
-    <input type="hidden" id="LoginType" name="LoginType" value="是否需要登入會員">
+      <div class='flex justify-center pb-1'>
+        <p class="text-lg">預定<%= @reservation.seat.capacity %>人<%= @reservation.seat.kind %></p>
+      </div>
 
-  <%= form.submit "藍新信用卡付款", class: "major-btn" %>
-  <% end %>
-</div>
-<% end %>
+      <div class='flex justify-center pb-1'>
+        <p class='text-lg'><%= @reservation.adult_quantity %>位大人</p>
+        <p class='text-lg'><%= @reservation.child_quantity %>位小孩</p>
+      </div>
 
+      <div class="border rounded border-yellow-500 pb-2">
+        <div class='flex justify-center pt-2'>
+          <p class="text-2xl"><%= @reservation.arrival_date.strftime("%Y 年 %m 月 %d 日") =%></p>    
+        </div>
+        <div class='flex justify-center pt-2'>
+          <p class="text-5xl text-yellow-500"><%= @reservation.arrival_time.strftime("%H:%M") %></p>
+        </div>
+      </div>
 
-<div class="my-8 ml-12">
-  <li>User model的資料</li>
-   <li><%= @reservation.user.name %></li>
-   <li><%= @reservation.user.email %></li>
-   <li><%= @reservation.user.phone %></li>
-   <li><%= @reservation.user.gender %></li>
-</div>
+    <% if @reservation.seat.deposit != 0 %>
+      <div class="text-2xl font-bold pt-2">付款金額：<%= @reservation.seat.deposit %></div>
+        <div class='flex justify-center mt-4'>
+          <%= form_with url: "https://ccore.spgateway.com/MPG/mpg_gateway" do |form| %>
+            <input type="hidden" id="MerchantID" name="MerchantID" value="<%= @form_MerchantID %>">
+            <input type="hidden" id="TradeInfo" name="TradeInfo" value="<%= @form_TradeInfo %>">
+            <input type="hidden" id="TradeSha" name="TradeSha" value="<%= @form_TradeSha %>">
+            <input type="hidden" id="RespondType" name="RespondType" value="JSON">
+            <input type="hidden" id="TimeStamp" name="TimeStamp" value="<%= @reservation.created_at %>">
+            <input type="hidden" id="Version" name="Version" value="1.5">
+            <input type="hidden" id="MerchantOrderNo" name="MerchantOrderNo" value="<%= @reservation.serial %>">
+            <input type="hidden" id="Amt" name="Amt" value="<%= @reservation.seat.deposit %>">
+            <input type="hidden" id="ItemDesc" name="ItemDesc" value="<%= @reservation.seat.kind %>">
+            <input type="hidden" id="Email" name="Email" value=<%= @reservation.email %>>
+            <input type="hidden" id="LoginType" name="LoginType" value="是否需要登入會員">  
+            <div class="major-btn w-full py-3 text-lg">
+              <%= form.submit "藍新信用卡付款" %>
+            </div>
+          <% end %>
+      </div>
+    <% end %>
+    </div>
 
-<%= link_to "回首頁", root_path, class: "major-btn ml-12" %>
+    <div class='flex justify-center flex-wrap w-full py-2'>
+      <div class="text-m text-gray-500">用餐時間為<%= @reservation.restaurant.dining_time =%>分鐘，座位保留10分鐘，逾時取將取消訂位!若特殊情況無法到場，請聯絡餐廳客服<%= @reservation.restaurant.tel =%></div>
+    </div>
+
+    <div class='flex justify-center'>
+      <div class="major-btn w-full py-3 text-lg">
+        <%= link_to "回首頁", root_path %>
+      </div>
+    </div>
+
+    <div class='flex justify-center mt-4'>
+      <div class="major-btn w-full py-3 text-lg bg-gray-400">
+        <%= link_to "取消訂位",  cancel_reservation_path(@reservation.serial) %>
+      </div>
+    </div>
+  </main>
+</section>

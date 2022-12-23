@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       post :information
       post :notify
       post :reservation_status
+      get :cancel
     end
   end
 
