@@ -16,30 +16,33 @@ class RestaurantsController < ApplicationController
   end
 
   def determine_occupied
+    user_id = params[:user_id]
     people = params[:people]
     reservated_date = params[:date].gsub(/\D/, '/').strip.to_date
     reservated_time = params[:time]
 
+    over_capacity_seats = @restaurant.seats.select{|seat| seat.capacity < people}.map{|seat| seat.id}
     sum_of_seat = @restaurant.seats.size
-    reservated_list = []
-    occupied_seats = []
 
-    @restaurant.reservations.each do |reservation|
-      next unless reservated_date == reservation.arrival_date
+    # occupied_seats = []
 
-      reservated_list << [reservation.arrival_time.strftime('%R'), reservation.seat_id]
+    # [{2=>"10:00"}, {3=>"12:30"}, {3=>"18:00"}, {3=>"13:30"}, {3=>"13:00"}]
+    occupied_time = @restaurant.reservations.select{|reservation| reservation.arrival_date == reservated_date}
+                    .reduce([]){|arr, reservation| arr << Hash[ reservation.arrival_time.strftime('%R'), reservation.seat_id]}
 
-      occupied_seats << reservation.seat_id if reservated_time == reservation.arrival_time.strftime('%R')
-    end
+    each_time_occupied = occupied_time.flat_map(&:to_a).group_by(&:first).map {|k,v| Hash[k, v.size]}.flat_map(&:to_a)
+    occupied_time = each_time_occupied.map{|time| time.first if time[1] >= sum_of_seat}.compact
 
-    @restaurant.seats.each { |c| occupied_seats << c.id if c.capacity < people }
+    # @restaurant.reservations.each do |reservation|
+    #   next unless reservated_date == reservation.arrival_date
+    #   if reservated_time == reservation.arrival_time.strftime('%R')
+    #     occupied_seats << reservation.seat_id
+    #   end
+    # end
 
-    occupied_time = reservated_list.group_by { |h| h[0] }.keys
-    occupied_seat_total = reservated_list.group_by { |h| h[0] }.map { |_k, v| v.size }
-    each_time_total_occupied = Hash[occupied_time.zip(occupied_seat_total)]
-    occupied_time = each_time_total_occupied.map { |el| el.first if el[1] >= sum_of_seat }.compact
 
-    render json: { occupied_time:, occupied_seats:, people: }
+    render json: {over_capacity_seats:, occupied_time:}
+    # render json: { occupied_time:, occupied_seats:}
   end
 
   private

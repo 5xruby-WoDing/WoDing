@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get 'messages/create'
   devise_for :managers
 
   namespace :backstage do

@@ -1,5 +1,4 @@
 import { Controller } from "stimulus"
-import log from "tailwindcss/lib/util/log";
 import { library, icon, dom} from '@fortawesome/fontawesome-svg-core'
 import { faThumbsUp as thumbsSolid, faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsUp as thumbsRegular, faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
