@@ -26,7 +26,7 @@ class Restaurant < ApplicationRecord
   end
 
   def tag_list
-    tags.map(&:name).join('/')
+    tags.map(&:name).join(', ')
   end
 
   def self.tagged_with(name)
