@@ -60,12 +60,14 @@
             rounded
             hover:border-major 
             border
+            py-1 
+            px-2 
   }
   .confirm-state{
     @apply border
           bg-major 
           text-white 
-            rounded 
+            rounded
   }
   .reservation-font{
     @apply text-lg my-4 font-bold
@@ -102,6 +104,12 @@
   .page-background{
     @apply  bg-gray-200
             h-full
+  }
+  .chosen-btn{
+    @apply bg-chosenOrange
+            py-1 
+            px-2 
+            rounded
   }
 }
 

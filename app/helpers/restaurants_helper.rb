@@ -37,15 +37,4 @@ module RestaurantsHelper
     end
   end
 
-  def catch_date(date)
-    @date = date.gsub(/\D/, '/').strip.to_date
-  end
-
-  def catch_time(time)
-    @time = time.to_time
-  end
-
-  def catch_dining_time(dining_time)
-    @dining_end_time = @time + dining_time.minutes
-  end
 end

@@ -18,26 +18,23 @@
 
         <div class='flex items-center'>
           <i class="mr-2 fa-regular fa-user"></i>
-          <p class='mr-2'><%= @adult_quantity %>位大人</p>
-          <p><%= @child_quantity %>位小孩</p>
+          <p class='mr-2'><%= params[:adult_quantity] %>位大人</p>
+          <p><%= params[:child_quantity] %>位小孩</p>
         </div>
 
         <div class='flex items-center my-4'>
           <i class="mr-2 fa-regular fa-clock"></i>
-          <p><%= @arrival_time %></p>
-          <% catch_time(@arrival_time) %>
+          <p><%= (params[:arrival_time]) %></p>
         </div>
 
         <div class='flex items-center'>
           <i class="mr-2 fa-regular fa-calendar-days"></i>
-          <p><%= @arrival_date %></p>
-          <% catch_date(@arrival_date) %>
+          <p><%= params[:arrival_date] %></p>
         </div>
 
         <div class='flex items-center mt-4'>
           <i class="mr-2 fa-regular fa-clock"></i>
           <p><%= @restaurant.dining_time %>分鐘用餐時間</p>
-          <% catch_dining_time(@restaurant.dining_time) %>
         </div>
         
       </div>
@@ -69,15 +66,15 @@
       
         <input type="hidden" name="seat_id" value="<%= @seat.id %>">
         <input type="hidden" name="restaurant_id" value="<%= @restaurant.id %>">
-        <%= form.text_field :arrival_date, class: 'hidden',value: @date  %>
-        <%= form.text_field :arrival_time, class: 'hidden', value: @time %>
+        <%= form.text_field :arrival_date, class: 'hidden',value: params[:arrival_date].gsub(/\D/, '/').strip.to_date %>
+        <%= form.text_field :arrival_time, class: 'hidden', value: (params[:arrival_time]).to_time %>
         <%= form.text_field :end_time, class: 'hidden', value: @dining_end_time %>
-        <%= form.number_field :adult_quantity, class: "hidden", value: @adult_quantity %>
-        <%= form.number_field :child_quantity, class: "hidden", value: @child_quantity %>
+        <%= form.number_field :adult_quantity, class: "hidden", value: params[:adult_quantity] %>
+        <%= form.number_field :child_quantity, class: "hidden", value: params[:child_quantity] %>
           
         <div>
           <%= form.submit "確認定位", class: "disabled-btn w-full py-3 text-lg mb-3",
-                                     disabled: true, 
+                                     disabled: true,
                                      data: {reservation_form_target: "submit" } %>
           <%= link_to "回上一頁", restaurant_path(@restaurant), class: 'gray-btn block text-center text-lg py-3' %>
         </div>
