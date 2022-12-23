@@ -1,5 +1,5 @@
 import { Controller } from "stimulus"
-import log from "tailwindcss/lib/util/log";
+import consumer from '../channels/consumer';
 
 export default class extends Controller {
   static targets = [ 'date', 'dateInput', 'time', 'timeInput', 'seat', 'seatInput', 'submit', 'adult', 'child', 'notice', 'seatBtn', 'timeBtn']
@@ -7,109 +7,111 @@ export default class extends Controller {
   connect() {
   }
 
-  getDate(e){
-    e.preventDefault()
-    const btnContent = e.target.textContent.replace(/\s/g, '')
-    this.setDate(e, btnContent)
-    this.fetchOccupied(e)
-    this.resetInput()
-    this.resetState()
-  }
+  // getDate(e){
+  //   e.preventDefault()
+  //   const btnContent = e.target.textContent.replace(/\s/g, '')
+  //   this.setDate(e, btnContent)
+  //   this.fetchOccupied(e)
+  //   this.resetInput()
+  //   this.resetState()
+  // }
 
-  setDate(e, btnContent){
-    this.dateInputTarget.value = btnContent
-    if(this.dateInputTarget.value === btnContent){
-      this.dateTargets.forEach(btn => btn.classList.remove('confirm-state'))
-      e.target.classList.add('confirm-state')
-    }
-    this.determineSubmit()
-  }
+  // setDate(e, btnContent){
+  //   this.dateInputTarget.value = btnContent
+  //   if(this.dateInputTarget.value === btnContent){
+  //     this.dateTargets.forEach(btn => btn.classList.remove('confirm-state'))
+  //     e.target.classList.add('confirm-state')
+  //   }
+  //   this.determineSubmit()
 
-  getTime(e){
-    e.preventDefault()
-    const btnContent = e.target.textContent.replace(/\s/g, '')
-    this.setTime(e, btnContent)
-    this.fetchOccupied(e)
-    this.seatInputTarget.value = ''
-    this.resetSubmit()
-    this.seatTargets.forEach(btn => btn.classList.remove('confirm-state'))
-  }
+  // }
 
-  setTime(e, btnContent){
-    this.timeInputTarget.value = btnContent
+  // getTime(e){
+  //   e.preventDefault()
+  //   const btnContent = e.target.textContent.replace(/\s/g, '')
+  //   this.setTime(e, btnContent)
+  //   this.fetchOccupied(e)
+  //   this.seatInputTarget.value = ''
+  //   this.resetSubmit()
+  //   this.seatTargets.forEach(btn => btn.classList.remove('confirm-state'))
+  // }
 
-    if(this.timeInputTarget.value === btnContent ){
-      this.timeTargets.forEach(btn => btn.classList.remove('confirm-state'))
-      e.target.classList.add('confirm-state')
-    }
-    this.determineSubmit()
-  }
+  // setTime(e, btnContent){
+  //   this.timeInputTarget.value = btnContent
 
-  getSeat(e){
-    e.preventDefault()
-    const seat = e.target.value
-    this.setSeat(e, seat)
-  }
+  //   if(this.timeInputTarget.value === btnContent ){
+  //     this.timeTargets.forEach(btn => btn.classList.remove('confirm-state'))
+  //     e.target.classList.add('confirm-state')
+  //   }
+  //   this.determineSubmit()
+  // }
 
-  setSeat(e, seat){ 
-    this.seatInputTarget.value = seat
-    if(this.seatInputTarget.value === seat){
-      this.seatTargets.forEach(btn => btn.classList.remove('confirm-state'))
-      e.target.classList.add('confirm-state')
-    }
-    this.determineSubmit()
-  }
+  // getSeat(e){
+  //   e.preventDefault()
+  //   const seat = e.target.value
+  //   this.setSeat(e, seat)
+  //   this.fetchOccupied(e)
+  // }
 
-  determineSubmit(){
-    let dateState = this.dateInputTarget.value
-    let timeState = this.timeInputTarget.value
-    let seatState = this.seatInputTarget.value
+  // setSeat(e, seat){ 
+  //   this.seatInputTarget.value = seat
+  //   if(this.seatInputTarget.value === seat){
+  //     this.seatTargets.forEach(btn => btn.classList.remove('confirm-state'))
+  //     e.target.classList.add('confirm-state')
+  //   }
+  //   this.determineSubmit()
+  // }
 
-    if(dateState && timeState && seatState){
-      this.setSubmit()
-    }
-  }
+  // determineSubmit(){
+  //   let dateState = this.dateInputTarget.value
+  //   let timeState = this.timeInputTarget.value
+  //   let seatState = this.seatInputTarget.value
 
-  setSubmit(){
-    this.submitTarget.classList.remove('disabled-btn')
-    this.submitTarget.classList.add('major-btn')
-    this.submitTarget.disabled = false
-  }
+  //   if(dateState && timeState && seatState){
+  //     this.setSubmit()
+  //   }
+  // }
 
-  releaseTimeBtn(pending_time){
-    this.timeTargets.forEach(btn => {
-      this.disabledBtn(btn)
+  // setSubmit(){
+  //   this.submitTarget.classList.remove('disabled-btn')
+  //   this.submitTarget.classList.add('major-btn')
+  //   this.submitTarget.disabled = false
+  // }
 
-      if(!(pending_time.includes(btn.value))){
-        this.releaseBtn(btn)  
-      }
-    })
-  }
+  // releaseTimeBtn(pending_time){
+  //   this.timeTargets.forEach(btn => {
+  //     this.disabledBtn(btn)
 
-  releaseSeatBtn(occupied_seat){
-    this.seatTargets.forEach(btn => {
-      this.disabledBtn(btn)
-      let occupied_seats = [...new Set(occupied_seat)]
-      if(!(occupied_seats.includes(+btn.value))){
-        this.releaseBtn(btn)
-        this.noticeTarget.classList.add('hidden')
-        this.seatBtnTarget.classList.remove('hidden')
-        this.timeBtnTarget.classList.remove('hidden')
-      }else if(occupied_seats.length == this.seatTargets.length){
-        this.noticeTarget.classList.remove('hidden')
-        this.seatBtnTarget.classList.add('hidden')
-        this.timeBtnTarget.classList.add('hidden')
-        this.seatInputTarget.value = ''
-        this.resetSubmit()
-      }
-    })
-  }
+  //     if(!(pending_time.includes(btn.value))){
+  //       this.releaseBtn(btn)  
+  //     }
+  //   })
+  // }
 
-  releaseBtn(btn){
-    btn.classList.remove('disabled-btn')
-    btn.classList.add('gray-btn')
-    btn.disabled = false
-  }
+  // releaseSeatBtn(occupied_seat){
+  //   this.seatTargets.forEach(btn => {
+  //     this.disabledBtn(btn)
+  //     let occupied_seats = [...new Set(occupied_seat)]
+  //     if(!(occupied_seats.includes(+btn.value))){
+  //       this.releaseBtn(btn)
+  //       this.noticeTarget.classList.add('hidden')
+  //       this.seatBtnTarget.classList.remove('hidden')
+  //       this.timeBtnTarget.classList.remove('hidden')
+  //     }else if(occupied_seats.length == this.seatTargets.length){
+  //       this.noticeTarget.classList.remove('hidden')
+  //       this.seatBtnTarget.classList.add('hidden')
+  //       this.timeBtnTarget.classList.add('hidden')
+  //       this.seatInputTarget.value = ''
+  //       this.resetSubmit()
+  //     }
+  //   })
+  // }
+
+  // releaseBtn(btn){
+  //   btn.classList.remove('disabled-btn')
+  //   btn.classList.add('gray-btn')
+  //   btn.disabled = false
+  // }
   
   disabledBtn(btn){
     btn.classList.add('disabled-btn')
@@ -120,18 +122,18 @@ export default class extends Controller {
   resetInput(){
     this.timeInputTarget.value = ''
     this.seatInputTarget.value = ''
-    this.resetSubmit()
+    // this.resetSubmit()
   }
 
   resetState(){
     this.timeTargets.forEach(btn => btn.classList.remove('confirm-state'))
     this.seatTargets.forEach(btn => btn.classList.remove('confirm-state'))
   }
-  resetSubmit(){
-    this.submitTarget.classList.add('disabled-btn')
-    this.submitTarget.classList.remove('major-btn')
-    this.submitTarget.disabled = true
-  }
+  // resetSubmit(){
+  //   this.submitTarget.classList.add('disabled-btn')
+  //   this.submitTarget.classList.remove('major-btn')
+  //   this.submitTarget.disabled = true
+  // }
 
   fetchOccupied(e){
     const token = document.querySelector("meta[name='csrf-token']").content
@@ -147,18 +149,63 @@ export default class extends Controller {
       body: JSON.stringify({
         date: this.dateInputTarget.value,
         time: this.timeInputTarget.value,
-        people: people
+        seat: this.seatInputTarget.value,
+        people: people,
+        user_id: this.id
       })
     }).then((resp) => resp.json())
-    .then(({occupied_time, occupied_seats}) => {
+    .then(({over_capacity_seats, occupied_time}) => {
+    // .then(({occupied_time, capacity_seats}) => {
+      this.setSeatState(over_capacity_seats)
+      this.releaseTime(occupied_time)
 
-      this.releaseTimeBtn(occupied_time)
-      this.releaseSeatBtn(occupied_seats)
+      // this.releaseSeatBtn(capacity_seats)
     })
     .catch(() => {
       console.log("error!!");
     });
   }
+  setSeatState(over_capacity_seats){
+    this.seatTargets.forEach(seat => seat.dataset.state = true)
+    this.seatTargets.forEach(seat => {
+      if(over_capacity_seats.includes(+seat.value)){
+        seat.dataset.state = false
+      }
+    })
+  }
 
+   getDate(e){
+    e.preventDefault()
+    const btnContent = e.target.textContent.replace(/\s/g, '')
+    this.setDate(e, btnContent)
+    this.fetchOccupied(e)
+    this.resetInput()
+    this.resetState()
+  }
+
+  setDate(e, btnContent){
+    this.dateInputTarget.value = btnContent
+    this.seatTargets.forEach(seat => seat.dataset.date = btnContent)
+    if(this.dateInputTarget.value === btnContent){
+      this.dateTargets.forEach(btn => btn.classList.remove('confirm-state'))
+      e.target.classList.add('confirm-state')
+    }
+    // this.determineSubmit()
+
+  }
+  releaseTime(occupied_time){
+    this.timeTargets.forEach(btn => {
+      this.disabledBtn(btn)
+      if(!(occupied_time.includes(btn.value))){
+        this.releaseBtn(btn)
+      }
+    })
+  }
+
+  releaseBtn(btn){
+    btn.classList.remove('disabled-btn')
+    btn.classList.add('gray-btn')
+    btn.disabled = false
+  }
 }
 
