@@ -9,12 +9,12 @@
     <% if @minimum_password_length %>
       <em>(長度最少為<%= @minimum_password_length %>碼)</em><br />
     <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "input-box" %>
+    <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "input-border-click" %>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation, "再次確認新密碼：" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input-box" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input-border-click" %>
   </div>
 
   <div class="actions">

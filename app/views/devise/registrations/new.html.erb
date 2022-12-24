@@ -1,56 +1,54 @@
 <div class="container-1140">
-  <section class="md:w-2/5">
-    <h2 class="pb-6 text-2xl font-bold border-b-2">註冊會員</h2>
+  <section class="p-6 m-auto md:w-2/5 md:p-0">
+    <div>
+      <h2 class="pb-6 text-3xl font-bold text-center border-b-2 md:p-2">註冊會員</h2>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
-      <div class="mt-8">
-        <div class="field">
-          <p class="mb-2"><%= f.label :email, "email："%></p>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-box" %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="mt-4">
+          <div class= "field">
+            <p class="mb-2 font-bold"><%= f.label :email, "email"%></p>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-border-click mb-2 w-full" %>
+          </div>
+
+          <div class="field">
+            <p class="mb-2 font-bold"><%= f.label :password, "密碼" %>
+              <% if @minimum_password_length %>
+                <em class='font-normal'>(長度最少為<%= @minimum_password_length %>碼)</em>
+              <% end %> 
+            </p>
+            <%= f.password_field :password, autocomplete: "new-password", class: "input-border-click w-full mb-2" %>
+          </div>
+
+          <div class="field">
+            <p class="mb-2 font-bold"><%= f.label :password_confirmation, "再次確認密碼" %></p>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input-border-click w-full mb-2" %>
+          </div>
+
+          <div class="field">
+            <p class="mb-2 font-bold"><%= f.label :name, "名字" %></p>
+            <div class='flex mb-2'>
+              <%= f.text_field :name, autocomplete: "name", class: "input-border-click w-full" %>
+              <%= f.select :gender, Manager.genders.keys %>
+            </div>
+          </div>
+
+          <div class="field">
+            <p class="mb-2 font-bold"><%= f.label :phone, "電話號碼" %></p>
+            <%= f.telephone_field :phone, autocomplete: "phone", class: "input-border-click w-full mb-2" %>
+          </div>
+
+          <div class="mb-4 actions">
+            <%= f.submit "註冊會員",class: "major-btn w-full py-2" %>
+          </div>
         </div>
+      <% end %>
 
-        <div class="field">
-          <p class="mb-2"><%= f.label :password, "密碼" %>
-            <% if @minimum_password_length %>
-              <em>(長度最少為<%= @minimum_password_length %>碼)</em>
-            <% end %> 
-          </p>
-          <%= f.password_field :password, autocomplete: "new-password", class: "input-box" %>
-        </div>
-
-        <div class="field">
-          <p><%= f.label :password_confirmation, "再次確認密碼" %></p>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input-box" %>
-        </div>
-
-        <div class="field">
-          <p><%= f.label :name, "名字：" %></p>
-          <%= f.text_field :name, autocomplete: "name", class: "input-box" %>
-        </div>
-
-        <div class="field">
-          <p><%= f.label :phone, "電話號碼：" %></p>
-          <%= f.telephone_field :phone, autocomplete: "phone", class: "input-box" %>
-        </div>
-
-        <div class="mb-4 field">
-          <span>
-            <%= f.label :gender, "稱謂：" %>
-            <%= f.select :gender, Manager.genders.keys %>
-          </span>
-        </div>
-
-        <div class="mb-4 actions">
-          <%= f.submit "註冊會員",class: "major-btn" %>
-        </div>
-      </div>
-    <% end %>
-
-    <%= render "devise/shared/links" %>
+      <%= render "devise/shared/links" %>
+    </div>
   </section>
-  
-  <section class="w-3/6 rounded">
+
+  <section class="rounded md:w-3/6">
     <img src="https://picsum.photos/seed/picsum/570/600" alt="" class="hidden rounded md:block">
   </section>
 </div>
