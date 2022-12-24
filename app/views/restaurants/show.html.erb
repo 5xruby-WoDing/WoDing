@@ -62,7 +62,7 @@
             </div>
             <div>
               <% date_range = RestaurantsHelper::DateRange.new([]) %>
-              <% date_range.set_end_day(@restaurant.period_of_reservation) %>
+              <% date_range.end_day(@restaurant.period_of_reservation) %>
               <% date_range.reservation_range_date(Date.yesterday) %>
 
               <h4 class='reservation-font'>用餐日期</h4>
@@ -125,6 +125,7 @@
                 </button>
               <% end %>
               <input type="hidden" name="seat_id" data-restaurant-reservation-target='seatInput'>
+              <input type="hidden" name="key" value='<%= @key %>'>
             </div>  
           </div>
         </div> 
@@ -204,11 +205,5 @@
         </div>
       </div>
     </div>
-  </section>
-  <section class='pb-10'>
-    <%= form_with(model: @message, local: true) do |form| %>
-      <%= form.text_area :content %>
-      <%= form.submit style: 'display: block' %>
-    <% end %>
   </section>
 </main>
