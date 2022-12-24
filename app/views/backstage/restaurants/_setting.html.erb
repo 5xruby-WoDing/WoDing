@@ -37,8 +37,11 @@
             <%= time.title %>
             <%= time.opening_time.strftime('%R') %> -
             <%= time.closed_time.strftime('%R') %>
-            <%= link_to '編輯', edit_backstage_opening_time_path(time), class: 'major-btn mx-1' %>
-            <%= link_to 'x', backstage_opening_time_path(time), method: 'delete', class: 'major-btn' %>
+            <a href="/backstage/opening_times/<%= time.id %>/edit" class='mx-2 major-btn'>
+              <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            <a href='/backstage/opening_times/<%= time.id %>' data-method='delete' class='bg-red-600 major-btn hover:bg-red-800'>
+              <i class="fa-solid fa-trash"></i></a>
           </div>
         <% end %>
       </div>

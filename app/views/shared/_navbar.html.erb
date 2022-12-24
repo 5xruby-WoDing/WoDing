@@ -13,11 +13,11 @@
       <% end %>
       <div class="flex items-center">
         <% if current_manager %>
-          <li><%= link_to current_manager.name, backstage_root_path, class:"mr-2 text-base hover:text-major" %></li>
-          <li class= "text-base hover:text-major"><%= link_to '登出', destroy_manager_session_path, method: :delete %></li>
+          <li><%= link_to current_manager.name, backstage_root_path, class:"mr-2 text-lg hover:text-major" %></li>
+          <li class= "text-lg hover:text-major"><%= link_to '登出', destroy_manager_session_path, method: :delete %></li>
         <% else %>
-          <li class= "mr-2 text-base hover:text-major"><%= link_to '註冊', new_manager_registration_path %></li>
-          <li class= "text-base hover:text-major"><%= link_to '登入', new_manager_session_path %></li>  
+          <li class= "mr-2 text-lg hover:text-major"><%= link_to '註冊', new_manager_registration_path %></li>
+          <li class= "text-lg hover:text-major"><%= link_to '登入', new_manager_session_path %></li>  
         <% end %>
       </div>
     </div>

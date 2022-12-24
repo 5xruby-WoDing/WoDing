@@ -20,14 +20,7 @@
               rounded
               py-1
   }
-  .input-box{
-    @apply  focus:ring-major
-            focus:border-major
-              focus:outline-none
-              border
-              rounded
-              mb-2 
-  }
+
   .home-img{
     @apply pb-8 border-b-2
   }
@@ -44,14 +37,11 @@
   }
   .container-1140{
     @apply max-w-screen-lg 
-            py-10 
             m-auto 
-            mt-24 
-            border 
-            rounded 
+            mt-16
             md:flex 
             md:justify-between 
-            px-14
+
   }
   .gray-btn{
     @apply text-gray-800 
@@ -112,7 +102,6 @@
             px-2 
             rounded
             cursor-auto
-
   }
 }
 
