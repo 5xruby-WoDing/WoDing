@@ -3,10 +3,6 @@ import { Controller } from "stimulus"
 export default class extends Controller {
   static targets = [ 'date', 'dateInput', 'time', 'timeInput', 'seat', 'seatInput', 'submit', 'adult', 'child', 'notice', 'seatBtn', 'timeBtn']
 
-  connect() {
-    const user_id = Math.random().toString(36).slice(-6);
-  }
-
   getSeat(e){
     e.preventDefault()
     const seat = e.target.value

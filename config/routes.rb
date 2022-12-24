@@ -37,7 +37,8 @@ Rails.application.routes.draw do
   resources :restaurants, only: [:show] do
     member do
       post :occupied
-      get :reserve
+      get :reserve 
+      post :timeout
     end
   end
 

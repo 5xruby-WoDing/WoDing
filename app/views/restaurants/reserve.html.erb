@@ -7,7 +7,7 @@
     <section class='mb-4'>
       <div data-controller='reservation-info' class='px-4 py-5 border rounded'>
         <div class='pb-2 mb-4 border-b-2'>
-          <h2 class='text-xl font-bold '>
+          <h2 class='text-xl font-bold'>
             <%= @restaurant.title %>
             <%= @restaurant.branch %>
           </h2>
@@ -39,6 +39,9 @@
         
       </div>
     </section>
+    <section>
+      <p data-controller='timer' id='<%= params[:id] %>' data-key='<%= @key %>'></p>
+    </section>
   
     <section class='px-4 py-5 border rounded'>
       <%= form_with model: @user, url: users_path, class: "form", data: {controller: "reservation-form"} do |form| %>
@@ -54,18 +57,27 @@
 
         <div class='mb-3 reservation-input'>
           <%= form.label :email, 'Email', class: 'mb-3' %>
-          <%= form.email_field :email, class: 'input-border-click', data: {reservation_form_target: "emailInput",
-                                                                           action: "input->reservation-form#input"} %>
+          <%= form.email_field :email, 
+            class: 'input-border-click', 
+            data: {reservation_form_target: "emailInput",
+                    action: "input->reservation-form#inputEmail"
+                  }
+          %>
         </div>
 
         <div class='mb-3 reservation-input'>
           <%= form.label :phone, '手機號碼', class: 'mb-3' %>
-          <%= form.telephone_field :phone, class: 'input-border-click', data: {reservation_form_target: "phoneInput",
-                                                                               action: "input->reservation-form#input"} %>
+          <%= form.telephone_field :phone, 
+            class: 'input-border-click', 
+            data: {reservation_form_target: "phoneInput",
+                    action: "input->reservation-form#inputPhone"
+                  } 
+          %>
         </div>
       
         <input type="hidden" name="seat_id" value="<%= @seat.id %>">
         <input type="hidden" name="restaurant_id" value="<%= @restaurant.id %>">
+        <input type="hidden" name="key" value="<%= @key %>">
         <%= form.text_field :arrival_date, class: 'hidden',value: params[:arrival_date].gsub(/\D/, '/').strip.to_date %>
         <%= form.text_field :arrival_time, class: 'hidden', value: (params[:arrival_time]).to_time %>
         <%= form.text_field :end_time, class: 'hidden', value: @dining_end_time %>
