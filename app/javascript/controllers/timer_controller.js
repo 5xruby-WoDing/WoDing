@@ -2,9 +2,10 @@ import { Controller } from "stimulus"
 
 export default class extends Controller {
 
-  connect() {
-    this.timer(0.1)
+  connect(){
+    this.timer(5)
   }
+
   timer(endTime){
     let time = endTime * 60
         

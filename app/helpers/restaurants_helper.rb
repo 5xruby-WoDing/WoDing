@@ -25,7 +25,7 @@ module RestaurantsHelper
       @date_list = date_list
     end
 
-    def set_end_day(period_of_day)
+    def end_day(period_of_day)
       @end_day = Date.yesterday + period_of_day.days
     end
 
@@ -36,5 +36,4 @@ module RestaurantsHelper
       reservation_range_date(start_date + 1.days)
     end
   end
-
 end
