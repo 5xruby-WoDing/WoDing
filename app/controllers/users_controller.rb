@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
     if @user.save
       reservation = Reservation.create!(params_reservation)
-
+      $redis.del(params[:key])
       reservation.reserve! if reservation.may_reserve? && reservation.seat.deposit.zero?
 
       ReserveMailJob.perform_later(reservation)
