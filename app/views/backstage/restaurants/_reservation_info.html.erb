@@ -1,6 +1,10 @@
-<section class='grid h-full grid-cols-3 grid-rows-2 gap-4 p-6 cursor-default text-gary-800 bg-hoverGray'>
+<section class='grid h-full grid-cols-3 grid-rows-2 gap-4 p-6'>
+  <% date_range = ApplicationHelper::DateRange.new([]) %>
+  <% date_range.end_day(@restaurant.period_of_reservation) %>
+  <% date_range.reservation_range_date(Date.yesterday) %>
+  
   <div class='bg-white border rounded'>
-    <h2 class='py-2 text-2xl font-bold border-b' >
+    <h2 class='py-2 text-2xl font-bold text-center border-b' >
       <%= Time.current.strftime('%Y %m 月 %d 日 %A') %>
     </h2>
     <div class='p-6 text-left'>
@@ -35,18 +39,35 @@
   </div>
 
   <div class='col-span-2 row-span-2 py-0 mb-auto bg-white border rounded'>
-    <h2 class='py-2 my-2 text-2xl font-bold border-b'>今日訂位</h2>
-    <div>
-      <input type="text" class='input-border-click'>
+    <div class='p-3 text-center'>
+      <div data-controller='selector' class='flex flex-wrap justify-center gap-3 mb-3 '> 
+        <% date_range.date_list.each do |date| %>
+          <span class='py-1 gray-btn'
+                data-selector-target='date'
+                data-action='click->selector#getDate'
+                data-date=<%= date.gsub(/\D/, '/').strip.to_date %>
+                data-id='<%=@restaurant.id%>'
+          >
+            <%= date %>
+          </span>
+        <% end %>
+      </div>
+      <div>
+        <input type="text" class='input-border-click'>
+      </div>
     </div>
-    <div>
-      <% @restaurant.reservations.sort_by{|r| r.arrival_time.to_i}.each do |reservation| %>
-        <% if reservation.arrival_date == Date.today %>
-          <div class='grid grid-cols-4 p-4 border-b' 
+ 
+    <div data-controller='display'
+          data-action="update-date@window->display#setReservation"> 
+      <% @restaurant.reservations.each do |reservation| %>
+          <div class='grid grid-cols-4 p-4 text-center border-b' 
                 data-controller="note-reservation"
                 data-id="<%= reservation.id %>"
-                data-noted="<%= current_manager.noted_important_reservation?(reservation) %>">
-            <div class='flex text-left'>
+                data-noted="<%= current_manager.noted_important_reservation?(reservation) %>"
+                data-date='<%= reservation.arrival_date%>'
+                data-display-target='date'
+          >
+            <div class='flex text-left '>  
               <div class='flex'>
                 <span data-action="click->note-reservation#noted" class='m-auto mr-2 text-center text-major'>
                   <i class="fa-regular fa-star" data-note-reservation-target="icon"></i>
@@ -58,7 +79,7 @@
                 </div>
               </div>
             </div>
-            <div class='flex'>
+            <div class='flex justify-center'>
               <p class='my-auto mr-3 text-2xl text-major'>
                 <%= reservation.adult_quantity + reservation.child_quantity %>
                 位
@@ -79,10 +100,8 @@
               <%= reservation.arrival_time.strftime('%R') %>
             </p>
           </div>
-        <% end %>
 
       <% end %>
     </div>
   </div>
 </section>
-

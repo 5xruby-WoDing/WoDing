@@ -1,50 +1,55 @@
-<nav data-controller="backstage" class='fixed left-0 flex flex-col justify-between w-20 h-full bg-darkBlue'>
+<main data-controller="backstage" class='h-full bg-hoverGray max-w-screen-2xl'>
+  <nav class='fixed left-0 flex flex-col justify-between h-full bg-darkBlue'>
 
-  <div>
-    <img src="/assets/123.svg" alt="logo" class='w-16 pb-6 mx-auto mt-6'>
-    <div class="flex flex-col mx-auto text-center">
-      
-      <button data-action="click->backstage#reservatoinBtn" class='backstage-nav-btn text-hoverGray'>
+    <div class="flex flex-col text-center">
+      <img src="/assets/123.svg" alt="logo" class='w-16 pb-6 mx-auto mt-6'>
+
+      <button data-action="click->backstage#reservatoin" class='backstage-nav-btn' data-backstage-target="reservationtBtn">
         訂位
-        <div class="page" data-backstage-target="reservationInfo">
-          <%= render "reservation_info" %>
-        </div>
       </button>
 
-      <button data-action="click->backstage#info" class='backstage-nav-btn text-hoverGray'>
+      <button data-action="click->backstage#info" class='backstage-nav-btn' data-backstage-target="reservationBtn">
         資訊
-        <div class="hidden page" data-backstage-target="info">
-          <%= render "restaurant_info" %>  
-        </div>
       </button>
 
-      <button data-action="click->backstage#seat" class='backstage-nav-btn text-hoverGray'>
+      <button data-action="click->backstage#seat" class='backstage-nav-btn' data-backstage-target="seatBtn">
         座位
-        <div class="hidden page" data-backstage-target="seat">
-          <%= render "restaurant_seat" %>  
-        </div>
       </button>
 
-      <button data-action="click->backstage#setting" class='backstage-nav-btn text-hoverGray'>
-        <i class="text-sm text-lg fa-solid fa-gear"></i>
-        <div class="hidden page" data-backstage-target="setting">
-          <%= render "setting" %>
-        </div>
-    </button>
+      <button data-action="click->backstage#setting" class='backstage-nav-btn' data-backstage-target="settingBtn">
+        <i class="text-lg fa-solid fa-gear"></i>
+      </button> 
     </div>
-  </div>
+
+    <div class='text-center'>
+      <%= link_to "返回", backstage_root_path, class: "backstage-nav-btn text-gray-300 text-sm block" %>
+      <h1 class='text-sm text-center text-gray-300'>
+        <%= @restaurant.title %>
+      </h1>
+      <p class='text-sm text-center text-gray-300'>
+        <%= @restaurant.branch %>
+      </p>
+    </div>
+  </nav>
   
-  <div class='text-center'>
-    <%= link_to "返回", backstage_root_path, class: "backstage-nav-btn text-gray-300 text-sm block" %>
-    <h1 class='text-sm text-center text-gray-300'>
-      <%= @restaurant.title %>
-    </h1>
-    <p class='text-sm text-center text-gray-300'>
-      <%= @restaurant.branch %>
-    </p>
-    
+  <div class='ml-20'>
+    <section data-backstage-target="reservationInfo bg-hoverGray">
+      <%= render "reservation_info" %>
+    </section>
+    <section data-backstage-target="info" class='hidden bg-hoverGray'>
+      <%= render "restaurant_info" %>  
+    </section >
+    <section data-backstage-target="seat" class='hidden bg-hoverGray'>
+      <%= render "restaurant_seat" %>  
+    </section >
+    <section data-backstage-target="setting" class='hidden bg-hoverGray'>
+      <%= render "setting" %>
+    </section>
   </div>
-</nav>
+</main>
+
+
+
 
 
 

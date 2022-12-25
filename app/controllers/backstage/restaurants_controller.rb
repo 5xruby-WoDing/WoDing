@@ -39,6 +39,13 @@ module Backstage
       redirect_to backstage_root_path(current_manager.id), notice: '已刪除'
     end
 
+    def selector
+      restaurant = Restaurant.find(params[:restaurant_id])
+      @reservation = restaurant.reservations.where(arrival_date: params[:date])
+
+      render json: {reservation: @reservation}
+    end
+
     private
 
     def params_restaurant
