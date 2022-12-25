@@ -29,6 +29,7 @@ module Backstage
 
     def show
       @seats = @restaurant.seats
+
       @opening_time = OpeningTime.new
       @opening_times = @restaurant.opening_times
     end

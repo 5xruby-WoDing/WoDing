@@ -19,7 +19,9 @@ module Backstage
       end
     end
 
-    def show; end
+    def show
+      @seats = @seat.reservations
+    end
 
     def edit; end
 

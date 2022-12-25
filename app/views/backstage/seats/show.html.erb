@@ -1,26 +1,56 @@
 <div class="mt-14">
-  <h2 class="seat-title">我是seat類別的個別頁面</h2>
-  
-  <table class="seat-table">
-    <tr class="seat-item-title">
-      <td>id</td>
-      <td>種類</td>
+  <h2 class="ml-4">此張位子所有訂單資料</h2>
+  <table class="mt-4 ml-4 border-2">
+    <tr class="text-base">
+      <td>座位id</td>
+      <td>類型</td>
       <td>容納人數</td>
       <td>訂金</td>
+      <td>修改</td>
+      <td>刪除</td>
+      <td>此位子的訂單ID</td>
+      <td>定位日期</td>
+      <td>定位時間</td>
+      <td>訂單狀態</td>
+      <td>釋放此張預約單</td>
     </tr>
-      
-    <tr class="seat-item-text">
+    <tr>
       <td><%= @seat.id %></td>
       <td><%= @seat.kind %></td>
       <td><%= @seat.capacity %></td>
       <td><%= @seat.deposit %></td>
-    </tr>
-      
+      <td><%= link_to "edit", edit_backstage_seat_path(@seat.id), class: "major-btn" %></td>
+      <td><%= link_to "x", backstage_seat_path(@seat.id), method: "delete", data: {confirm: "sure??"}, class: "major-btn" %><td>
+      <td>
+      <% @seats.each do |reservation| %>
+        <li><%= reservation.id %></li>
+      <% end %>
+      </td>
+      <td>
+        <% @seats.each do |reservation| %>
+          <li><%= reservation.arrival_date %></li>
+        <% end %>
+      </td>
+      <td>
+        <% @seats.each do |reservation| %>
+          <li><%= reservation.arrival_time.strftime("%R") %></li>
+        <% end %>
+      </td>
+      <td>
+        <% @seats.each do |reservation| %>
+          <li><%= reservation.state %></li>
+        <% end %>
+      </td>
+      <td>
+        <% @seats.each do |reservation| %>
+          <li><%= link_to "手動關閉", finish_backstage_reservation_path(reservation), class: "major-btn bg-red-400 hover:bg-red-600" %></li>
+        <% end %>
+      </td>
+    </tr>      
   </table>
-  
+
+
   <button class= "major-btn css-btn"><%= link_to "回餐廳首頁", backstage_restaurant_path(@seat.restaurant), class: "major-btn" %></button>
 
 </div>
-
-
 
