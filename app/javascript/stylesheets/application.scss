@@ -80,7 +80,15 @@
     @apply px-3
             py-4
             hover:bg-hoverGray
+            text-hoverGray
             hover:text-gray-800
+            rounded-l-lg
+    }
+  .backstage-click-nav-btn{
+    @apply px-3
+            py-4
+           bg-hoverGray
+           text-gray-800
             rounded-l-lg
     }
   .restaurant-info{

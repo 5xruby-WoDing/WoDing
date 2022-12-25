@@ -1,30 +1,28 @@
 <section>
   <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-  
-      <div class="w-full rounded-lg shadow dark:border md:mt-0 md:max-w-lg xl:p-0">
-          <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+    <div class="w-full rounded-lg shadow dark:border md:mt-0 md:max-w-lg xl:p-0">
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
 
-              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                  忘記密碼
-              </h1>
+          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            忘記密碼
+          </h1>
 
-              <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-                <%= render "devise/shared/error_messages", resource: resource %>
+          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+            <div>
+              <p>
+                <%= f.label :email, "Email：" %>
+              </p>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-border-click my-2" %>
+            </div>
 
-                <div>
-                  <p>
-                    <%= f.label :email, "Email：" %>
-                  </p>
-                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-border-click" %>
-                </div>
+            <div class="actions">
+              <%= f.submit "送出", class: "major-btn my-2" %>
+            </div>
+          <% end %>
 
-                <div class="actions">
-                  <%= f.submit "送出", class: "major-btn" %>
-                </div>
-              <% end %>
-
-              <%= render "devise/shared/links" %>
-          </div>
+          <%= render "devise/shared/links" %>
+        </div>
       </div>
   </div>
 </section>

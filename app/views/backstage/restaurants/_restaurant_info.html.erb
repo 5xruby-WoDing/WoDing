@@ -1,7 +1,7 @@
-<section class='grid h-full text-gray-800 cursor-default grid-cols-1-2 bg-hoverGray' >
-  <div class='px-6'>
-    <p class='py-3 border-b border-gray-200'>餐廳資訊</p>
-    <div>
+<section class='grid grid-cols-3 grid-rows-2 gap-4 p-6' >
+  <div class='bg-white border rounded'>
+    <p class='py-2 text-2xl font-bold text-center border-b'>餐廳資訊</p>
+    <div class='p-6'>
       <div class='restaurant-info'>
         <i class="fa-solid fa-utensils"></i>
         <%= @restaurant.title %>
@@ -26,9 +26,10 @@
     </div>  
   </div>
 
-  <div class='px-8 py-6 mx-auto mb-auto text-left bg-white rounded-md '>
-    <p class='pb-3 text-center border-b border-gray-200'>編輯餐廳</p>
+  <div class= 'col-span-2 row-span-2 py-0 mb-auto bg-white border rounded'>
+    <p class='py-2 text-2xl font-bold text-center border-b'>編輯餐廳</p>
     <%= render "error", restaurant: @restaurant %>
     <%= render 'form', restaurant: @restaurant, url: backstage_restaurant_path(@restaurant)   %>
   </div>
+
 </section>

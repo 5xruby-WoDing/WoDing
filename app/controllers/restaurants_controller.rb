@@ -30,19 +30,15 @@ class RestaurantsController < ApplicationController
   end
 
   def occupied
-    user_id = params[:user_id]
-    people = params[:people]
-    reservated_date = params[:date].gsub(/\D/, '/').strip.to_date
-    reservated_time = params[:time]
+    people, reservated_date , reservated_time = [params[:people], params[:date], params[:time]]
+    reservated_date = reservated_date.gsub(/\D/, '/').strip.to_date
 
     over_capacity_seats = @restaurant.seats.select { |seat| seat.capacity < people }.map { |seat| seat.id }
     sum_of_seat = @restaurant.seats.size
 
     arrival_date = @restaurant.reservations.select { |reservation| reservation.arrival_date == reservated_date }
     # [{2=>"10:00"}, {3=>"12:30"}, {3=>"18:00"}, {3=>"13:30"}, {3=>"13:00"}]
-    occupied_time = arrival_date.reduce([]) { |arr, reservation|
- arr << Hash[reservation.arrival_time.strftime('%R'), reservation.seat_id]
-}
+    occupied_time = arrival_date.reduce([]) { |arr, reservation| arr << Hash[reservation.arrival_time.strftime('%R'), reservation.seat_id]}
     occupied_seats = arrival_date.select { |reservation| reservated_time == reservation.arrival_time.strftime('%R') }
     each_time_occupied = occupied_time.flat_map(&:to_a).group_by(&:first).map { |k, v| Hash[k, v.size] }.flat_map(&:to_a)
     occupied_time = each_time_occupied.map { |time| time.first if time[1] >= sum_of_seat }.compact
@@ -55,6 +51,7 @@ class RestaurantsController < ApplicationController
     end
 
     render json: { over_capacity_seats:, occupied_time:, occupied_seats_id:, all_keys: }
+
   end
 
   private

@@ -50,7 +50,7 @@ export default class extends Controller {
     })
 
   }
-
+  
   setNoteState(state) {
     if (state) {
       this.iconTarget.classList.add("fa-solid")
