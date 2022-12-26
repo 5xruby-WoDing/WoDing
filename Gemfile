@@ -72,4 +72,8 @@ gem 'aws-sdk-s3', require: false
 
 gem 'redis', '~> 5.0'
 
+<<<<<<< HEAD
 gem 'ransack', '~> 3.2'
+=======
+gem "twsms2", "~> 1.3"
+>>>>>>> cda735e (add twsms2)
