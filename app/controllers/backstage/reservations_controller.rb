@@ -2,13 +2,16 @@
 
 module Backstage
   class ReservationsController < Backstage::ManagersController
-    before_action :find_reservation, only: %i[finish note]
+    before_action :find_reservation, only: %i[cancel note compelete]
 
-    def finish
-      @reservation = Reservation.find_by!(id: params[:id])
+    def cancel
       @reservation.cancel! if @reservation.may_cancel?
+      redirect_to backstage_restaurant_path(@reservation.restaurant)
+    end
 
-      redirect_to backstage_restaurant_path(@reservation.restaurant), notice: '成功結束訂單'
+    def compelete
+      @reservation.compeleted! if @reservation.may_compeleted?
+      redirect_to backstage_restaurant_path(@reservation.restaurant)
     end
 
     def note

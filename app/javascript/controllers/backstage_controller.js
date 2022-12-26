@@ -1,10 +1,10 @@
 import { Controller } from "stimulus"
 import { library, dom} from '@fortawesome/fontawesome-svg-core'
-import { faGear, faLock, faTrash, faPenToSquare, faUtensils, faStore, faPhone, faLocationDot } from '@fortawesome/free-solid-svg-icons'
+import { faGear, faLock, faTrash, faPenToSquare, faUtensils, faStore, faPhone, faLocationDot, faMagnifyingGlass, faRotateRight } from '@fortawesome/free-solid-svg-icons'
 export default class extends Controller {
     static targets = ["info", "reservationInfo", "setting", 'seat', 'dom', 'reservationtBtn', 'reservationBtn', 'seatBtn', 'settingBtn']
     initialize(){
-        library.add(faGear, faLock, faTrash, faPenToSquare, faUtensils, faStore, faPhone, faLocationDot )
+        library.add(faGear, faLock, faTrash, faPenToSquare, faUtensils, faStore, faPhone, faLocationDot, faMagnifyingGlass, faRotateRight )
     }
     connect() {
         dom.watch()
