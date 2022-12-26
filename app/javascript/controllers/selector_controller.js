@@ -16,8 +16,7 @@ export default class extends Controller {
 
     const token = document.querySelector("meta[name='csrf-token']").content
     const id = e.target.dataset.id
-
-    fetch(`/backstage/restaurants/${id}/statistics`,{
+    fetch(`/backstage/reservations/${id}/statistics`,{
       method: 'POST',
       headers: {
         "X-CSRF-Token": token,

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module Backstage
-  class SeatsController < Backstage::ManagersController
+  class SeatsController < Backstage::RestaurantsController
     before_action :find_restaurant, only: %i[index create]
-    before_action :find_seat, only: %i[show edit update destroy]
+    before_action :find_seat, only: %i[show edit update destroy vacant occupied]
 
     def index
       @seats = @restaurant.seats
@@ -14,25 +14,35 @@ module Backstage
       @seat = @restaurant.seats.new(params_seat)
 
       if @seat.save
-        redirect_to backstage_restaurant_path(@restaurant), notice: '成功新增位子類型'
-      else
-        render :new
+        redirect_to backstage_restaurant_seats_path(@restaurant)
       end
     end
 
-    def edit; end
+    def edit
+      render :layout => 'backstage'
+    end
 
     def update
-      if @seat.update(params_seat)
-        redirect_to backstage_restaurant_path(@seat.restaurant), notice: '編輯seat成功'
-      else
-        render :edit
-      end
+        if @seat.update(params_seat)
+          redirect_to backstage_restaurant_seats_path(@seat.restaurant_id)
+        else
+          render :edit
+        end
     end
 
     def destroy
       @seat.destroy
-      redirect_to backstage_restaurant_path(@seat.restaurant), alert: '刪除seat成功'
+      redirect_to backstage_restaurant_seats_path(@seat.restaurant_id)
+    end
+
+    def vacant
+      @seat.occupied! if @seat.may_occupied?
+      redirect_to backstage_restaurant_seats_path(@seat.restaurant_id)
+    end
+
+    def occupied
+      @seat.vacant! if @seat.may_vacant?
+      redirect_to backstage_restaurant_seats_path(@seat.restaurant_id)
     end
 
     private
@@ -42,7 +52,7 @@ module Backstage
     end
 
     def params_seat
-      params.require(:seat).permit(:kind, :capacity, :deposit, :state)
+      params.require(:seat).permit(:kind, :capacity, :deposit, :state, :title)
     end
 
     def find_seat
