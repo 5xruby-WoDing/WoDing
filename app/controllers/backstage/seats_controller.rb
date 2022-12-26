@@ -2,10 +2,11 @@
 
 module Backstage
   class SeatsController < Backstage::ManagersController
-    before_action :find_restaurant, only: %i[new create]
+    before_action :find_restaurant, only: %i[index create]
     before_action :find_seat, only: %i[show edit update destroy]
 
-    def new
+    def index
+      @seats = @restaurant.seats
       @seat = @restaurant.seats.new
     end
 
@@ -17,10 +18,6 @@ module Backstage
       else
         render :new
       end
-    end
-
-    def show
-      @seats = @seat.reservations
     end
 
     def edit; end
@@ -41,7 +38,7 @@ module Backstage
     private
 
     def find_restaurant
-      @restaurant = current_manager.restaurant.find(params[:restaurant_id])
+      @restaurant = current_manager.restaurants.find(params[:restaurant_id])
     end
 
     def params_seat

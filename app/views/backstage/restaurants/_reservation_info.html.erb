@@ -1,5 +1,5 @@
 <section class='grid grid-cols-3 grid-rows-2 gap-4 p-6'>
-  <% date_range = ApplicationHelper::DateRange.new([]) %>
+  <% date_range = RestaurantsHelper::DateRange.new([]) %>
   <% date_range.end_day(@restaurant.period_of_reservation) %>
   <% date_range.reservation_range_date(Date.yesterday) %>
   <div>  

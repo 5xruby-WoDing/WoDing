@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class Reservation < ApplicationRecord
+  include Gender
+  include AASM
+
   belongs_to :user
   belongs_to :restaurant
   belongs_to :seat
   has_many :manager_reservations
   has_many :be_noted_managers, through: :manager_reservations, source: :manager
-
-  include Gender
-  include AASM
 
   validates :name, presence: true
   validates :phone, presence: true
@@ -32,8 +32,12 @@ class Reservation < ApplicationRecord
       transitions from: %i[reserved pending], to: :cancelled
     end
 
-    event :compeleted do
-      transitions from: :reserved, to: :compeleted
+    event :compeleted, :after_commit => :occupied  do
+      transitions from: :reserved, to: :compeleted do
+        guard do
+          self.seat.vacant?
+        end
+      end
     end
   end
 
@@ -41,5 +45,9 @@ class Reservation < ApplicationRecord
 
   def generate_serial
     self.serial = SecureRandom.alphanumeric(12)
+  end
+
+  def occupied
+    self.seat.occupied!
   end
 end
