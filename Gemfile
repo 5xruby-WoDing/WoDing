@@ -72,4 +72,4 @@ gem 'aws-sdk-s3', require: false
 
 gem 'redis', '~> 5.0'
 
-gem "ransack", "~> 3.2"
+gem 'ransack', '~> 3.2'

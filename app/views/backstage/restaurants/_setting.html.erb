@@ -4,18 +4,9 @@
     <div class='grid grid-cols-2 p-6 text-left'>
       <div>
         <h3 class='inline py-2 text-xl font-bold'>新增營業時段</h3>
-        <span class='major-btn'>
-          <i class="fa-solid fa-lock"
-              data-action="click->opening-time#setLocked"
-              data-opening-time-target='locked'></i>
-        </span>
         
         <%= form_with(model: @opening_time, 
                       url: backstage_restaurant_opening_times_path(@restaurant.id)) do |f| %>
-          <div>
-            <%= f.label :title, '時段名稱：'%>
-            <%= f.text_field :title, class: 'input-border-click' %>
-          </div>
           <div>
             <%= f.label :opening_time, '時段：'%>
             <div class='text-center'>
@@ -34,7 +25,6 @@
       <div>
         <% @opening_times.each do |time| %>
           <div class='flex items-center p-2 m-auto mb-2 text-sm border rounded'>
-            <%= time.title %>
             <%= time.opening_time.strftime('%R') %> -
             <%= time.closed_time.strftime('%R') %>
             <a href="/backstage/opening_times/<%= time.id %>/edit" class='mx-2 major-btn'>

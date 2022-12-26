@@ -64,7 +64,7 @@
 
       <td class="border-t-2 border-b-2">
         <% seat.reservations.each do |reservation| %>
-          <li><%= link_to "手動關閉", finish_backstage_reservation_path(reservation), class: "major-btn bg-red-400 hover:bg-red-600" %></li>
+          <li><%= link_to "取消", cancel_backstage_reservation_path(reservation), class: "major-btn" %></li>
         <% end %>
       </td>
     </tr>

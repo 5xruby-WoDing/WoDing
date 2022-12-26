@@ -22,7 +22,7 @@ class Reservation < ApplicationRecord
 
   aasm column: 'state', no_direct_assignment: true do
     state :pending, initial: true
-    state :reserved, :cancelled
+    state :reserved, :cancelled, :compeleted
 
     event :reserve do
       transitions from: :pending, to: :reserved
@@ -30,6 +30,10 @@ class Reservation < ApplicationRecord
 
     event :cancel do
       transitions from: %i[reserved pending], to: :cancelled
+    end
+
+    event :compeleted do
+      transitions from: :reserved, to: :compeleted
     end
   end
 

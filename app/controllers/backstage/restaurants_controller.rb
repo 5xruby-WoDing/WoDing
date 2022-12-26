@@ -31,7 +31,10 @@ module Backstage
       @seats = @restaurant.seats
 
       @opening_time = OpeningTime.new
+      @reservations = @restaurant.reservations.order(arrival_time: :asc)
       @opening_times = @restaurant.opening_times
+      @q = @reservations.ransack(params[:q])
+      @reservations = @q.result
     end
 
     def destroy
@@ -39,11 +42,12 @@ module Backstage
       redirect_to backstage_root_path(current_manager.id), notice: '已刪除'
     end
 
-    def selector
+    def statistics
       restaurant = Restaurant.find(params[:restaurant_id])
-      @reservation = restaurant.reservations.where(arrival_date: params[:date])
-
-      render json: {reservation: @reservation}
+      reservation = restaurant.reservations.where(arrival_date: params[:date])
+      sum = reservation.size
+      sum_of_people = reservation.reduce([]) { |arr, r| arr << (r.adult_quantity + r.child_quantity) }.sum
+      render json: { sum:, sum_of_people: }
     end
 
     private
