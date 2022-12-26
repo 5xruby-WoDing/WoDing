@@ -3,6 +3,11 @@
 module Backstage
   class ReservationsController < Backstage::ManagersController
     before_action :find_reservation, only: %i[cancel note compelete]
+    before_action :find_restaurant, only: %i[index]
+
+    def index
+      
+    end
 
     def cancel
       @reservation.cancel! if @reservation.may_cancel?
@@ -28,6 +33,10 @@ module Backstage
 
     def find_reservation
       @reservation = Reservation.find(params[:id])
+    end
+
+    def find_restaurant
+      @restaurant = Restaurant.find(params[:restaurant_id])
     end
   end
 end

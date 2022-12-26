@@ -9,17 +9,15 @@ Rails.application.routes.draw do
       resources :restaurants, shallow: true, only: [:new, :create, :show, :edit, :update, :destroy] do
         post :statistics
         
-        resources :opening_times, shallow: true, only: [:new, :create, :edit, :update, :destroy]
-        resources :seats, shallow: true, only: [:new, :create, :show, :edit, :update, :destroy] do
-
-          resources :reservations, shallow: true, only: [] do
-            member do
-              get :cancel
-              get :compelete
-              patch :note
-            end
+        resources :reservations, shallow: true, only: [:index] do
+          member do
+            get :cancel
+            get :compelete
+            patch :note
           end
         end
+        resources :opening_times, shallow: true, only: [:index, :new, :create, :edit, :update, :destroy]
+        resources :seats, shallow: true, only: [:index, :create, :edit, :update, :destroy] 
       end
     end
     root 'managers#show'

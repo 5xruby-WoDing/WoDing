@@ -1,0 +1,29 @@
+<nav class='fixed left-0 flex flex-col justify-between h-full bg-darkBlue'>
+
+    <div class="flex flex-col text-center">
+      <img src="/assets/123.svg" alt="logo" class='w-16 pb-6 mx-auto mt-6'>
+
+
+      <%= link_to '訂位', backstage_restaurant_reservations_path(@restaurants), class: 'backstage-nav-btn', data: {backstage_target: "reservationtBtn"  } %>
+
+      <button data-action="click->backstage#info" class='backstage-nav-btn' data-backstage-target="reservationBtn">
+        資訊
+      </button>
+
+      <%# <%= link_to '座位', backstage_restaurant_seats_path(params[:id]), class:'backstage-nav-btn', data: {backstage_target: "seatBtn"}%> %>
+
+      <button data-action="click->backstage#setting" class='backstage-nav-btn' data-backstage-target="settingBtn">
+        <i class="text-lg fa-solid fa-gear"></i>
+      </button> 
+    </div>
+
+    <div class='text-center'>
+      <%= link_to "返回", backstage_root_path, class: "backstage-nav-btn text-gray-300 text-sm block" %>
+      <h1 class='text-sm text-center text-gray-300'>
+        <%# <%= @restaurant.title %> %>
+      </h1>
+      <p class='text-sm text-center text-gray-300'>
+        <%# <%= @restaurant.branch %> %>
+      </p>
+    </div>
+  </nav>
