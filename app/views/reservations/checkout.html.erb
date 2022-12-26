@@ -1,6 +1,6 @@
-<section class="mx-5">
-  <main class="mx-auto text-center my-14 md:w-6/12 lg:w-4/12">
-    <div  class='px-5 py-4 border rounded'>
+<main class="mx-5">
+  <section class="mx-auto text-center my-14 md:w-6/12 lg:w-4/12">
+    <div class='px-5 py-4 border rounded'>
       <div class='py-1'>
         <h1 class='text-2xl font-bold'>
           <%= @reservation.name %><%= @reservation.gender %>
@@ -49,9 +49,7 @@
             <input type="hidden" id="ItemDesc" name="ItemDesc" value="<%= @reservation.seat.kind %>">
             <input type="hidden" id="Email" name="Email" value=<%= @reservation.email %>>
             <input type="hidden" id="LoginType" name="LoginType" value="是否需要登入會員">  
-            <div class="w-full py-3 text-lg major-btn">
-              <%= form.submit "藍新信用卡付款" %>
-            </div>
+            <%= form.submit "藍新信用卡付款", class: 'w-full py-3 text-lg major-btn' %>
           <% end %>
       </div>
     <% end %>
@@ -72,5 +70,5 @@
         <%= link_to "取消訂位",  cancel_reservation_path(@reservation.serial) %>
       </div>
     </div>
-  </main>
-</section>
+  </section>
+</main>

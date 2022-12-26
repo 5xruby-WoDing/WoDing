@@ -1,9 +1,5 @@
 <%= form_with(model: @opening_time, url: backstage_opening_time_path(@opening_time) ) do |f| %>
   <div>
-    <%= f.label :title, '名稱：'%>
-    <%= f.text_field :title, class: 'input-border-click' %>
-  </div>
-  <div>
     <%= f.label :opening_time, '時段：'%>
     <%= f.time_select :opening_time, class: 'input-border-click' %>至
     <%= f.time_select :closed_time, class: 'input-border-click' %>

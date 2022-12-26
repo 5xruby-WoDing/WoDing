@@ -2,6 +2,9 @@
 
 class Seat < ApplicationRecord
   include AASM
+  acts_as_paranoid
+
+  validates :title, presence: true
 
   belongs_to :restaurant
   has_many :reservations, dependent: :destroy

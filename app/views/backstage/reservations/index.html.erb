@@ -1,0 +1,173 @@
+<main class='grid grid-cols-3 grid-rows-2 gap-4 p-6 ml-20 bg-hoverGray'>
+  <% date_range = RestaurantsHelper::DateRange.new([]) %>
+  <% date_range.end_day(@restaurant.period_of_reservation) %>
+  <% date_range.reservation_range_date(Date.yesterday) %>
+  <div>  
+    <div class='mb-3 bg-white border rounded '>
+      <h2 class='py-2 text-2xl font-bold text-center border-b' >
+        <%= Time.current.strftime('%Y %m 月 %d 日 %A') %>
+      </h2>
+      <div class='p-6 text-center'>
+        <h2 class='pb-4 text-2xl font-bold'>今日統計</h2>
+        <div class='grid grid-cols-3'>
+          <div class='pb-4'>
+            <p class='text-4xl font-bold'>
+              <%= @reservations.select{|reservation| reservation.arrival_date == Date.today}.size %>
+            </p>
+            <h3 class='text-lg'>
+              客人組數
+            </h3> 
+          </div>
+          <div>
+            <p class='text-4xl font-bold'>
+              <% people = @reservations.select{|reservation| reservation.arrival_date == Date.today} %> 
+              <%= people.each.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
+            </p>
+            <h3 class='text-lg'>
+              總人數
+            </h3>
+          </div>
+          <div>
+            <p class='text-4xl font-bold text-green-600'>
+              <%= @reservations.select{|reservation| reservation.arrival_date == Date.today && reservation.state == 'completed'}.size%>
+            </p>
+            <h3>完成</h3>
+          </div>
+          <div>
+            <p class='text-4xl font-bold text-red-600'>
+              <%= @reservations.select{|reservation| reservation.arrival_date == Date.today && reservation.state == 'reserved'}.size %>
+              <% %>
+            </p>
+            <h3>剩餘組數</h3>
+          </div>
+          <div>
+            <p class='text-4xl font-bold text-major'>
+              <%= @restaurant.seats.select{|seat| seat.state == 'occupied'}.size %>
+            </p>
+            <h3>現場組數</h3>
+          </div>
+          <div>
+            <p class='text-4xl font-bold text-red-600'>
+              <%= @reservations.select{|reservation| reservation.arrival_date == Date.today && reservation.state == 'cancelled'}.size %>
+            </p>
+            <h3>取消</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='mb-auto bg-white border rounded' 
+          data-controller='dash-board' 
+          data-action='update-people@window->dash-board#setPeople'
+          data-action='update-date@window->dash-board#setReservation' 
+    >
+      <h2 class='py-2 text-2xl font-bold text-center border-b' data-dash-board-target='date'>
+        <%= Time.current.strftime('%Y %m 月 %d 日 %A') %>
+      </h2>
+      <div class='p-6 text-left'>
+        <div class='grid grid-cols-2' 
+              >
+          <div class='pb-4'>
+            <p class='text-4xl font-bold' data-dash-board-target='sum'>
+              <%= @restaurant.reservations.select{|reservation| reservation.arrival_date == Date.today}.size %>
+            </p>
+            <h3 class='text-lg'>
+              客人組數
+            </h3> 
+          </div>
+          <div>
+            <p class='text-4xl font-bold' data-dash-board-target='sumOfPeople'>
+              <% people = @restaurant.reservations.select{|reservation| reservation.arrival_date == Date.today} %> 
+              <%= people.each.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
+            </p>
+            <h3 class='text-lg'>
+              總人數
+            </h3>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <div class='col-span-2 row-span-2 py-0 mb-auto bg-white border rounded'>
+    <div class='p-3 text-center'>
+      <div data-controller='selector' class='flex flex-wrap justify-center gap-3 mb-3 '> 
+        <% date_range.date_list.each do |date| %>
+          <span class='py-1 gray-btn'
+                data-selector-target='date'
+                data-action='click->selector#getDate'
+                data-date=<%= date.gsub(/\D/, '/').strip.to_date %>
+                data-id='<%=@restaurant.id%>'
+          >
+            <%= date %>
+          </span>
+        <% end %>
+      </div>
+      <div data-controller='search'>
+        <%= search_form_for @q, url: backstage_restaurant_reservations_path(@restaurant), class: 'inline' do |f| %>
+          <%= f.search_field :name_cont, class: 'input-border-click' %>
+          <%= button_tag type:'submit', class: 'major-btn' do %>
+            <i class="fa-solid fa-magnifying-glass"></i>
+          <% end %>
+        <% end %>
+        <%= link_to backstage_restaurant_reservations_path(@restaurant), class: 'major-btn bg-red-600 major-btn hover:bg-red-800' do %>
+          <i class="fa-solid fa-rotate-right"></i>
+        <% end %>
+      </div>
+    </div>
+    <div data-controller='display'
+          data-action="update-date@window->display#setReservation"> 
+      <% @reservations.each do |reservation| %>
+          <div class='grid grid-cols-5 p-4 text-center border-b' 
+                data-controller="note-reservation"
+                data-id="<%= reservation.id %>"
+                data-noted="<%= current_manager.noted_important_reservation?(reservation) %>"
+                data-date='<%= reservation.arrival_date%>'
+                data-display-target='date'
+          >
+            <div class='flex text-left '>  
+              <div class='flex'>
+                <span data-action="click->note-reservation#noted" class='m-auto mr-2 text-center text-major'>
+                  <i class="fa-regular fa-star" data-note-reservation-target="icon"></i>
+                </span>
+                <div>
+                  <%= reservation.name %>
+                  <%= reservation.gender %>
+                  <p class='text-sm text-gray-500'><%= reservation.phone %></p>
+                </div>
+              </div>
+            </div>
+            <div class='flex justify-center'>
+              <p class='my-auto mr-3 text-2xl text-major'>
+                <%= reservation.adult_quantity + reservation.child_quantity %>
+                位
+              </p>
+              <p class='my-auto text-sm'>
+                <%= reservation.adult_quantity %>大人<br>
+                <%= reservation.child_quantity %>小孩
+              </p>
+            </div>
+            
+            <p class='my-auto text-2xl'>
+              <%= reservation.seat_id %>
+              <span class='px-2 text-lg border rounded '>
+                <%= reservation.state %>
+              </span>
+            </p>
+            <p class='my-auto'>
+              <%= reservation.arrival_time.strftime('%R') %>
+            </p>
+            
+            <div class='m-auto'>
+              <%= link_to "報到", complete_backstage_reservation_path(reservation), class: "major-btn bg-green-600 hover:bg-green-800" %>
+              <%= link_to "取消", cancel_backstage_reservation_path(reservation), class: "major-btn bg-red-600 hover:bg-red-800" %>
+            </div>
+          
+
+          </div>
+      <% end %>
+    </div>
+  </div>
+  
+
+</main>

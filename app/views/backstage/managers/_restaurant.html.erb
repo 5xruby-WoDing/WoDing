@@ -1,7 +1,9 @@
 <div class='flex flex-col border rounded shadow-lg '>
         
   <div class="h-60 md:h-80">
-    <%= image_tag restaurant.images[0], class: "object-cover w-full h-full" %>
+     <% if restaurant.images[0] %>
+      <%= image_tag restaurant.images[0], class: "object-cover w-full h-full" %>
+      <% end %>
   </div>
 
   <div class="mt-5">
@@ -22,17 +24,17 @@
       </span>
       <span>
         <p class='text-3xl text-major'>
-          0
+          <%= restaurant.reservations.select{|reservation| reservation.state == 'complete'}.size %>
         </p>
         <p>以報到</p>
       </span>
-      <span>
+      <span class='m-auto'>
         <p class='text-3xl text-major'>
           <%= restaurant.seats.size %>
         </p>
-        <p>同時<br/>容納上限</p>
+        <p>容納上限</p>
       </span>
-      <div>
+      <div class='m-auto'>
         <% opening_time = restaurant.opening_times.reduce([]){|arr, opening_time| arr << (opening_time.opening_time.strftime('%R')..opening_time.closed_time.strftime('%R'))} %>  
         <% opening_time = opening_time.select{|time_range| time_range.include?(Time.current.strftime('%R'))} %>
         <% if opening_time.size > 0 %>
@@ -40,10 +42,10 @@
         <% else %>
           <span class='text-2xl text-red-500'>已打烊</span>
         <% end %>
-        <p>餐廳<br/>營業狀況</p> 
+        <p>營業狀況</p> 
       </div>
     </div>            
-    <div>
+    <div data-controller='info'>
       <h2 class='mb-4 text-xl font-bold'>
         <%= restaurant.title %><br/>                
       </h2>
@@ -63,8 +65,8 @@
         </span>
       </div>
       <div class='flex'>
-        <%= link_to '管理訂單', backstage_restaurant_path(restaurant), class: 'major-btn cursor-pointer px-4 py-2 mr-4'%>
-        <%= link_to "編輯餐廳資訊", edit_backstage_restaurant_path(restaurant), class: "px-4 py-2 text-major border-2 border-major rounded text-sm hover:bg-major hover:text-white" %>
+        <%= link_to '管理訂單', backstage_restaurant_reservations_path(restaurant), class: 'major-btn cursor-pointer px-4 py-2 mr-4'%>
+        <%= link_to "編輯餐廳資訊", edit_backstage_restaurant_path(restaurant), class: "px-6 py-2 text-major border-2 border-major rounded text-sm p-1 hover:bg-major hover:text-white" %>
       </div>
     </div>
   </div>
