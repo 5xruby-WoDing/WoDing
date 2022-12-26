@@ -6,8 +6,8 @@ module Backstage
     before_action :find_seat, only: %i[show edit update destroy vacant occupied]
 
     def index
-      @seats = @restaurant.seats
-      @seat = @restaurant.seats.new
+      @seats = @restaurant.seats.order(title: :asc)
+      @seat = Seat.new
     end
 
     def create
@@ -23,11 +23,11 @@ module Backstage
     end
 
     def update
-        if @seat.update(params_seat)
-          redirect_to backstage_restaurant_seats_path(@seat.restaurant_id)
-        else
-          render :edit
-        end
+      if @seat.update(params_seat)
+        redirect_to backstage_restaurant_seats_path(@seat.restaurant_id)
+      else
+        render :edit
+      end
     end
 
     def destroy

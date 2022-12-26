@@ -1,37 +1,39 @@
 <main data-controller="backstage" class='h-full ml-20 bg-hoverGray max-w-screen-2xl '>
-  <section class='grid grid-cols-3 grid-rows-2 gap-4 p-6' >
-  <div class='bg-white border rounded'>
-    <p class='py-2 text-2xl font-bold text-center border-b'>餐廳資訊</p>
-    <div class='p-6'>
-      <div class='restaurant-info'>
-        <i class="fa-solid fa-utensils"></i>
-        <%= @restaurant.title %>
-      </div>
-      <div class='restaurant-info'>
-        <i class="fa-solid fa-store"></i>
-        <%= @restaurant.branch %>
-      </div>
-      <div class='restaurant-info'>
-        <i class="fa-solid fa-phone"></i>
-        <%= @restaurant.tel %>
-      </div>
-      <div class='restaurant-info'>
-        <i class="fa-solid fa-location-dot"></i>
-        <%= @restaurant.address %>
-      </div>
-      <div class='restaurant-info'>
-        <span>用餐時間</span>
-        <%= @restaurant.dining_time %>
-        <span>分鐘</span>
-      </div>
-    </div>  
-  </div>
+  <section class='grid grid-cols-3 grid-rows-2 gap-4 p-6' 
+            data-controller='restaurant'
+  >
+    <div class='bg-white border rounded'>
+      <p class='py-2 text-2xl font-bold text-center border-b'>餐廳資訊</p>
+      <div class='p-6'>
+        <div class='restaurant-info'>
+          <i class="fa-solid fa-utensils"></i>
+          <%= @restaurant.title %>
+        </div>
+        <div class='restaurant-info'>
+          <i class="fa-solid fa-store"></i>
+          <%= @restaurant.branch %>
+        </div>
+        <div class='restaurant-info'>
+          <i class="fa-solid fa-phone"></i>
+          <%= @restaurant.tel %>
+        </div>
+        <div class='restaurant-info'>
+          <i class="fa-solid fa-location-dot"></i>
+          <%= @restaurant.address %>
+        </div>
+        <div class='restaurant-info'>
+          <span>用餐時間</span>
+          <%= @restaurant.dining_time %>
+          <span>分鐘</span>
+        </div>
+      </div>  
+    </div>
 
-  <div class= 'col-span-2 row-span-2 py-0 mb-auto bg-white border rounded'>
-    <p class='py-2 text-2xl font-bold text-center border-b'>編輯餐廳</p>
-    <%= render "error", restaurant: @restaurant %>
-    <%= render 'form', restaurant: @restaurant, url: backstage_restaurant_path(@restaurant)   %>
-  </div>
+    <div class= 'col-span-2 row-span-2 py-0 mb-auto bg-white border rounded'>
+      <p class='py-2 text-2xl font-bold text-center border-b'>編輯餐廳</p>
+      <%= render "error", restaurant: @restaurant %>
+      <%= render 'form', restaurant: @restaurant, url: backstage_restaurant_path(@restaurant)   %>
+    </div>
 
-</section>
+  </section>
 </main>

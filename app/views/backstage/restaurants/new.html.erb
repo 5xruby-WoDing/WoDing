@@ -1,5 +1,6 @@
-<h1 class="backstage-top-bar">新增餐廳</h1>
 
-<%= render "error", restaurant: @restaurant %>
-
-<%= render 'form', restaurant: @restaurant, url: backstage_manager_restaurants_path(current_manager.id) %>
+<main class='max-w-screen-lg p-3 mx-auto mt-8'>
+  <h1 class="text-3xl">新增餐廳</h1>
+  <%= render "error", restaurant: @restaurant %>
+  <%= render 'form', restaurant: @restaurant, url: backstage_manager_restaurants_path(current_manager.id) %>  
+</main>

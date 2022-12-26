@@ -1,6 +1,5 @@
-<h1 class="backstage-top-bar"><%= "編輯#{@restaurant.title}" %></h1>
-
-<%= render "error", restaurant: @restaurant %>
-
-<%= render 'form', restaurant: @restaurant, url: backstage_restaurant_path(@restaurant) %>
-
+<main class='max-w-screen-lg px-3 mx-auto mt-8'>
+  <h1 class="text-3xl"><%= "編輯#{@restaurant.title}" %></h1>
+  <%= render "error", restaurant: @restaurant %>
+  <%= render 'form', restaurant: @restaurant, url: backstage_restaurant_path(@restaurant) %>
+</main>

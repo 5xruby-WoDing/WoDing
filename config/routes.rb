@@ -15,7 +15,7 @@ Rails.application.routes.draw do
             post :statistics
           end
         end
-        resources :opening_times, shallow: true, only: [:index, :new, :create, :edit, :update, :destroy]
+        resources :opening_times, shallow: true, only: [:index, :create, :edit, :update, :destroy]
         resources :seats, shallow: true, only: [:index, :create, :edit, :update, :destroy] do
           member do
             get :vacant
