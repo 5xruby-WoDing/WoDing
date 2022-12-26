@@ -15,10 +15,7 @@
  */ 
  @import "./actiontext.scss";
 
- html,
- body {
-   height: 100%;
- }
+
  
  /* 後台管理頁面側邊欄 */
  .container {

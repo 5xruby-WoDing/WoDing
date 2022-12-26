@@ -53,8 +53,10 @@
     </div>
 
     <div class='text-center'>
-      <%= f.submit '編輯餐廳',class: 'major-btn' %>
+      <%= f.submit '編輯餐廳',class: 'major-btn px-4 py-2 border-2 border-major rounded text-sm p-1 hover:bg-major-500 hover:text-white cursor-pointer' %>
+      <%= link_to '回上一頁', backstage_root_path, class: "px-4 py-2 text-major border-2 border-major rounded text-sm p-1 hover:bg-major hover:text-white" %>
     </div>
+
     <% end %>
   </div>
 </section >
