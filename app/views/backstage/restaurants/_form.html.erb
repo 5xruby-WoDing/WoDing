@@ -1,61 +1,64 @@
-<section>
-  <div class='max-w-screen-lg px-3 mx-auto mt-8'>
+<section class='max-w-screen-lg p-3 mx-auto mt-8'
+        data-controller='form'
+>
+  <div>
     <%= form_with(model: [:backstage, :manager, @restaurant],url: url) do |f| %>
-    
-    <div>
-      <%= f.label :title, '餐廳名稱：' %>
-      <%= f.text_field :title, class: 'input-border-click' %>
-    </div>
+      <div>
+        <%= f.label :title, '餐廳名稱：' %>
+        <%= f.text_field :title, class: 'input-border-click' %>
+      </div>
 
-    <div class='py-1'>
-      <%= f.label :branch, '分店名稱：' %>
-      <%= f.text_field :branch, class: 'input-border-click', placeholder: '例如：復興店' %>
-    </div>
+      <div class='py-1'>
+        <%= f.label :branch, '分店名稱：' %>
+        <%= f.text_field :branch, class: 'input-border-click', placeholder: '例如：復興店' %>
+      </div>
 
-    <div class='py-1'>
-      <%= f.label :address, '餐廳地址：' %>
-      <%= f.text_field :address, class: 'input-border-click' %>
-    </div>
+      <div class='py-1'>
+        <%= f.label :address, '餐廳地址：' %>
+        <%= f.text_field :address, class: 'input-border-click' %>
+      </div>
 
-    <div class='py-1'>
-      <%= f.label :tel, '餐廳電話：' %>
-      <%= f.phone_field :tel, class: 'input-border-click' %>
-    </div>
-    
-    <div class='py-1'>
-      <%= f.label :dining_time, '用餐時間：' %>
-      <%= f.number_field :dining_time, class: 'input-border-click', step: 15 %>分鐘
-    </div>
-    
-    <div class='py-1'>
-      <%= f.label :intreval_time, '訂位時段間隔：' %>
-      <%= f.number_field :intreval_time, step: 15, class: 'input-border-click' %>分鐘
-    </div>
+      <div class='py-1'>
+        <%= f.label :tel, '餐廳電話：' %>
+        <%= f.phone_field :tel, class: 'input-border-click' %>
+      </div>
+      
+      <div class='py-1'>
+        <%= f.label :dining_time, '用餐時間：' %>
+        <%= f.number_field :dining_time, class: 'input-border-click', step: 15 %>分鐘
+      </div>
+      
+      <div class='py-1'>
+        <%= f.label :interval_time, '訂位時段間隔：' %>
+        <%= f.number_field :interval_time, step: 15, class: 'input-border-click' %>分鐘
+      </div>
 
-    <div class='py-1'>
-      <%= f.label :period_of_reservation, '訂位期限：' %>
-      <%= f.number_field :period_of_reservation, class: 'input-border-click' %>
-    </div>
+      <div class='py-1'>
+        <%= f.label :period_of_reservation, '訂位期限：' %>
+        <%= f.number_field :period_of_reservation, class: 'input-border-click' %>
+      </div>
 
-    <div class='py-1'>
-      <%= f.label '標籤：' %>
-      <%= f.text_field :tag_list, class: 'input-border-click', placeholder: '義式, 美式, 中式' %>
-    </div>
+      <div class='py-1'>
+        <%= f.label '標籤：' %>
+        <%= f.text_field :tag_list, class: 'input-border-click', placeholder: '義式, 美式, 中式' %>
+      </div>
 
-    <div class='py-1'>
-      <%= f.label :images, '新增照片：' %>
-      <%= f.file_field :images, multiple: true, accept: 'image/png, image/gif, image/jpeg', class: 'border rounded p-2' %>
-    </div>
+      <div class='py-1'>
+        <%= f.label :images, '新增照片：' %>
+        <%= f.file_field :images, multiple: true, accept: 'image/png, image/gif, image/jpeg', class: 'border rounded p-2' %>
+      </div>
 
-    <div class='mb-4'>
-      <%= f.label :content %>
-      <%= f.rich_text_area :content %>
-    </div>
+      <div class='mb-4'>
+        <%= f.label :content %>
+        <%= f.rich_text_area :content %>
+      </div>
 
-    <div class='text-center'>
-      <%= f.submit '編輯餐廳',class: 'major-btn px-4 py-2 border-2 border-major rounded text-sm p-1 hover:bg-major-500 hover:text-white cursor-pointer' %>
-      <%= link_to '回上一頁', backstage_root_path, class: "px-4 py-2 text-major border-2 border-major rounded text-sm p-1 hover:bg-major hover:text-white" %>
-    </div>
+      <div class='text-center'> 
+        <%= button_tag type:'submit', class: 'major-btn px-4 py-2' do %>
+          <i class="fa-solid fa-pencil"></i>
+        <% end %>
+        <%= link_to '回上一頁', backstage_root_path, class: "px-4 py-2 text-major border-2 border-major rounded text-sm p-1 hover:bg-major hover:text-white" %>
+      </div>
 
     <% end %>
   </div>

@@ -19,7 +19,9 @@ module Backstage
       end
     end
 
-    def edit; end
+    def edit
+      render :layout => 'backstage' 
+    end
 
     def update
       if @restaurant.update(params_restaurant)

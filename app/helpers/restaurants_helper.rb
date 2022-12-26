@@ -2,18 +2,18 @@
 
 module RestaurantsHelper
     class TimeRange
-      def initialize(opening_time, intreval_time)
+      def initialize(opening_time, interval_time)
         @opening_time = opening_time.order(opening_time: :desc)
-        @intreval_time = intreval_time.minutes.to_i
+        @interval_time = interval_time.minutes.to_i
       end
 
       def time_collection
         @time_points = @opening_time.reduce([]) { |arr, time| arr << (time.opening_time.to_i..time.closed_time.to_i) }
       end
 
-      def intreval_time
+      def interval_time
         @time_points.each_with_object([]) do |time, arr|
-          time.step(@intreval_time) { |time| arr << Time.at(time).strftime('%R') }
+          time.step(@interval_time) { |time| arr << Time.at(time).strftime('%R') }
         end
       end
     end
