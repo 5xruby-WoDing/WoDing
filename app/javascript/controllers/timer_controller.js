@@ -3,7 +3,7 @@ import { Controller } from "stimulus"
 export default class extends Controller {
 
   connect(){
-    this.timer(5)
+    this.timer(200)
   }
 
   timer(endTime){
@@ -18,7 +18,7 @@ export default class extends Controller {
         const token = document.querySelector("meta[name='csrf-token']").content
         const id = this.element.id
 
-        fetch(`/restaurants/${id}/timeout`,{
+        fetch(`/restaurants/${id}/out`,{
           method: 'POST',
           headers: {
             "X-CSRF-Token": token,
