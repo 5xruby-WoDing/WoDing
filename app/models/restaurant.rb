@@ -6,6 +6,8 @@ class Restaurant < ApplicationRecord
   validates :title, presence: true
   validates :address, presence: true
   validates :tel, presence: true
+  validates :interval_time, presence: true
+  validates :period_of_reservation , presence: true
 
   belongs_to :manager
   has_many :seats

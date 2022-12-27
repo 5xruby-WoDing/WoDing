@@ -18,7 +18,7 @@ module Backstage
     end
 
     def edit
-      render :layout => 'backstage'
+      render layout: 'backstage'
     end
 
     def update

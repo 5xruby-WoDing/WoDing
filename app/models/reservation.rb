@@ -32,10 +32,10 @@ class Reservation < ApplicationRecord
       transitions from: %i[reserved pending], to: :cancelled
     end
 
-    event :completed, :after_commit => :occupied  do
+    event :completed, after_commit: :occupied do
       transitions from: :reserved, to: :completed do
         guard do
-          self.seat.vacant?
+          seat.vacant?
         end
       end
     end
@@ -48,6 +48,6 @@ class Reservation < ApplicationRecord
   end
 
   def occupied
-    self.seat.occupied!
+    seat.occupied!
   end
 end

@@ -4,10 +4,10 @@ module Backstage
   class RestaurantsController < Backstage::ManagersController
     before_action :find_restaurant, only: %i[show edit update destroy]
     layout 'restaurant_backstage'
-    
+
     def new
       @restaurant = current_manager.restaurants.new
-      render :layout => 'backstage'
+      render layout: 'backstage'
     end
 
     def create
@@ -20,7 +20,7 @@ module Backstage
     end
 
     def edit
-      render :layout => 'backstage' 
+      render layout: 'backstage'
     end
 
     def update
@@ -31,8 +31,7 @@ module Backstage
       end
     end
 
-    def show
-    end
+    def show; end
 
     def destroy
       @restaurant.destroy
@@ -43,7 +42,7 @@ module Backstage
 
     def params_restaurant
       params.require(:restaurant).permit(:title, :tel, :address, :branch, :period_of_reservation, :tag_list,
-                                         :dining_time, :content, images: [])
+                                         :dining_time, :content, :interval_time, images: [])
     end
 
     def find_restaurant

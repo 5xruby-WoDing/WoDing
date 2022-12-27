@@ -5,7 +5,7 @@ module Backstage
     before_action :find_reservation, only: %i[cancel note complete]
     before_action :find_restaurant, only: %i[index]
 
-    def index 
+    def index
       @reservations = @restaurant.reservations.order(arrival_time: :asc)
       @q = @reservations.ransack(params[:q])
       @reservations = @q.result
