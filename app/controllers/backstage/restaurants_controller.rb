@@ -42,7 +42,7 @@ module Backstage
 
     def params_restaurant
       params.require(:restaurant).permit(:title, :tel, :address, :branch, :period_of_reservation, :tag_list,
-                                         :dining_time, :content, images: [])
+                                         :dining_time, :content, images: [], menus: [])
     end
 
     def find_restaurant

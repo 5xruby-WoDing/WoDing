@@ -14,8 +14,9 @@ class Restaurant < ApplicationRecord
   has_many :restaurant_tags
   has_many :tags, through: :restaurant_tags
 
-  has_many_attached :images
   has_rich_text :content
+  has_many_attached :images
+  has_many_attached :menus
 
   Restaurant.all.with_rich_text_content_and_embeds
 
