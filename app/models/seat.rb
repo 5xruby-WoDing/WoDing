@@ -10,7 +10,7 @@ class Seat < ApplicationRecord
   has_many :reservations, dependent: :destroy
 
   enum kind: %i[吧台 方桌 圓桌 包廂]
-  
+
   aasm column: 'state', no_direct_assignment: true do
     state :vacant, initial: true
     state :occupied

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Backstage
-  class SeatsController < Backstage::RestaurantsController
+  class SeatsController < Backstage::RestaurantsController  
     before_action :find_restaurant, only: %i[index create]
     before_action :find_seat, only: %i[show edit update destroy vacant occupied]
 
@@ -13,13 +13,13 @@ module Backstage
     def create
       @seat = @restaurant.seats.new(params_seat)
 
-      if @seat.save
-        redirect_to backstage_restaurant_seats_path(@restaurant)
-      end
+      return unless @seat.save
+
+      redirect_to backstage_restaurant_seats_path(@restaurant)
     end
 
     def edit
-      render :layout => 'backstage'
+      render layout: 'backstage'
     end
 
     def update
