@@ -3,7 +3,7 @@ import Swiper from 'swiper/swiper-bundle';
 
 export default class extends Controller {
   connect() {
-    const swiperTop = new Swiper(".mySwiperTop", {
+      new Swiper(".mySwiperTop", {
       spaceBetween: 30,
       effect: "fade",
       autoplay: {
