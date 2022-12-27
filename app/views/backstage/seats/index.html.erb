@@ -1,6 +1,6 @@
 <main class='grid grid-cols-3 grid-rows-2 gap-4 p-6 ml-20 bg-hoverGray'>
   <div class='mb-auto bg-white border rounded'>
-    <h2 class='py-2 text-2xl font-bold text-center border-b' data-dash-board-target='date'>
+    <h2 class='py-2 text-2xl font-bold text-center border-b'>
       新增座位
     </h2>
     <div class='p-6 text-left'>
@@ -35,7 +35,8 @@
         <% end %>
     </div>
   </div>
-  <div class='col-span-2 row-span-2 py-0 mb-auto bg-white border rounded'>
+  <div class='col-span-2 row-span-2 py-0 mb-auto bg-white border rounded',
+        data-controller= 'opening-time'>
     <h2 class='py-2 text-2xl font-bold text-center border-b'>座位</h2>
     <div>  
       <% @seats.each do |seat| %>

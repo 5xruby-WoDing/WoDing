@@ -9,6 +9,7 @@ class RestaurantsController < ApplicationController
     @content = @restaurant.content
     @opening_time = @restaurant.opening_times
     @key = SecureRandom.urlsafe_base64
+    @tags = @restaurant.tags
   end
 
   def reserve
