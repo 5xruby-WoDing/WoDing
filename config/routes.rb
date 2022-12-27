@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     member do
       post :occupied
       get :reserve 
-      post :timeout
+      post :out
     end
   end
 

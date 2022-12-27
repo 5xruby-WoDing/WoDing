@@ -24,7 +24,7 @@ class RestaurantsController < ApplicationController
     $redis.sadd('all_key', @key)
   end
 
-  def timeout
+  def out
     key = params[:key]
     $redis.del(key)
   end
