@@ -2,7 +2,7 @@
 
 class ReservationsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:information]
-  before_action :find_reservation, only: %i[checkout cancel]
+  before_action :find_reservation, only: %i[checkout cancel information]
 
   def checkout
     @form_info = Newebpay::Mpg.new(@reservation).form_info
@@ -30,6 +30,10 @@ class ReservationsController < ApplicationController
     @trade_no = response.result['TradeNo']
     @payment_type = response.result['PaymentType']
     @trans_no = response.trans_no
+
+    @reservation.reserve! if @reservation.may_reserve?
+    ReserveMailJob.perform_later(@reservation)
+
   end
 
   private

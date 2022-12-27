@@ -1,10 +1,10 @@
-<section class="mt-24">
-  <div class="w-2/3 mx-auto py-10 bg-green-300">
-    <h3 class="text-center text-green-800 text-2xl">交易結果訊息 ： 付款成功 (Success)</h3>
+<section class="mt-24 mb-24">
+  <div class="w-2/3 py-10 mx-auto bg-green-300">
+    <h3 class="text-2xl text-center text-green-800">交易結果訊息 ： 付款成功 (Success)</h3>
   </div>
 
-  <h2 class="w-2/3 mx-auto pt-10 pb-4 text-xl text-red-800 border-b-4">付款資訊</h2>
-  <div class="w-2/3 mx-auto grid grid-rows-2 grid-cols-3 gap-4 border p-4">  
+  <h2 class="w-2/3 pt-10 pb-4 mx-auto text-xl text-red-800 border-b-4">付款資訊</h2>
+  <div class="grid w-2/3 grid-cols-3 grid-rows-2 gap-4 p-4 mx-auto border">  
 
     <div class="font-bold">交易編號</div>
     <div class="col-span-2"><%= @trade_no %></div>
@@ -24,11 +24,14 @@
     <div class="font-bold">交易時間</div>
     <div class="col-span-2"><%= @pay_time %></div>
 
+    <div class="font-bold">訂單狀態</div>
+    <div class="col-span-2 text-red-500"><%= @reservation.state %></div>
+
   </div>
 
 
-  <h2 class="w-2/3 mx-auto pt-10 pb-4 text-xl text-red-800 border-b-4">商店資訊</h2>
-  <div class="w-2/3 mx-auto grid grid-rows-2 grid-cols-3 gap-4 border p-4">  
+  <h2 class="w-2/3 pt-10 pb-4 mx-auto text-xl text-red-800 border-b-4">商店資訊</h2>
+  <div class="grid w-2/3 grid-cols-3 grid-rows-2 gap-4 p-4 mx-auto border">  
 
     <div class="font-bold">商店名稱</div>
     <div class="col-span-2"><%= @merchant_id %></div>
@@ -45,7 +48,7 @@
   </div>  
 
   <div class="w-2/3 mx-auto mt-10">
-    <%= link_to "回到首頁", root_path, class: "major-btn" %>
+    <%= link_to "回到首頁", root_path, class: "major-btn px-6 py-2" %>
   </div>
 </section>
 
