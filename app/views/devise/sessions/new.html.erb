@@ -5,7 +5,7 @@
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="mt-4">
           <%= render 'layouts/messages' %>
-
+ 
           <div class="field">
             <p class="mb-2 font-bold"><%= f.label :email, "Email："%></p>
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-border-click mb-2 w-full" %>
@@ -34,7 +34,7 @@
   </section>
 
   <section class="w-3/6 rounded">
-    <img src="https://picsum.photos/seed/picsum/570/600" alt="" class="hidden rounded md:block">
+    <img src="/assets/banner.png" alt="logo" class="hidden rounded md:block">
   </section>
   
 </div>

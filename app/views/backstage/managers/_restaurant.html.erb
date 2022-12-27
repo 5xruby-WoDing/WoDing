@@ -1,9 +1,11 @@
 <div class='flex flex-col border rounded shadow-lg '>
         
   <div class="h-60 md:h-80">
-     <% if restaurant.images[0] %>
-      <%= image_tag restaurant.images[0], class: "object-cover w-full h-full" %>
-      <% end %>
+    <% if restaurant.images.first %>
+      <%= image_tag restaurant.images.first, class: "object-cover w-full h-full" %>
+    <% else %>
+      <img src="/assets/banner.png" alt="logo" class="object-cover w-full h-full">
+    <% end %>
   </div>
 
   <div class="mt-5">

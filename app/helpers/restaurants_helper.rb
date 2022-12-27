@@ -3,7 +3,7 @@
 module RestaurantsHelper
   class TimeRange
     def initialize(opening_time, interval_time)
-      @opening_time = opening_time.order(opening_time: :desc)
+      @opening_time = opening_time.order(opening_time: :asc)
       @interval_time = interval_time.minutes.to_i
     end
 

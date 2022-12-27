@@ -12,6 +12,5 @@
 * 檔案內新增加入(2)SECRET_ACCESS_KEY=貼上key
 
 * 我們訂位系統有使用redis，因此拉下來的時候，記得安裝redis -> brew install redis
-* 接著以後執行環境的時候都要開始這個redis-server
 
 * ...
