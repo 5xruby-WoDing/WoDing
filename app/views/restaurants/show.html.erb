@@ -201,9 +201,9 @@
       <div style="display: flex; justify-content:center; align-items: center" >
         <div class="swiper mySwiper">
           <div class="swiper-wrapper">
-            <% @restaurant.images.each do |image| %>
+            <% @restaurant.menus.each do |menu| %>
               <div class="swiper-slide">
-                <%= image_tag (image.url), class:"object-cover" %>
+                <%= image_tag (menu.url), class:"object-cover" %>
               </div>
             <% end %>
           </div>
