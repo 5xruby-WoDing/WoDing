@@ -44,8 +44,13 @@
       </div>
 
       <div class='py-1'>
-        <%= f.label :images, '新增照片：' %>
+        <%= f.label :images, '廣告照片：' %>
         <%= f.file_field :images, multiple: true, accept: 'image/png, image/gif, image/jpeg', class: 'border rounded p-2' %>
+      </div>
+
+      <div class='py-1'>
+        <%= f.label :menus, '菜單照片：' %>
+        <%= f.file_field :menus, multiple: true, accept: 'image/png, image/gif, image/jpeg', class: 'border rounded p-2' %>
       </div>
 
       <div class='mb-4'>
@@ -59,7 +64,7 @@
         <% end %>
         <%= link_to '回上一頁', backstage_root_path, class: "px-4 py-2 text-major border-2 border-major rounded text-sm p-1 hover:bg-major hover:text-white" %>
       </div>
-
+      
     <% end %>
   </div>
 </section >
