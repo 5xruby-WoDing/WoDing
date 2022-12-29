@@ -9,7 +9,7 @@
 
   <div class='gap-4 md:grid md:grid-cols-1-2'>
     <section class='mb-4'>
-      <div data-controller='reservation-info' class='px-4 py-5 border rounded'>
+      <div class='px-4 py-5 border rounded'>
         <div class='pb-2 mb-4 border-b-2'>
           <h2 class='text-xl font-bold'>
             <%= @restaurant.title %>
@@ -50,33 +50,38 @@
         <span>後離開</span>
       </div>
      
-      <%= form_with model: @user, url: users_path, class: "form", data: {controller: "reservation-form"} do |form| %>
 
+      <%= form_with model: @user, url: users_path, class: "form", data: {controller: "reservation-form"} do |form| %>
+      
+        <div data-reservation-form-target="nameWarn"></div>                
         <div class='mb-3 reservation-input'>
           <%= form.label :name, '訂位人姓名', class: 'mb-3' %>
             <div class='grid grid-cols-2 gap-3'>
               <%= form.text_field :name, class: 'input-border-click', data: {reservation_form_target: "nameInput",
-                                                                             action: "input->reservation-form#input"} %>
+                                                                             action: "input->reservation-form#input blur->reservation-form#nameFieldBlur"} %>
               <%= form.select :gender, User.genders.keys, {}, {class: 'input-border-click w-full'} %>
             </div>
         </div>
-
+        <div data-reservation-form-target="emailWarn"></div>
         <div class='mb-3 reservation-input'>
           <%= form.label :email, 'Email', class: 'mb-3' %>
           <%= form.email_field :email, 
             class: 'input-border-click', 
             data: {reservation_form_target: "emailInput",
-                    action: "input->reservation-form#input"
+                    action: "input->reservation-form#input
+                             blur->reservation-form#emailFieldBlur"
                   }
           %>
         </div>
-
+        <div data-reservation-form-target="phoneWarn"></div>
         <div class='mb-3 reservation-input'>
           <%= form.label :phone, '手機號碼', class: 'mb-3' %>
           <%= form.telephone_field :phone, 
-            class: 'input-border-click', 
+            class: 'input-border-click',
+            maxlength: "10",                         
             data: {reservation_form_target: "phoneInput",
-                    action: "input->reservation-form#input"
+                    action: "input->reservation-form#input
+                             blur->reservation-form#phoneFieldBlur"
                   } 
           %>
         </div>
@@ -91,7 +96,7 @@
         <%= form.number_field :child_quantity, class: "hidden", value: params[:child_quantity] %>
           
         <div>
-          <%= form.submit "確認定位", class: "disabled-btn w-full py-3 text-lg mb-3",
+          <%= form.submit "確認訂位", class: "disabled-btn w-full py-3 text-lg mb-3 cursor-pointer",
                                      disabled: true,
                                      data: {reservation_form_target: "submit" } %>
           <%= link_to "回上一頁", restaurant_path(@restaurant), class: 'gray-btn block text-center text-lg py-3' %>

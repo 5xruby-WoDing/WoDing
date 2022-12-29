@@ -3,7 +3,9 @@
     <div class="w-full mr-6 rounded md:w-1/4 h-1/4">
       <div class="h-26 md:h-48">
         <% if restaurant.images.first %>
-          <%= image_tag restaurant.images.first, class: "object-cover w-full h-full" %>
+          <%= link_to restaurant_path(restaurant) do %>
+            <%= image_tag restaurant.images.first, class: "object-cover w-full h-full" %>  
+          <% end %>
         <% else %>
           <img src="/assets/banner.png" class="object-cover w-full h-full">
         <% end %>
