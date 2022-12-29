@@ -1,5 +1,5 @@
 <main class='grid grid-cols-3 grid-rows-2 gap-4 p-6 ml-20 bg-hoverGray'>
-  <div class='bg-white border rounded' data-controller='opening-time'>
+  <section class='bg-white border rounded' data-controller='opening-time'>
     <h2 class='py-2 text-2xl font-bold text-center border-b '>營業時段</h2>
     <div class='grid grid-cols-2 p-6 text-left'>
       <div>
@@ -36,5 +36,22 @@
         <% end %>
       </div>
     </div>
-  </div>
+  </section>
+  <section>
+    <% (Date.today.beginning_of_week(:sunday)...Date.today.end_of_week).each do |date| %>
+      <div class='inline major-btn'><%= date.strftime('%a') %></div>
+    <% end %>
+    
+    <% @off_days.each do |a| %>
+      <%= a.off_day %>
+    <% end %>
+
+    <%= form_with(model: @off_day, url: backstage_restaurant_off_days_path(@restaurant)) do |f| %>
+      <div>
+        <%= f.text_field :off_day %>
+      </div>
+      <%= f.submit %>
+    <% end %>
+    
+  </section>
 </main>

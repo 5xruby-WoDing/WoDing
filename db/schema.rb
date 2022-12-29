@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_27_040253) do
+ActiveRecord::Schema.define(version: 2022_12_29_070511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,14 @@ ActiveRecord::Schema.define(version: 2022_12_27_040253) do
     t.index ["restaurant_id"], name: "index_messages_on_restaurant_id"
   end
 
+  create_table "off_days", force: :cascade do |t|
+    t.string "off_day"
+    t.bigint "restaurant_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["restaurant_id"], name: "index_off_days_on_restaurant_id"
+  end
+
   create_table "opening_times", force: :cascade do |t|
     t.time "opening_time"
     t.time "closed_time"
@@ -140,7 +148,6 @@ ActiveRecord::Schema.define(version: 2022_12_27_040253) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "branch", default: ""
-    t.string "image"
     t.integer "period_of_reservation", default: 1
     t.integer "dining_time", default: 0
     t.integer "interval_time"
@@ -182,6 +189,7 @@ ActiveRecord::Schema.define(version: 2022_12_27_040253) do
   add_foreign_key "manager_reservations", "managers"
   add_foreign_key "manager_reservations", "reservations"
   add_foreign_key "messages", "restaurants"
+  add_foreign_key "off_days", "restaurants"
   add_foreign_key "opening_times", "restaurants"
   add_foreign_key "reservations", "restaurants"
   add_foreign_key "reservations", "seats"

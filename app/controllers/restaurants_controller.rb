@@ -10,6 +10,7 @@ class RestaurantsController < ApplicationController
     @opening_time = OpeningTime.includes(:restaurant).where(restaurant_id: @restaurant).references(:opening_time)
     @key = SecureRandom.urlsafe_base64
     @tags = @restaurant.tags
+    @off_days = @restaurant.off_days
   end
 
   def reserve
