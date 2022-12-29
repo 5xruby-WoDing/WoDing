@@ -10,7 +10,10 @@ module Backstage
       end
     end
 
-    def edit
+    def destroy
+      off_day = OffDay.find(params[:id])
+      off_day.destroy
+      redirect_to backstage_restaurant_opening_times_path(off_day.restaurant_id), notice: 'ok'
     end
 
     private
@@ -21,5 +24,6 @@ module Backstage
     def find_restaurant
       @restaurant = Restaurant.find(params[:restaurant_id])
     end
+
   end
 end
