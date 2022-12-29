@@ -1,12 +1,11 @@
-<main class="max-w-screen-lg p-2 mx-auto">    
-  <section class="home-img">
-    <div class="w-full home-slide-height">
-      <div class="h-full swiper mySwiperTop md:w-auto" data-controller="swiper-carousel-top">
-        <div class="h-full swiper-wrapper">
+<main class="max-w-screen-lg p-2 mx-auto my-12">    
+  <section>
+      <div class="swiper mySwiperTop" data-controller="swiper-carousel-top">
+        <div class="swiper-wrapper">
           <% @restaurants.each do |restaurant| %>
             <% restaurant.images.sample(1).each do |image| %>
               <div class="swiper-slide">
-                <%= image_tag (image.url) ,class:"object-cover w-full h-full" %>
+                <%= image_tag (image.url) %>
               </div>
             <% end %>
           <% end %>
@@ -14,8 +13,7 @@
         <div class="swiper-button-next swiper-button-next-top"></div>
         <div class="swiper-button-prev swiper-button-prev-top"></div>
         <div class="swiper-pagination swiper-pagination-top"></div>
-      </div> 
-    </div>
+      </div>
   
     <div data-controller="home-tag">
       <%= form_with(url: root_path, method: :get, class: "pb-4 mt-4" )do |form| %>
