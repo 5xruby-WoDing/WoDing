@@ -194,21 +194,6 @@
   </section>
  
   <section>
-<<<<<<< Updated upstream
-    <div class="py-8 space-y-2.5 border-b-2" data-controller="swiper-carousel">
-      <div style="display: flex; justify-content:center; align-items: center" >
-        <div class="swiper mySwiper">
-          <div class="swiper-wrapper">
-            <% @restaurant.menus.each do |menu| %>
-              <div class="swiper-slide">
-                <%= image_tag (menu.url), class:"object-cover" %>
-              </div>
-            <% end %>
-          </div>
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-pagination"></div>
-=======
     <div class="py-8" data-controller="swiper-carousel">
       <div class="swiper mySwiper">
         <div class="swiper-wrapper">
@@ -217,7 +202,6 @@
               <%= image_tag (menu.url) %>
             </div>
           <% end %>
->>>>>>> Stashed changes
         </div>
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
