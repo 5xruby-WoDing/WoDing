@@ -7,8 +7,11 @@ module Backstage
 
     def index
       @reservations = Reservation.includes(:seat,
-                                           :restaurant).where(restaurant_id: @restaurant).references(:reservation)
+                                           :restaurant,
+                                           :manager_reservations).where(restaurant_id: @restaurant).references(:reservation)
       @current_reservatoin = @reservations.current_reservations
+
+      @off_days = OffDay.includes(:restaurant).where(restaurant_id: @restaurant).references(:off_day).map{|off_day| off_day.off_day}
 
       @reserved = @current_reservatoin.reservations_state('reserved').count
       @completed = @current_reservatoin.reservations_state('completed').count
@@ -20,12 +23,12 @@ module Backstage
 
     def cancel
       @reservation.cancel! if @reservation.may_cancel?
-      redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id)
+      redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id), notice: '完成報到'
     end
 
     def complete
       @reservation.completed! if @reservation.may_completed?
-      redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id)
+      redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id), notice: '已取消'
     end
 
     def note
@@ -53,8 +56,7 @@ module Backstage
     end
 
     def find_restaurant
-      @restaurant = Restaurant.includes(:seats, :manager, :reservations).where(manager_id: current_manager.id,
-                                                                               id: params[:restaurant_id]).references(:manager).first
+      @restaurant = Restaurant.find(params[:restaurant_id])
     end
   end
 end

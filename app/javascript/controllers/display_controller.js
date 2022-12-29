@@ -13,7 +13,7 @@ export default class extends Controller {
 
   setReservation(e){
     this.dateTargets.forEach(reservation => reservation.classList.remove('hidden'))
-    this.setDisplay(e.detail)
+    this.setDisplay(e.detail.date)
   }
 
   setDisplay(date){

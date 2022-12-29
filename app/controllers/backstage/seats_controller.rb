@@ -15,7 +15,7 @@ module Backstage
 
       return unless @seat.save
 
-      redirect_to backstage_restaurant_seats_path(@restaurant)
+      redirect_to backstage_restaurant_seats_path(@restaurant), notice: '座位新增成功'
     end
 
     def edit
@@ -24,7 +24,7 @@ module Backstage
 
     def update
       if @seat.update(params_seat)
-        redirect_to backstage_restaurant_seats_path(@seat.restaurant_id)
+        redirect_to backstage_restaurant_seats_path(@seat.restaurant_id), notice: '座位更新成功'
       else
         render :edit
       end
@@ -32,17 +32,17 @@ module Backstage
 
     def destroy
       @seat.destroy
-      redirect_to backstage_restaurant_seats_path(@seat.restaurant_id)
+      redirect_to backstage_restaurant_seats_path(@seat.restaurant_id), notice: '座位已刪除'
     end
 
     def vacant
       @seat.occupied! if @seat.may_occupied?
-      redirect_to backstage_restaurant_seats_path(@seat.restaurant_id)
+      redirect_to backstage_restaurant_seats_path(@seat.restaurant_id), notice: '狀態變更'
     end
 
     def occupied
       @seat.vacant! if @seat.may_vacant?
-      redirect_to backstage_restaurant_seats_path(@seat.restaurant_id)
+      redirect_to backstage_restaurant_seats_path(@seat.restaurant_id), notice: '狀態變更'
     end
 
     private

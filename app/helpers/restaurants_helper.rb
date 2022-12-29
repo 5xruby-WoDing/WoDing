@@ -19,21 +19,13 @@ module RestaurantsHelper
   end
 
   class DateRange
-    attr_reader :date_list
-
-    def initialize(date_list)
-      @date_list = date_list
+    def initialize(off_days, period_of_day)
+      @off_days = off_days
+      @end_day = Date.today + (period_of_day.days - 1)
     end
 
-    def end_day(period_of_day)
-      @end_day = Date.yesterday + period_of_day.days
-    end
-
-    def reservation_range_date(start_date)
-      return if start_date >= @end_day
-
-      @date_list << (start_date + 1.days).strftime('%m月%d日')
-      reservation_range_date(start_date + 1.days)
+    def reservation_range_date
+      (Date.today..@end_day).select{|date| @off_days.exclude?(date.strftime('%a'))}
     end
   end
 end

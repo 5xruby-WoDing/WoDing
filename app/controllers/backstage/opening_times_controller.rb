@@ -7,9 +7,8 @@ module Backstage
 
     def index
       @opening_time = OpeningTime.new
-      @opening_times = Restaurant.includes(:manager, :opening_times).where(manager_id: current_manager.id,
-                                                                           id: params[:restaurant_id]).references(:manager).first.opening_times
-      @off_days = Restaurant.includes(:manager, :off_days).where(manager_id: current_manager.id,id: params[:restaurant_id], ).references(:manager).first.off_days
+      @opening_times = OpeningTime.includes(:restaurant).where(restaurant_id: @restaurant).references(:opening_time)
+      @off_days = OffDay.includes(:restaurant).where(restaurant_id: @restaurant).references(:off_day)
       @off_day = OffDay.new
     end
 
@@ -17,7 +16,7 @@ module Backstage
       @opening_time = @restaurant.opening_times.new(params_opening_time)
       return unless @opening_time.save
 
-      redirect_to backstage_restaurant_opening_times_path(@restaurant)
+      redirect_to backstage_restaurant_opening_times_path(@restaurant), notice: '已新增時段'
     end
 
     def edit
@@ -26,14 +25,12 @@ module Backstage
 
     def update
       return unless @opening_time.update(params_opening_time)
-
-
-      redirect_to backstage_restaurant_opening_times_path(@opening_time.restaurant_id)
+      redirect_to backstage_restaurant_opening_times_path(@opening_time.restaurant_id), notice: '已更新時段'
     end
-
+    
     def destroy
       @opening_time.destroy
-      redirect_to backstage_restaurant_opening_times_path(@opening_time.restaurant_id)
+      redirect_to backstage_restaurant_opening_times_path(@opening_time.restaurant_id), notice: '已刪除時段'
     end
 
     private
