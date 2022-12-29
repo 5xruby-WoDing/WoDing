@@ -75,3 +75,9 @@ gem 'redis', '~> 5.0'
 gem 'ransack', '~> 3.2'
 
 gem 'twsms2', '~> 1.3'
+
+gem "activesupport", "~> 6.1"
+
+gem "ice_cube", "~> 0.16.4"
+
+gem 'flatpickr'

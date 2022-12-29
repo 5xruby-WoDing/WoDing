@@ -16,6 +16,7 @@ Rails.application.routes.draw do
           end
         end
         resources :opening_times, shallow: true, only: [:index, :create, :edit, :update, :destroy]
+        resources :off_days, shallow: true, only: [:create, :edit, :update, :destroy]
         resources :seats, shallow: true, only: [:index, :create, :edit, :update, :destroy] do
           member do
             get :vacant

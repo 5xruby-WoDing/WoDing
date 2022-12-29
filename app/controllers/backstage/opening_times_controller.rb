@@ -9,6 +9,8 @@ module Backstage
       @opening_time = OpeningTime.new
       @opening_times = Restaurant.includes(:manager, :opening_times).where(manager_id: current_manager.id,
                                                                            id: params[:restaurant_id]).references(:manager).first.opening_times
+      @off_days = Restaurant.includes(:manager, :off_days).where(manager_id: current_manager.id,id: params[:restaurant_id], ).references(:manager).first.off_days
+      @off_day = OffDay.new
     end
 
     def create
@@ -24,6 +26,7 @@ module Backstage
 
     def update
       return unless @opening_time.update(params_opening_time)
+
 
       redirect_to backstage_restaurant_opening_times_path(@opening_time.restaurant_id)
     end

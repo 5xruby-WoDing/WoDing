@@ -1,9 +1,15 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ 'date', 'dateInput', 'time', 'timeInput', 'seat', 'seatInput', 'submit', 'adult', 'child', 'notice', 'seatBtn', 'timeBtn']
+  static targets = [ 'date', 'dateInput', 'time', 'timeInput', 'seat', 'seatInput', 'submit', 'adult', 'child', 'notice', 'seatBtn', 'timeBtn', 'offDay']
 
   connect(){
+    const offDay = this.offDayTargets.map(e => e.dataset.off)
+    this.dateTargets.forEach(date => {
+      if(offDay.includes(date.dataset.day)){
+        date.classList.add('hidden')
+      }
+    });
   }
   getSeat(e){
     e.preventDefault()

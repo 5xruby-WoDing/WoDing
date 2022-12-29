@@ -40,6 +40,9 @@
       <%= form_with url: reserve_restaurant_path(@restaurant), method: "get", data: {
         controller: 'restaurant-reservation'
       } do |f| %>
+        <% @off_days.each do |o| %>
+          <p class='hidden' data-restaurant-reservation-target='offDay' data-off='<%= o.off_day %>'></p>
+        <% end %>
         <div>
           <div class='gap-4 md:grid grid-cols-1-2'>
             <div>
@@ -70,12 +73,12 @@
 
               <h4 class='reservation-font'>用餐日期</h4>
               <div class='grid grid-cols-5 gap-3 md:grid-cols-7'>
-
                 <% date_range.date_list.each do |date| %>
                   <button class='w-full h-full py-1 gray-btn'
                           data-action='click->restaurant-reservation#getDate'
                           data-restaurant-reservation-target='date'
-                          data-date=<%= date.gsub(/\D/, '/').strip.to_date %>
+                          data-date=<%= date.gsub(/\D/, '/').to_date %>
+                          data-day=<%= date.gsub(/\D/, '/').to_datetime.strftime('%a')%>
                           data-id='<%=@restaurant.id%>'
                           value='<%= date %>'
                           >
