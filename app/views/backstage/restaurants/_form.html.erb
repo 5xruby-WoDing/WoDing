@@ -30,12 +30,12 @@
       
       <div class='py-1'>
         <%= f.label :interval_time, '訂位時段間隔：' %>
-        <%= f.number_field :interval_time, step: 15, class: 'input-border-click' %>分鐘
+        <%= f.number_field :interval_time, step: 15, class: 'input-border-click', min: 15 %>分鐘
       </div>
 
       <div class='py-1'>
         <%= f.label :period_of_reservation, '訂位期限：' %>
-        <%= f.number_field :period_of_reservation, class: 'input-border-click' %>
+        <%= f.number_field :period_of_reservation, class: 'input-border-click', min: 1 %>
       </div>
 
       <div class='py-1'>

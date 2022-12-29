@@ -13,7 +13,7 @@ module Backstage
     def create
       @restaurant = current_manager.restaurants.new(params_restaurant)
       if @restaurant.save
-        redirect_to backstage_root_path(current_manager.id), notice: '新增成功'
+        redirect_to backstage_root_path(current_manager.id), notice: '餐廳新增成功'
       else
         render :new
       end
@@ -25,7 +25,7 @@ module Backstage
 
     def update
       if @restaurant.update(params_restaurant)
-        redirect_to backstage_restaurant_path(@restaurant), notice: '更新成功'
+        redirect_to backstage_restaurant_path(@restaurant), notice: '餐廳資訊更新成功'
       else
         render :edit
       end
@@ -35,7 +35,7 @@ module Backstage
 
     def destroy
       @restaurant.destroy
-      redirect_to backstage_root_path(current_manager.id), notice: '已刪除'
+      redirect_to backstage_root_path(current_manager.id), notice: '餐廳已刪除'
     end
 
     private

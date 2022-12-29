@@ -4,16 +4,16 @@ module Backstage
     def create
       @off_day = @restaurant.off_days.new(params_off_day)
       if @off_day.save
-        redirect_to backstage_restaurant_opening_times_path(@restaurant), notice: 'ok'
+        redirect_to backstage_restaurant_opening_times_path(@restaurant), notice: '已新增公休日'
       else
-        redirect_to backstage_restaurant_opening_times_path(@restaurant), notice: 'asdasdas'
+        redirect_to backstage_restaurant_opening_times_path(@restaurant), notice: '錯誤'
       end
     end
 
     def destroy
       off_day = OffDay.find(params[:id])
       off_day.destroy
-      redirect_to backstage_restaurant_opening_times_path(off_day.restaurant_id), notice: 'ok'
+      redirect_to backstage_restaurant_opening_times_path(off_day.restaurant_id), notice: '已刪除公休日'
     end
 
     private

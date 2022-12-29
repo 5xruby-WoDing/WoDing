@@ -17,7 +17,7 @@ module Backstage
       @opening_time = @restaurant.opening_times.new(params_opening_time)
       return unless @opening_time.save
 
-      redirect_to backstage_restaurant_opening_times_path(@restaurant)
+      redirect_to backstage_restaurant_opening_times_path(@restaurant), notice: '已新增時段'
     end
 
     def edit
@@ -26,14 +26,12 @@ module Backstage
 
     def update
       return unless @opening_time.update(params_opening_time)
-
-
-      redirect_to backstage_restaurant_opening_times_path(@opening_time.restaurant_id)
+      redirect_to backstage_restaurant_opening_times_path(@opening_time.restaurant_id), notice: '已更新時段'
     end
 
     def destroy
       @opening_time.destroy
-      redirect_to backstage_restaurant_opening_times_path(@opening_time.restaurant_id)
+      redirect_to backstage_restaurant_opening_times_path(@opening_time.restaurant_id), notice: '已刪除時段'
     end
 
     private

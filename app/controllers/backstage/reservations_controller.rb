@@ -20,12 +20,12 @@ module Backstage
 
     def cancel
       @reservation.cancel! if @reservation.may_cancel?
-      redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id)
+      redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id), notice: '完成報到'
     end
 
     def complete
       @reservation.completed! if @reservation.may_completed?
-      redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id)
+      redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id), notice: '已取消'
     end
 
     def note
