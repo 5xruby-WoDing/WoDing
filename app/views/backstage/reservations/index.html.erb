@@ -1,7 +1,6 @@
 <main class='grid grid-cols-3 grid-rows-2 gap-4 p-6 ml-20 bg-hoverGray'>
-  <% date_range = RestaurantsHelper::DateRange.new([]) %>
-  <% date_range.end_day(@restaurant.period_of_reservation) %>
-  <% date_range.reservation_range_date(Date.yesterday) %>
+  <% date_range = RestaurantsHelper::DateRange.new(@off_days, @restaurant.period_of_reservation) %>
+
   <div>
     <div class='mb-3 bg-white border rounded '>
       <h2 class='py-2 text-2xl font-bold text-center border-b' >
@@ -55,8 +54,7 @@
     </div>
     <div class='mb-auto bg-white border rounded' 
           data-controller='dash-board' 
-          data-action='update-people@window->dash-board#setPeople'
-          data-action='update-date@window->dash-board#setReservation' 
+          data-action='update-info@window->dash-board#setPeople'
     >
       <h2 class='py-2 text-2xl font-bold text-center border-b' data-dash-board-target='date'>
         <%= Time.current.strftime('%Y %m 月 %d 日 %A') %>
@@ -80,23 +78,21 @@
               總人數
             </h3>
           </div>
-          
         </div>
-        
       </div>
     </div>
   </div>
   <div class='col-span-2 row-span-2 py-0 mb-auto bg-white border rounded'>
     <div class='p-3 text-center'>
       <div data-controller='selector' class='flex flex-wrap justify-center gap-3 mb-3 '> 
-        <% date_range.date_list.each do |date| %>
+        <% date_range.reservation_range_date.each do |date| %>
           <span class='py-1 gray-btn'
                 data-selector-target='date'
                 data-action='click->selector#getDate'
-                data-date=<%= date.gsub(/\D/, '/').strip.to_date %>
+                data-date=<%= date %>
                 data-id='<%=@restaurant.id%>'
           >
-            <%= date %>
+            <%= date.strftime('%m月%d日') %>
           </span>
         <% end %>
       </div>
@@ -113,8 +109,8 @@
       </div>
     </div>
     <div data-controller='display'
-          data-action="update-date@window->display#setReservation"> 
-      <% @reservations.each do |reservation| %>
+          data-action="update-info@window->display#setReservation"> 
+      <% @current_reservatoin.each do |reservation| %>
           <div class='grid grid-cols-5 p-4 text-center border-b' 
                 data-controller="note-reservation"
                 data-id="<%= reservation.id %>"

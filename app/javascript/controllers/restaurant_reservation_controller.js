@@ -1,16 +1,8 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = [ 'date', 'dateInput', 'time', 'timeInput', 'seat', 'seatInput', 'submit', 'adult', 'child', 'notice', 'seatBtn', 'timeBtn', 'offDay']
-
-  connect(){
-    const offDay = this.offDayTargets.map(e => e.dataset.off)
-    this.dateTargets.forEach(date => {
-      if(offDay.includes(date.dataset.day)){
-        date.classList.add('hidden')
-      }
-    });
-  }
+  static targets = [ 'date', 'dateInput', 'time', 'timeInput', 'seat', 'seatInput', 'submit', 'adult', 'child', 'notice', 'seatBtn', 'timeBtn']
+  
   getSeat(e){
     e.preventDefault()
     const seat = e.target.value
@@ -127,7 +119,7 @@ export default class extends Controller {
 
    getDate(e){
     e.preventDefault()
-    const btnContent = e.target.textContent.replace(/\s/g, '')
+    const btnContent = e.target.value
     this.setDate(e, btnContent)
     this.fetchOccupied(e)
     this.resetInput()
@@ -136,7 +128,7 @@ export default class extends Controller {
 
   setDate(e, btnContent){
     this.dateInputTarget.value = btnContent
-    this.seatTargets.forEach(seat => seat.dataset.date = e.target.dataset.date)
+    this.seatTargets.forEach(seat => seat.dataset.date = btnContent)
     if(this.dateInputTarget.value === btnContent){
       this.dateTargets.forEach(btn => btn.classList.remove('confirm-state'))
       e.target.classList.add('confirm-state')

@@ -9,8 +9,6 @@ export default class extends Controller {
 
   getDate(e){
     const date = e.target.dataset.date
-    const event = new CustomEvent("update-date", {detail: date});
-    window.dispatchEvent(event)
     this.reset()
     e.target.classList.add('confirm-state')
 
@@ -27,7 +25,7 @@ export default class extends Controller {
       })
     }).then((resp) => resp.json())
     .then(({sum, sum_of_people}) => {
-      const event = new CustomEvent("update-people", {detail: {sum: sum, sum_of_people: sum_of_people}});
+      const event = new CustomEvent("update-info", {detail: {sum: sum, sum_of_people: sum_of_people, date: date}});
       window.dispatchEvent(event)
     })
     .catch(() => {

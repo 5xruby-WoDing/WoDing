@@ -40,9 +40,6 @@
       <%= form_with url: reserve_restaurant_path(@restaurant), method: "get", data: {
         controller: 'restaurant-reservation'
       } do |f| %>
-        <% @off_days.each do |o| %>
-          <p class='hidden' data-restaurant-reservation-target='offDay' data-off='<%= o.off_day %>'></p>
-        <% end %>
         <div>
           <div class='gap-4 md:grid grid-cols-1-2'>
             <div>
@@ -67,24 +64,20 @@
               </div>
             </div>
             <div>
-              <% date_range = RestaurantsHelper::DateRange.new([]) %>
-              <% date_range.end_day(@restaurant.period_of_reservation) %>
-              <% date_range.reservation_range_date(Date.yesterday) %>
+              <% date_range = RestaurantsHelper::DateRange.new(@off_days, @restaurant.period_of_reservation) %>
 
               <h4 class='reservation-font'>用餐日期</h4>
               <div class='grid grid-cols-5 gap-3 md:grid-cols-7'>
-                <% date_range.date_list.each do |date| %>
+                <% date_range.reservation_range_date.each do |date| %>
                   <button class='w-full h-full py-1 gray-btn'
                           data-action='click->restaurant-reservation#getDate'
                           data-restaurant-reservation-target='date'
-                          data-date=<%= date.gsub(/\D/, '/').to_date %>
-                          data-day=<%= date.gsub(/\D/, '/').to_datetime.strftime('%a')%>
                           data-id='<%=@restaurant.id%>'
                           value='<%= date %>'
                           >
-                    <%= date %>
+                    <%= date.strftime('%m月%d日') %>
                   </button>
-                <% end %>
+                <% end  %>
                 <input type="hidden" name="arrival_date" data-restaurant-reservation-target='dateInput'>
               </div>
             </div>
@@ -128,6 +121,7 @@
                         value='<%= seat.id %>'
                         data-id='<%=@restaurant.id%>'
                         disabled>
+                  <%= seat.title %>
                   <%= seat.kind %>
                   
                   <%= "訂金#{seat.deposit}$"if seat.deposit != 0 %>
