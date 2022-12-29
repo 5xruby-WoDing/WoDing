@@ -1,5 +1,5 @@
 <main class='grid grid-cols-3 grid-rows-2 gap-4 p-6 ml-20 bg-hoverGray'>
-  <section class='bg-white border rounded' data-controller='opening-time'>
+  <section class='mb-auto bg-white border rounded' data-controller='opening-time'>
     <h2 class='py-2 text-2xl font-bold text-center border-b '>營業時段</h2>
     <div class='grid grid-cols-2 p-6 text-left'>
       <div>
@@ -37,21 +37,43 @@
       </div>
     </div>
   </section>
-  <section>
-    <% (Date.today.beginning_of_week(:sunday)...Date.today.end_of_week).each do |date| %>
-      <div class='inline major-btn'><%= date.strftime('%a') %></div>
-    <% end %>
-    
-    <% @off_days.each do |a| %>
-      <%= a.off_day %>
-    <% end %>
-
-    <%= form_with(model: @off_day, url: backstage_restaurant_off_days_path(@restaurant)) do |f| %>
-      <div>
-        <%= f.text_field :off_day %>
+  <section class='mb-auto bg-white border rounded' data-controller='off-day'>
+    <h2 class='py-2 text-2xl font-bold text-center border-b '>公休日</h2>
+    <div class='grid grid-cols-3 gap-2 p-6 text-left'>
+      <div class='col-span-2 text-center'>
+        <h3 class='mb-2 text-xl font-bold text-left'>新增公休日</h3>
+        <div class='grid grid-cols-3 gap-3'>
+          <% (Date.today.beginning_of_week(:sunday)...Date.today.end_of_week).each do |date| %>
+            <button class='gray-btn' 
+                  data-date='<%= date.strftime('%a') %>'
+                  data-off-day-target='date'
+                  data-action='click->off-day#getDate'
+            >
+              <%= I18n.t :"off_days.#{date.strftime('%a')}" %>
+            </button>
+          <% end %>
+        </div>
+        
+        
+        <%= form_with(model: @off_day, url: backstage_restaurant_off_days_path(@restaurant)) do |f| %>
+          <%= f.text_field :off_day, data: {off_day_target: 'input'}, value: '', class: 'hidden' %>
+          <%= f.submit '新增', class: 'major-btn mt-4 ' %>
+        <% end %>
       </div>
-      <%= f.submit %>
-    <% end %>
-    
+      <div>
+        <% @off_days.each do |day| %>
+          <span data-date='<%= day.off_day %>' data-off-day-target='offDay' class='flex items-center justify-between p-2 m-auto mb-2 border rounded'> 
+             <%= I18n.t :"off_days.#{day.off_day}" %>
+            <%= link_to backstage_off_day_path(day), data: {method: 'delete'},class: 'bg-red-600 major-btn hover:bg-red-800' do%>
+              <i class="fa-solid fa-trash"></i>
+            <% end %>
+          </span>
+        <% end %>
+      </div>
+      
+    </div>
   </section>
+
 </main>
+
+
