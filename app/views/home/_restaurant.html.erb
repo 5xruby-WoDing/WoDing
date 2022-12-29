@@ -14,13 +14,12 @@
       <p class="my-3 text-lg text-gray-500 ont-bold"><%= restaurant.address %></p>
       <p class="text-lg ont-bold"><%= restaurant.branch %></p>
       <div class="mt-4">
-        <% restaurant.tags.each do |tag| %>
+        <% restaurant.tags.uniq.each do |tag| %>
           <span>
             <%= link_to "##{tag.name}", root_path(query: tag.name), class: "py-1 px-5 m-1 border hover:bg-major hover:text-white cursor-pointer inline-block rounded-xl bg-gray-100" %>
-          </span>
-        <% end %>
+          </span>          
+        <% end %>        
       </div>
     </div>
   </div>
 </div>
-

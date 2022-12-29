@@ -15,5 +15,6 @@ class HomeController < ApplicationController
                    end
 
     @tags = Tag.includes(:restaurants, :restaurant_tags).sample(20)
+    
   end
 end
