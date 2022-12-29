@@ -5,7 +5,7 @@
           <% @restaurants.each do |restaurant| %>
             <% restaurant.images.sample(1).each do |image| %>
               <div class="swiper-slide">
-                <%= image_tag (image.url) %>
+                <%= link_to image_tag(image.url) ,restaurant_path(restaurant) ,class:"object-cover w-full h-full" %>
               </div>
             <% end %>
           <% end %>
