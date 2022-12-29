@@ -5,7 +5,6 @@
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="mt-4">
           <%= render 'layouts/messages' %>
- 
           <div class="field">
             <p class="mb-2 font-bold"><%= f.label :email, "Email："%></p>
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input-border-click mb-2 w-full" %>
@@ -24,7 +23,7 @@
           <% end %>
 
           <div class="mb-4 actions">
-            <%= f.submit "登入",class: "major-btn w-full py-" %>
+            <%= f.submit "登入",class: "major-btn w-full py-2" %>
           </div>
         </div>
       <% end %>

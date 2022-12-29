@@ -73,6 +73,20 @@ export default class extends Controller {
     const id = e.target.dataset.id
     const people = (+this.adultTarget.value ) + (+this.childTarget.value)
 
+    if(this.seatTargets.filter(s => +s.dataset.capacity >= people).length == 0){
+      this.noticeTarget.classList.remove('hidden')
+      this.seatTargets.forEach(s => s.classList.add('hidden'))
+      this.timeTargets.forEach(s => s.classList.add('hidden'))
+      this.seatInputTarget.value = ''
+      this.TimeInputTarget.value = ''
+      this.resetSubmit()
+
+    }else{
+      this.noticeTarget.classList.add('hidden')
+      this.seatTargets.forEach(s => s.classList.remove('hidden'))
+      this.timeTargets.forEach(s => s.classList.remove('hidden'))
+    }
+
     fetch(`/restaurants/${id}/occupied`,{
       method: 'POST',
       headers: {

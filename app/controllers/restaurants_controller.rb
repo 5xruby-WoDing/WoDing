@@ -5,9 +5,9 @@ class RestaurantsController < ApplicationController
   before_action :find_seat_id, only: [:reserve]
 
   def show
-    @seats = @restaurant.seats
+    @seats = Seat.includes(:restaurant).where(restaurant_id: @restaurant).references(:seat)
     @content = @restaurant.content
-    @opening_time = @restaurant.opening_times
+    @opening_time = OpeningTime.includes(:restaurant).where(restaurant_id: @restaurant).references(:opening_time)
     @key = SecureRandom.urlsafe_base64
     @tags = @restaurant.tags
   end
@@ -38,9 +38,9 @@ class RestaurantsController < ApplicationController
     over_capacity_seats = @restaurant.seats.select { |seat| seat.capacity < people }.map { |seat| seat.id }
     sum_of_seat = @restaurant.seats.size
 
-    arrival_date = @restaurant.reservations.select { |reservation| reservation.arrival_date == reservated_date }
+    arrival_date = @restaurant.reservations.select { |reservation| reservation.arrival_date == reservated_date && reservation.state != 'cancelled'}
     # [{2=>"10:00"}, {3=>"12:30"}, {3=>"18:00"}, {3=>"13:30"}, {3=>"13:00"}]
-    occupied_time = arrival_date.reduce([]) do |arr, reservation|
+    occupied_time = arrival_date.each.reduce([]) do |arr, reservation|
       arr << Hash[reservation.arrival_time.strftime('%R'), reservation.seat_id]
     end
     occupied_seats = arrival_date.select { |reservation| reservated_time == reservation.arrival_time.strftime('%R') }

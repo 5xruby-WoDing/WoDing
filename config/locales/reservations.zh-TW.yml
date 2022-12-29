@@ -1,0 +1,7 @@
+zh-TW:
+  reservations:
+    reserved: '預定'
+    pending: '待付款'
+    cancelled: '取消'
+    completed: '完成'
+

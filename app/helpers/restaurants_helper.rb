@@ -13,7 +13,7 @@ module RestaurantsHelper
 
     def interval_time
       @time_points.each_with_object([]) do |time, arr|
-        time.step(@interval_time) { |time| arr << Time.at(time).strftime('%R') }
+        time.step(@interval_time) { |t| arr << Time.at(t).strftime('%R') }
       end
     end
   end

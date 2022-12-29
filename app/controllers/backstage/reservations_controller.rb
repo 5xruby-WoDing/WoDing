@@ -6,7 +6,14 @@ module Backstage
     before_action :find_restaurant, only: %i[index]
 
     def index
-      @reservations = @restaurant.reservations.order(arrival_time: :asc)
+      @reservations = Reservation.includes(:seat,
+                                           :restaurant).where(restaurant_id: @restaurant).references(:reservation)
+      @current_reservatoin = @reservations.current_reservations
+
+      @reserved = @current_reservatoin.reservations_state('reserved').count
+      @completed = @current_reservatoin.reservations_state('completed').count
+      @cancelled = @current_reservatoin.reservations_state('cancelled').count
+
       @q = @reservations.ransack(params[:q])
       @reservations = @q.result
     end
@@ -46,7 +53,8 @@ module Backstage
     end
 
     def find_restaurant
-      @restaurant = Restaurant.find(params[:restaurant_id])
+      @restaurant = Restaurant.includes(:seats, :manager, :reservations).where(manager_id: current_manager.id,
+                                                                               id: params[:restaurant_id]).references(:manager).first
     end
   end
 end

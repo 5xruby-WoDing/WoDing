@@ -7,7 +7,8 @@ module Backstage
 
     def index
       @opening_time = OpeningTime.new
-      @opening_times = @restaurant.opening_times
+      @opening_times = Restaurant.includes(:manager, :opening_times).where(manager_id: current_manager.id,
+                                                                           id: params[:restaurant_id]).references(:manager).first.opening_times
     end
 
     def create
@@ -23,6 +24,7 @@ module Backstage
 
     def update
       return unless @opening_time.update(params_opening_time)
+
       redirect_to backstage_restaurant_opening_times_path(@opening_time.restaurant_id)
     end
 

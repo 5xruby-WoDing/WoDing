@@ -9,11 +9,11 @@ class HomeController < ApplicationController
                                 .where('tags.name LIKE ?', "%#{params[:search]}%"))
                                .distinct
                    elsif params[:query]
-                     Restaurant.includes(:tags).where(tags: { name: params[:query].to_s })
+                     Restaurant.includes(:tags).where(tags: { name: params[:query].to_s }).references(:tags)
                    else
-                     Restaurant.all
+                     Restaurant.includes(:manager, :restaurant_tags, :tags, [images_attachments: :blob])
                    end
 
-    @tags = Tag.all.sample(20)
+    @tags = Tag.includes(:restaurants, :restaurant_tags).sample(20)
   end
 end

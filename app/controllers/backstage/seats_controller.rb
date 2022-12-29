@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module Backstage
-  class SeatsController < Backstage::RestaurantsController  
+  class SeatsController < Backstage::RestaurantsController
     before_action :find_restaurant, only: %i[index create]
     before_action :find_seat, only: %i[show edit update destroy vacant occupied]
 
     def index
-      @seats = @restaurant.seats.order(title: :asc)
+      @seats = @restaurant.seats
       @seat = Seat.new
     end
 

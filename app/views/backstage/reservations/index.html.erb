@@ -2,7 +2,7 @@
   <% date_range = RestaurantsHelper::DateRange.new([]) %>
   <% date_range.end_day(@restaurant.period_of_reservation) %>
   <% date_range.reservation_range_date(Date.yesterday) %>
-  <div>  
+  <div>
     <div class='mb-3 bg-white border rounded '>
       <h2 class='py-2 text-2xl font-bold text-center border-b' >
         <%= Time.current.strftime('%Y %m 月 %d 日 %A') %>
@@ -12,7 +12,7 @@
         <div class='grid grid-cols-3'>
           <div class='pb-4'>
             <p class='text-4xl font-bold'>
-              <%= @reservations.select{|reservation| reservation.arrival_date == Date.today}.size %>
+              <%= @current_reservatoin.size %>
             </p>
             <h3 class='text-lg'>
               客人組數
@@ -20,8 +20,7 @@
           </div>
           <div>
             <p class='text-4xl font-bold'>
-              <% people = @reservations.select{|reservation| reservation.arrival_date == Date.today} %> 
-              <%= people.each.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
+              <%= @current_reservatoin.each.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
             </p>
             <h3 class='text-lg'>
               總人數
@@ -29,14 +28,13 @@
           </div>
           <div>
             <p class='text-4xl font-bold text-green-600'>
-              <%= @reservations.select{|reservation| reservation.arrival_date == Date.today && reservation.state == 'completed'}.size%>
+              <%= @completed %>
             </p>
             <h3>完成</h3>
           </div>
           <div>
             <p class='text-4xl font-bold text-red-600'>
-              <%= @reservations.select{|reservation| reservation.arrival_date == Date.today && reservation.state == 'reserved'}.size %>
-              <% %>
+              <%= @reserved %>
             </p>
             <h3>剩餘組數</h3>
           </div>
@@ -48,7 +46,7 @@
           </div>
           <div>
             <p class='text-4xl font-bold text-red-600'>
-              <%= @reservations.select{|reservation| reservation.arrival_date == Date.today && reservation.state == 'cancelled'}.size %>
+              <%= @cancelled %>
             </p>
             <h3>取消</h3>
           </div>
@@ -63,12 +61,12 @@
       <h2 class='py-2 text-2xl font-bold text-center border-b' data-dash-board-target='date'>
         <%= Time.current.strftime('%Y %m 月 %d 日 %A') %>
       </h2>
-      <div class='p-6 text-left'>
+      <div class='p-6 text-center'>
         <div class='grid grid-cols-2' 
               >
           <div class='pb-4'>
             <p class='text-4xl font-bold' data-dash-board-target='sum'>
-              <%= @restaurant.reservations.select{|reservation| reservation.arrival_date == Date.today}.size %>
+              <%= @current_reservatoin.size %>
             </p>
             <h3 class='text-lg'>
               客人組數
@@ -76,8 +74,7 @@
           </div>
           <div>
             <p class='text-4xl font-bold' data-dash-board-target='sumOfPeople'>
-              <% people = @restaurant.reservations.select{|reservation| reservation.arrival_date == Date.today} %> 
-              <%= people.each.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
+              <%= @current_reservatoin.each.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
             </p>
             <h3 class='text-lg'>
               總人數
@@ -148,10 +145,12 @@
               </p>
             </div>
             
-            <p class='my-auto text-2xl'>
-              <%= reservation.seat_id %>
-              <span class='px-2 text-lg border rounded '>
-                <%= reservation.state %>
+            <p class='my-auto text-2xl' data-controller='state'>
+              <%= reservation.seat.title %>桌
+              <span class='px-2 text-lg border rounded'
+                    data-state-target='state'
+              >
+                <%= I18n.t :"reservations.#{reservation.state}" %>
               </span>
             </p>
             <p class='my-auto'>
@@ -162,8 +161,6 @@
               <%= link_to "報到", complete_backstage_reservation_path(reservation), class: "major-btn bg-green-600 hover:bg-green-800" %>
               <%= link_to "取消", cancel_backstage_reservation_path(reservation), class: "major-btn bg-red-600 hover:bg-red-800" %>
             </div>
-          
-
           </div>
       <% end %>
     </div>
