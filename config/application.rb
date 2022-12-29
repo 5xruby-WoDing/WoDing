@@ -15,7 +15,7 @@ module WoDing
     config.i18n.default_locale = 'zh-TW'
 
     config.time_zone = 'Taipei'
-    
+
     config.assets.initialize_on_precompile = false
 
     # Configuration for the application, engines, and railties goes here.

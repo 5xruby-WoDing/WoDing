@@ -60,15 +60,7 @@
     </div>
 
     <div class='flex justify-center'>
-      <div class="w-full py-3 text-lg major-btn">
-        <%= link_to "回首頁", root_path %>
-      </div>
-    </div>
-
-    <div class='flex justify-center mt-4'>
-      <div class="w-full py-3 text-lg bg-gray-400 major-btn">
-        <%= link_to "取消訂位",  cancel_reservation_path(@reservation.serial) %>
-      </div>
+      <%= link_to "回首頁", root_path, class: 'w-full py-3 text-lg major-btn' %>
     </div>
   </section>
 </main>

@@ -7,12 +7,12 @@ class Restaurant < ApplicationRecord
   validates :address, presence: true
   validates :tel, presence: true
   validates :interval_time, presence: true
-  validates :period_of_reservation , presence: true
+  validates :period_of_reservation, presence: true
 
   belongs_to :manager
-  has_many :seats
-  has_many :reservations
-  has_many :opening_times
+  has_many :seats, -> { order(title: :asc) }
+  has_many :reservations, -> { order(arrival_time: :asc) }
+  has_many :opening_times, -> { order(closed_time: :asc) }
   has_many :restaurant_tags
   has_many :tags, through: :restaurant_tags
 

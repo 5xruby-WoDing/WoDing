@@ -6,9 +6,8 @@ module Backstage
     layout 'backstage'
 
     def show
-      @restaurants = current_manager.restaurants
-      @reservations = Reservation.all
-      
+      @restaurants = Restaurant.includes(:manager, :tags, :opening_times, :reservations, :seats,
+                                         images_attachments: :blob).where(manager_id: current_manager.id).references(:manager)
     end
   end
 end

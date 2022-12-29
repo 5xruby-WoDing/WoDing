@@ -11,7 +11,7 @@ class Reservation < ApplicationRecord
   has_many :be_noted_managers, through: :manager_reservations, source: :manager
 
   validates :name, presence: true
-  validates :phone, presence: true
+  validates :phone, presence: true, format: { with: /\d+{10}/ }
   validates :email, presence: true
   validates :serial, presence: true
   validates :arrival_time, presence: true
@@ -19,6 +19,9 @@ class Reservation < ApplicationRecord
   validates :arrival_date, presence: true
 
   before_validation :generate_serial
+
+  scope :current_reservations, -> { where('arrival_date = ?', Date.today) }
+  scope :reservations_state, ->(state) { where(state:) }
 
   aasm column: 'state', no_direct_assignment: true do
     state :pending, initial: true
