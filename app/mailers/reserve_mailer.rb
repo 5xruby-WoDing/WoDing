@@ -4,7 +4,9 @@ class ReserveMailer < ApplicationMailer
   def reserve_notify(reservation)
     @reservation = reservation
 
-    qr = RQRCode::QRCode.new("#{ENV['WEB_DOMAIN']}/reservations/#{reservation.serial}/checkout", size: 10, level: :h)
+    # qr = RQRCode::QRCode.new("#{ENV['WEB_DOMAIN']}/reservations/#{reservation.serial}/checkout", size: 10, level: :h)
+    qr = RQRCode::QRCode.new("http://localhost:3000/backstage/reservations/#{reservation.id}/qrscan", size: 10, level: :h)    
+    
     png = qr.as_png(
       bit_depth: 1,
       border_modules: 4,
