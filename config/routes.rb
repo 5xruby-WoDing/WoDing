@@ -13,6 +13,7 @@ Rails.application.routes.draw do
             get :complete
             patch :note
             post :statistics
+            get :qrscan
           end
         end
         resources :opening_times, shallow: true, only: [:index, :create, :edit, :update, :destroy]

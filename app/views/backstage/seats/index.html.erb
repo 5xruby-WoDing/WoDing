@@ -31,7 +31,7 @@
               <%= f.select :capacity, [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]], {}, {:class => 'text-xl block input-border-click m-auto'}  %>
             </div>
           </div>
-        <%= f.submit "新增座位", class: 'major-btn css-btn'%>
+        <%= f.submit "新增座位", class: 'major-btn css-btn px-6 py-2  '%>
         <% end %>
     </div>
   </div>
@@ -71,3 +71,21 @@
     </div>
   </div>
 </section>
+
+
+<section class="bg-white border" data-controller="qrcode-scanner">
+  <div class="py-2 text-2xl font-bold text-center border-b">店員QRCODE掃碼區</div>
+  <div class="p-6">
+    <button class="px-6 py-2 major-btn" data-action="click->qrcode-scanner#openLens">掃描</button>
+    <button class="px-6 py-2 major-btn" data-action="click->qrcode-scanner#closeLens">關閉</button>
+  </div>
+  <video data-qrcode-scanner-target="video"></video>
+  <div data-qrcode-scanner-target="scanRegion"></div>
+  
+  
+</section>
+
+
+
+
+

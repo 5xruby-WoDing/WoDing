@@ -28,6 +28,11 @@ module Backstage
       redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id)
     end
 
+    # def qrscan
+    #   @reservation.completed! if @reservation.may_completed?
+    #   render json: {data: "good"}
+    # end
+
     def note
       if current_manager.noted_important_reservation?(@reservation)
         current_manager.noted_important_reservations.delete(@reservation)
