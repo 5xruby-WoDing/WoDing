@@ -2,7 +2,7 @@
 
 module Backstage
   class ReservationsController < Backstage::RestaurantsController
-    before_action :find_reservation, only: %i[cancel note complete]
+    before_action :find_reservation, only: %i[cancel note complete qrscan]
     before_action :find_restaurant, only: %i[index]
 
     def index
@@ -28,10 +28,14 @@ module Backstage
       redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id)
     end
 
-    # def qrscan
-    #   @reservation.completed! if @reservation.may_completed?
-    #   render json: {data: "good"}
-    # end
+    def qrscan
+      if @reservation.may_completed?
+        @reservation.completed! 
+        render json: {message: "success", reservation: @reservation, seat: @reservation.seat}
+      else
+        render json: {message: "fail", reservation: @reservation, seat: @reservation.seat}
+      end            
+    end
 
     def note
       if current_manager.noted_important_reservation?(@reservation)

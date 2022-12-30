@@ -4,49 +4,43 @@ import Swal from 'sweetalert2'
 
 
 export default class extends Controller {
-  static targets = [ 'video', 'scanRegion' ]
+  static targets = [ 'video' ]
 
-  connect(){
-  }
+  connect(){}
 
-  openLens() {
-    
-
+  openLens() {    
     this.qrScanner = new QrScanner(
       this.videoTarget,
-      result => {console.log('decoded qr code:', result.data);
-                 fetch(result.data, {
+      result => {fetch(result.data, {
                    method: "GET"
                  })
                  .then((resp) => {
                    return resp.json()
                  })
-                 .then((data) => {
-                   console.log(data)
+                 .then(({message, reservation, seat}) => {                                                           
+                   if (message === "success") {
+                    Swal.fire({
+                      title: '報到成功!',
+                      text: `您的姓名是${reservation.name}，預約的座位為${seat.id}號的${seat.kind}`,
+                      icon: 'success',
+                      confirmButtonText: '進行帶位'
+                    })                    
+                   } else {
+                    Swal.fire({
+                      title: '報到失敗!',
+                      text: '您的QRCODE過期',
+                      icon: 'error',
+                      confirmButtonText: '離開'
+                    })
+                   }
                  })
                  .catch((err) => {
                    console.log(err);
                  });
-                 this.qrScanner.stop()},
-      
-      { highlightScanRegion: true, highlightCodeOutline: true},
-      
-      
+                 this.qrScanner.stop()},      
+      { highlightScanRegion: true, highlightCodeOutline: true},            
     );
-    
     this.qrScanner.start()
-    
-
-  
-
-    // Swal.fire({
-    //   title: 'success!',
-    //   text: '確認訂位',
-    //   icon: 'success',
-    //   confirmButtonText: 'Cool'
-    // })
-
-
   }
 
   closeLens() {
