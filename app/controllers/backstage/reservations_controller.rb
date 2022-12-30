@@ -40,10 +40,14 @@ module Backstage
       end            
     end
 
-    # def qrscan
-    #   @reservation.completed! if @reservation.may_completed?
-    #   render json: {data: "good"}
-    # end
+    def qrscan
+      if @reservation.may_completed?
+        @reservation.completed! 
+        render json: {message: "success", reservation: @reservation, seat: @reservation.seat}
+      else
+        render json: {message: "fail", reservation: @reservation, seat: @reservation.seat}
+      end            
+    end
 
     def note
       if current_manager.noted_important_reservation?(@reservation)
