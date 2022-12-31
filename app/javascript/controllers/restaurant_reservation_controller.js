@@ -99,10 +99,10 @@ export default class extends Controller {
         user_id: this.id
       })
     }).then((resp) => resp.json())
-    .then(({over_capacity_seats, occupied_time, occupied_seats_id, all_keys}) => {
+    .then(({over_capacity_seats, occupied_time, occupied_seats, all_keys}) => {
       this.setSeatState(over_capacity_seats)
       this.releaseTime(occupied_time)
-      this.disableSeat(occupied_seats_id, all_keys)
+      this.disableSeat(occupied_seats, all_keys)
     })
     .catch(() => {
       console.log("error!!");
@@ -197,11 +197,12 @@ export default class extends Controller {
             btn.disabled = true
           }
         })
-
       }
-      if(occupied_seats_id.includes(+btn.value)){
-        this.disabledBtn(btn) 
-      }
+      occupied_seats_id.forEach( i => {
+        if(btn.value == i[0] && i[1].includes(btn.dataset.time)){
+          this.disabledBtn(btn)
+        }
+      })
     })
   }
 

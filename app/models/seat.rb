@@ -12,6 +12,8 @@ class Seat < ApplicationRecord
   enum kind: %i[吧台 方桌 圓桌 包廂]
 
   scope :seat_occupied, -> {where(state: 'occupied')}
+  scope :seat_capacity, -> (people){where('capacity < ?', people)}
+
 
   aasm column: 'state', no_direct_assignment: true do
     state :vacant, initial: true

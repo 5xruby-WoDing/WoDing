@@ -25,7 +25,8 @@ class Reservation < ApplicationRecord
   scope :reserved, -> { where(state: 'reserved') }
   scope :completed, -> { where(state: 'completed') }
   scope :cancelled, -> { where(state: 'cancelled') }
-
+  scope :not_cancelled, -> { where.not(state: 'cancelled') }
+  scope :reservations_date, -> (date){where('arrival_date =?', date)}
 
   aasm column: 'state', no_direct_assignment: true do
     state :pending, initial: true

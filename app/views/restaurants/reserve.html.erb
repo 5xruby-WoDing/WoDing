@@ -19,7 +19,6 @@
             <%= @restaurant.address %>
           </h3>
         </div>
-
         <div class='flex items-center'>
           <i class="mr-2 fa-regular fa-user"></i>
           <p class='mr-2'><%= params[:adult_quantity] %>位大人</p>
@@ -90,7 +89,7 @@
         <input type="hidden" name="key" value="<%= @key %>">
         <%= form.text_field :arrival_date, class: 'hidden',value: params[:arrival_date].gsub(/\D/, '/').strip.to_date %>
         <%= form.text_field :arrival_time, class: 'hidden', value: (params[:arrival_time]).to_time %>
-        <%= form.text_field :end_time, class: 'hidden', value: @dining_end_time %>
+        <%= form.text_field :end_time, class: 'hidden', value: @end_time %>
         <%= form.number_field :adult_quantity, class: "hidden", value: params[:adult_quantity] %>
         <%= form.number_field :child_quantity, class: "hidden", value: params[:child_quantity] %>
           
