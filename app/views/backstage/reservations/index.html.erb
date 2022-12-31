@@ -11,7 +11,7 @@
         <div class='grid grid-cols-3'>
           <div class='pb-4'>
             <p class='text-4xl font-bold'>
-              <%= @current_reservatoin.size %>
+              <%= @today_reservations.size %>
             </p>
             <h3 class='text-lg'>
               客人組數
@@ -19,7 +19,7 @@
           </div>
           <div>
             <p class='text-4xl font-bold'>
-              <%= @current_reservatoin.each.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
+              <%= @today_reservations.each.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
             </p>
             <h3 class='text-lg'>
               總人數
@@ -39,7 +39,7 @@
           </div>
           <div>
             <p class='text-4xl font-bold text-major'>
-              <%= @restaurant.seats.select{|seat| seat.state == 'occupied'}.size %>
+              <%= @restaurant.seats.seat_occupied.size %>
             </p>
             <h3>現場組數</h3>
           </div>
@@ -64,7 +64,7 @@
               >
           <div class='pb-4'>
             <p class='text-4xl font-bold' data-dash-board-target='sum'>
-              <%= @current_reservatoin.size %>
+              <%= @today_reservations.size %>
             </p>
             <h3 class='text-lg'>
               客人組數
@@ -72,7 +72,7 @@
           </div>
           <div>
             <p class='text-4xl font-bold' data-dash-board-target='sumOfPeople'>
-              <%= @current_reservatoin.each.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
+              <%= @today_reservations.each.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
             </p>
             <h3 class='text-lg'>
               總人數
@@ -111,7 +111,7 @@
     <div data-controller='display'
           data-action="update-info@window->display#setReservation"> 
       <% @current_reservatoin.each do |reservation| %>
-          <div class='grid grid-cols-5 p-4 text-center border-b' 
+          <div class='grid grid-cols-6 p-4 text-center border-b' 
                 data-controller="note-reservation"
                 data-id="<%= reservation.id %>"
                 data-noted="<%= current_manager.noted_important_reservation?(reservation) %>"
@@ -141,14 +141,20 @@
               </p>
             </div>
             
-            <p class='my-auto text-2xl' data-controller='state'>
-              <%= reservation.seat.title %>桌
-              <span class='px-2 text-lg border rounded'
-                    data-state-target='state'
+            <p class='my-auto text-xl' data-controller='state'>
+              <span>
+                <%= reservation.seat.title %>
+                <%= reservation.seat.kind %>
+              </span>
+            </p>
+            <div class='m-auto'>
+              <span class='px-2 py-1 text-lg border rounded'
+                      data-state-target='state'
               >
                 <%= I18n.t :"reservations.#{reservation.state}" %>
               </span>
-            </p>
+            </div>
+            
             <p class='my-auto'>
               <%= reservation.arrival_time.strftime('%R') %>
             </p>

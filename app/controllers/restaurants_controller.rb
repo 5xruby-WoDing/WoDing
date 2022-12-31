@@ -7,7 +7,7 @@ class RestaurantsController < ApplicationController
   def show
     @seats = Seat.includes(:restaurant).where(restaurant_id: @restaurant).references(:seat)
     @content = @restaurant.content
-    @opening_time = OpeningTime.includes(:restaurant).where(restaurant_id: @restaurant).references(:opening_time)
+    @opening_time = OpeningTime.includes(:restaurant).where(restaurant_id: @restaurant).references(:opening_time).order(opening_time: :asc)
     @key = SecureRandom.urlsafe_base64
     @tags = @restaurant.tags
     @off_days = OffDay.includes(:restaurant).where(restaurant_id: @restaurant).references(:off_day).map{|off_day| off_day.off_day}

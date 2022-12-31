@@ -9,13 +9,13 @@ module Backstage
       @reservations = Reservation.includes(:seat,
                                            :restaurant,
                                            :manager_reservations).where(restaurant_id: @restaurant).references(:reservation)
-      @current_reservatoin = @reservations.current_reservations
-
+      @current_reservatoin = @reservations.current_reservations.order(arrival_time: :asc)
+      @today_reservations = @reservations.today_reservations
       @off_days = OffDay.includes(:restaurant).where(restaurant_id: @restaurant).references(:off_day).map{|off_day| off_day.off_day}
 
-      @reserved = @current_reservatoin.reservations_state('reserved').count
-      @completed = @current_reservatoin.reservations_state('completed').count
-      @cancelled = @current_reservatoin.reservations_state('cancelled').count
+      @reserved = @today_reservations.reserved.count
+      @completed = @today_reservations.completed.count
+      @cancelled = @today_reservations.cancelled.count
 
       @q = @reservations.ransack(params[:q])
       @reservations = @q.result
@@ -60,10 +60,9 @@ module Backstage
     end
 
     def statistics
-      restaurant = Restaurant.find(params[:id])
-      reservation = restaurant.reservations.where(arrival_date: params[:date])
+      reservation = Reservation.includes(:restaurant).where(restaurant_id: params[:id], arrival_date: params[:date]).references(:reservation)
       sum = reservation.size
-      sum_of_people = reservation.reduce([]) { |arr, r| arr << (r.adult_quantity + r.child_quantity) }.sum
+      sum_of_people = reservation.reduce(0) { |arr, r| arr += (r.adult_quantity + r.child_quantity) }
       render json: { sum:, sum_of_people: }
     end
 

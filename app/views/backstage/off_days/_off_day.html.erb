@@ -1,0 +1,8 @@
+<span data-date='<%= off_day.off_day %>' 
+      data-off-day-target='offDay' class='flex items-center justify-between p-2 m-auto mb-2 border rounded'
+> 
+  <%= I18n.t :"off_days.#{off_day.off_day}" %>
+  <%= link_to backstage_off_day_path(off_day), data: {method: 'delete', confirm: '確定刪除?'},class: 'bg-red-600 major-btn hover:bg-red-800' do%>
+    <i class="fa-solid fa-trash"></i>
+  <% end %>
+</span>
