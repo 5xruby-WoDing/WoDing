@@ -1,5 +1,5 @@
 <main class="mx-5">
-  <section class="mx-auto my-14 text-center md:w-6/12 lg:w-4/12">
+  <section class="mx-auto text-center my-14 md:w-6/12 lg:w-4/12">
     <div  class='px-5 py-4 border rounded'>
       <div class='py-1'>
         <h1 class='text-2xl font-bold'>
@@ -59,8 +59,9 @@
       <div class="text-gray-500 text-m">用餐時間為<%= @reservation.restaurant.dining_time =%>分鐘，座位保留10分鐘，逾時取將取消訂位!若特殊情況無法到場，請聯絡餐廳客服<%= @reservation.restaurant.tel =%></div>
     </div>
 
-    <div class='flex justify-center'>
+    <div class='flex flex-col gap-3 '>
       <%= link_to "回首頁", root_path, class: 'w-full py-3 text-lg major-btn' %>
+      <%= link_to "取消訂位", cancel_reservation_path(@reservation.serial), class: 'w-full py-3 text-lg gray-btn' %>
     </div>
   </section>
 </main>

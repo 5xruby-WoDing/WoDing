@@ -25,13 +25,13 @@ class Restaurant < ApplicationRecord
   Restaurant.all.with_rich_text_content_and_embeds
 
   def tag_list=(arr)
-    self.tags = arr.split(',').map do |tag|
+    self.tags = arr.split(',').uniq.map do |tag|
       Tag.where(name: tag.strip).first_or_create!
     end
   end
 
   def tag_list
-    tags.map(&:name).join(', ')
+    tags.map(&:name).join(',')
   end
 
   def self.tagged_with(name)

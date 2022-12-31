@@ -119,16 +119,18 @@ export default class extends Controller {
 
    getDate(e){
     e.preventDefault()
-    const btnContent = e.target.value
-    this.setDate(e, btnContent)
+    this.setDate(e)
     this.fetchOccupied(e)
     this.resetInput()
     this.resetState()
   }
 
-  setDate(e, btnContent){
+  setDate(e){
+    const btnContent = e.target.value
+
     this.dateInputTarget.value = btnContent
     this.seatTargets.forEach(seat => seat.dataset.date = btnContent)
+    this.timeTargets.forEach(time => time.dataset.date = btnContent)
     if(this.dateInputTarget.value === btnContent){
       this.dateTargets.forEach(btn => btn.classList.remove('confirm-state'))
       e.target.classList.add('confirm-state')
@@ -138,11 +140,20 @@ export default class extends Controller {
   }
 
   releaseTime(occupied_time){
+    let today = new Date().toLocaleString('en-US').split(',')[0].split('/')
+    today.unshift(today.pop())
+    const currentTime =  new Date().toLocaleTimeString('en-US', { hour12: false, 
+                                                                  hour: "numeric", 
+                                                                  minute: "numeric"})
     this.timeTargets.forEach(btn => {
       this.disabledBtn(btn)
-      if(!(occupied_time.includes(btn.value))){
+
+      if(today.join('-') == btn.dataset.date && btn.value < currentTime){
+        this.disabledBtn(btn)
+      }else if(!(occupied_time.includes(btn.value))){
         this.releaseBtn(btn)
       }
+      
     })
   }
 
@@ -154,14 +165,15 @@ export default class extends Controller {
 
   getTime(e){
     e.preventDefault()
-    const btnContent = e.target.textContent.replace(/\s/g, '')
-    this.setTime(e, btnContent)
+    this.setTime(e)
     this.fetchOccupied(e)
     this.resetInput()
     this.resetState()
   }
 
-  setTime(e, btnContent){
+  setTime(e){
+    const btnContent = e.target.value
+
     this.timeInputTarget.value = btnContent
     this.seatTargets.forEach(seat => seat.dataset.time = btnContent)
 

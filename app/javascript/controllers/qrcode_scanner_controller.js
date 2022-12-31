@@ -46,9 +46,4 @@ export default class extends Controller {
   closeLens() {
     this.qrScanner.stop()
   }
-
-
 }
-
-
-

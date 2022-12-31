@@ -20,8 +20,12 @@ class Reservation < ApplicationRecord
 
   before_validation :generate_serial
 
-  scope :current_reservations, -> { where('arrival_date = ?', Date.today) }
-  scope :reservations_state, ->(state) { where(state:) }
+  scope :current_reservations, -> { where('arrival_date >= ?', Date.today) }
+  scope :today_reservations, -> { where('arrival_date = ?', Date.today) }
+  scope :reserved, -> { where(state: 'reserved') }
+  scope :completed, -> { where(state: 'completed') }
+  scope :cancelled, -> { where(state: 'cancelled') }
+
 
   aasm column: 'state', no_direct_assignment: true do
     state :pending, initial: true
