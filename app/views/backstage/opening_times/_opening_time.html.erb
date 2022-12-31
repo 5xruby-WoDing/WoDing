@@ -1,0 +1,12 @@
+<div class='flex items-center p-2 m-auto mb-2 text-sm border rounded'
+     id='<%= dom_id(opening_time)%>'
+>
+  <%= opening_time.opening_time.strftime('%R') %> -
+  <%= opening_time.closed_time.strftime('%R') %>
+  <%= link_to edit_backstage_opening_time_path(opening_time), class: 'mx-2 major-btn' do %>
+    <i class="fa-solid fa-pen-to-square"></i>
+  <% end %>
+  <%= link_to backstage_opening_time_path(opening_time), data: {method: 'delete', confirm: '確定刪除?', remote: true}, class: 'bg-red-600 major-btn hover:bg-red-800' do %>
+    <i class="fa-solid fa-trash"></i>
+  <% end %>
+</div>

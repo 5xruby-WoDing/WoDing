@@ -3,7 +3,7 @@
 module RestaurantsHelper
   class TimeRange
     def initialize(opening_time, interval_time)
-      @opening_time = opening_time.order(opening_time: :asc)
+      @opening_time = opening_time
       @interval_time = interval_time.minutes.to_i
     end
 
@@ -20,7 +20,7 @@ module RestaurantsHelper
 
   class DateRange
     def initialize(off_days, period_of_day)
-      @off_days = off_days
+      @off_days = off_days  
       @end_day = Date.today + (period_of_day.days - 1)
     end
 

@@ -7,7 +7,7 @@ class RestaurantsController < ApplicationController
   def show
     @seats = Seat.includes(:restaurant).where(restaurant_id: @restaurant).references(:seat)
     @content = @restaurant.content
-    @opening_time = OpeningTime.includes(:restaurant).where(restaurant_id: @restaurant).references(:opening_time)
+    @opening_time = OpeningTime.includes(:restaurant).where(restaurant_id: @restaurant).references(:opening_time).order(opening_time: :asc)
     @key = SecureRandom.urlsafe_base64
     @tags = @restaurant.tags
     @off_days = OffDay.includes(:restaurant).where(restaurant_id: @restaurant).references(:off_day).map{|off_day| off_day.off_day}
@@ -16,7 +16,7 @@ class RestaurantsController < ApplicationController
   def reserve
     @user = User.new
     @key = params[:key]
-
+    @end_time = (params[:arrival_time]).to_time + @restaurant.dining_time.minutes
     $redis.hset(@key, { arrival_time: params[:arrival_time],
                         arrival_date: params[:arrival_date],
                         seat_id: params[:seat_id] })
@@ -33,29 +33,40 @@ class RestaurantsController < ApplicationController
     people = params[:people]
     reservated_date = params[:date].to_date
     reservated_time = params[:time]
+    restaurant = Restaurant.find(params[:id])
 
-    over_capacity_seats = @restaurant.seats.select { |seat| seat.capacity < people }.map { |seat| seat.id }
+    over_capacity_seats = @restaurant.seats.seat_capacity(people).map(&:id)
     sum_of_seat = @restaurant.seats.size
+    arrival_date = @restaurant.reservations.reservations_date(reservated_date).not_cancelled
 
-    arrival_date = @restaurant.reservations.select { |reservation| reservation.arrival_date == reservated_date && reservation.state != 'cancelled'}
-    # [{2=>"10:00"}, {3=>"12:30"}, {3=>"18:00"}, {3=>"13:30"}, {3=>"13:00"}]
+    # [{[946692000, 946693800, 946695600]=>11}, {[946692000, 946693800, 946695600]=>13}, {[946692000, 946693800, 946695600]=>12}]
     occupied_time = arrival_date.each.reduce([]) do |arr, reservation|
-      arr << Hash[reservation.arrival_time.strftime('%R'), reservation.seat_id]
+      arr << Hash[(reservation.arrival_time.to_i..reservation.end_time.to_i).step(restaurant.interval_time.minutes).reduce([]){|arr, time| arr << time}, reservation.seat_id]
     end
-    occupied_seats = arrival_date.select { |reservation| reservated_time == reservation.arrival_time.strftime('%R') }
+    # [{["14:00", "14:30", "15:00", "15:30"]=>3}, {["15:00", "15:30", "16:00", "16:30"]=>5}, {["23:00", "23:30", "00:00", "00:30"]=>7}, {["00:00", "00:30", "01:00", "01:30"]=>5}, {["00:00", "00:30", "01:00", "01:30"]=>10}]
+    occupied_seats = arrival_date.each.reduce([]) do |arr, reservation|
+      arr << Hash[reservation.seat_id, (reservation.arrival_time.to_i..reservation.end_time.to_i).step(restaurant.interval_time.minutes).reduce([]){|arr, time| arr << Time.at(time).strftime('%R')}]
+    end
+
+    occupied_seats = occupied_seats.flat_map(&:to_a).group_by(&:first).map do |k, v|
+      [k, v.flatten.delete_if{|i| i.is_a?(Integer)}]
+    end
+
+    #[[[946692000, 946693800, 946695600], 3]]
     each_time_occupied = occupied_time.flat_map(&:to_a).group_by(&:first).map do |k, v|
       Hash[k, v.size]
     end.flat_map(&:to_a)
-    occupied_time = each_time_occupied.map { |time| time.first if time[1] >= sum_of_seat }.compact
 
-    occupied_seats_id = occupied_seats.map { |reservation| reservation.seat_id }
+    # ["10:00", "10:30", "11:00"] 客滿時間
+    occupied_time = each_time_occupied.map { |time| time.first.map{|i| Time.at(i).strftime('%R')} if time[1] >= sum_of_seat }.compact.flatten
+
 
     all_keys = $redis.smembers('all_key')
     all_keys = all_keys.map do |key|
       $redis.hgetall(key)
     end
 
-    render json: { over_capacity_seats:, occupied_time:, occupied_seats_id:, all_keys: }
+    render json: { over_capacity_seats:, occupied_time:, occupied_seats:, all_keys: }
   end
 
   private
