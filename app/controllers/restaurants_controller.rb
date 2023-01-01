@@ -32,34 +32,26 @@ class RestaurantsController < ApplicationController
   def occupied
     people = params[:people]
     reservated_date = params[:date].to_date
-    reservated_time = params[:time]
     restaurant = Restaurant.find(params[:id])
 
     over_capacity_seats = @restaurant.seats.seat_capacity(people).map(&:id)
     sum_of_seat = @restaurant.seats.size
     arrival_date = @restaurant.reservations.reservations_date(reservated_date).not_cancelled
 
-    # [{[946692000, 946693800, 946695600]=>11}, {[946692000, 946693800, 946695600]=>13}, {[946692000, 946693800, 946695600]=>12}]
-    occupied_time = arrival_date.each.reduce([]) do |arr, reservation|
-      arr << Hash[(reservation.arrival_time.to_i..reservation.end_time.to_i).step(restaurant.interval_time.minutes).reduce([]){|arr, time| arr << time}, reservation.seat_id]
-    end
-    # [{["14:00", "14:30", "15:00", "15:30"]=>3}, {["15:00", "15:30", "16:00", "16:30"]=>5}, {["23:00", "23:30", "00:00", "00:30"]=>7}, {["00:00", "00:30", "01:00", "01:30"]=>5}, {["00:00", "00:30", "01:00", "01:30"]=>10}]
-    occupied_seats = arrival_date.each.reduce([]) do |arr, reservation|
+    occupied = arrival_date.each.reduce([]) do |arr, reservation|
       arr << Hash[reservation.seat_id, (reservation.arrival_time.to_i..reservation.end_time.to_i).step(restaurant.interval_time.minutes).reduce([]){|arr, time| arr << Time.at(time).strftime('%R')}]
     end
 
-    occupied_seats = occupied_seats.flat_map(&:to_a).group_by(&:first).map do |k, v|
+    occupied_seats = occupied.flat_map(&:to_a).group_by(&:first).map do |k, v|
       [k, v.flatten.delete_if{|i| i.is_a?(Integer)}]
     end
 
-    #[[[946692000, 946693800, 946695600], 3]]
-    each_time_occupied = occupied_time.flat_map(&:to_a).group_by(&:first).map do |k, v|
+    each_time_occupied = occupied.flat_map(&:to_a).group_by(&:last).map do |k, v|
       Hash[k, v.size]
     end.flat_map(&:to_a)
 
     # ["10:00", "10:30", "11:00"] 客滿時間
-    occupied_time = each_time_occupied.map { |time| time.first.map{|i| Time.at(i).strftime('%R')} if time[1] >= sum_of_seat }.compact.flatten
-
+    occupied_time = each_time_occupied.map { |time| time.first if time[1]  >= sum_of_seat }.compact.flatten
 
     all_keys = $redis.smembers('all_key')
     all_keys = all_keys.map do |key|

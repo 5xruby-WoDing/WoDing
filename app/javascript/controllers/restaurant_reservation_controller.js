@@ -93,7 +93,6 @@ export default class extends Controller {
       },
       body: JSON.stringify({
         date: this.dateInputTarget.value,
-        time: this.timeInputTarget.value,
         seat: this.seatInputTarget.value,
         people: people,
         user_id: this.id
@@ -184,7 +183,7 @@ export default class extends Controller {
     this.determineSubmit()
   }
 
-  disableSeat(occupied_seats_id, all_keys){
+  disableSeat(occupied_seats, all_keys){
     this.seatTargets.forEach(btn => {
       this.disabledBtn(btn) 
       btn.classList.remove('chosen-btn')
@@ -198,11 +197,11 @@ export default class extends Controller {
           }
         })
       }
-      occupied_seats_id.forEach( i => {
+      occupied_seats.forEach( i => {
         if(btn.value == i[0] && i[1].includes(btn.dataset.time)){
           this.disabledBtn(btn)
         }
-      })
+      }) 
     })
   }
 
