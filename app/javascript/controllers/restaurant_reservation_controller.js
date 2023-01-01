@@ -93,7 +93,6 @@ export default class extends Controller {
       },
       body: JSON.stringify({
         date: this.dateInputTarget.value,
-        time: this.timeInputTarget.value,
         seat: this.seatInputTarget.value,
         people: people,
         user_id: this.id
@@ -117,7 +116,7 @@ export default class extends Controller {
     })
   }
 
-   getDate(e){
+  getDate(e){
     e.preventDefault()
     this.setDate(e)
     this.fetchOccupied(e)
@@ -140,7 +139,8 @@ export default class extends Controller {
   }
 
   releaseTime(occupied_time){
-    let today = new Date().toLocaleString('en-US').split(',')[0].split('/')
+
+    let today = new Date().toLocaleString('en-US').split(',')[0].split('/').map(i => i.padStart(2,"0"))
     today.unshift(today.pop())
     const currentTime =  new Date().toLocaleTimeString('en-US', { hour12: false, 
                                                                   hour: "numeric", 
@@ -153,7 +153,6 @@ export default class extends Controller {
       }else if(!(occupied_time.includes(btn.value))){
         this.releaseBtn(btn)
       }
-      
     })
   }
 
@@ -184,7 +183,7 @@ export default class extends Controller {
     this.determineSubmit()
   }
 
-  disableSeat(occupied_seats_id, all_keys){
+  disableSeat(occupied_seats, all_keys){
     this.seatTargets.forEach(btn => {
       this.disabledBtn(btn) 
       btn.classList.remove('chosen-btn')
@@ -198,11 +197,11 @@ export default class extends Controller {
           }
         })
       }
-      occupied_seats_id.forEach( i => {
+      occupied_seats.forEach( i => {
         if(btn.value == i[0] && i[1].includes(btn.dataset.time)){
           this.disabledBtn(btn)
         }
-      })
+      }) 
     })
   }
 
