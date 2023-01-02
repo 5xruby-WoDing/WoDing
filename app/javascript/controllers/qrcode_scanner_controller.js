@@ -17,14 +17,16 @@ export default class extends Controller {
                  .then((resp) => {
                    return resp.json()
                  })
-                 .then(({message, reservation, seat}) => {                                                           
+                 .then(({message, reservation, seat, id}) => {                                                           
                    if (message === "success") {
                     Swal.fire({
                       title: '報到成功!',
-                      text: `您的姓名是${reservation.name}，預約的座位為${seat.id}號的${seat.kind}`,
+                      text: `${reservation.name}${reservation.gender}，預約的座位為${seat.title}號的${seat.kind}`,
                       icon: 'success',
                       confirmButtonText: '進行帶位'
-                    })                    
+                    }).then(() => {
+                      window.location = `/backstage/restaurants/${id}/seats`
+                    })                   
                    } else {
                     Swal.fire({
                       title: '報到失敗!',
