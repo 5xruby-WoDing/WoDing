@@ -20,12 +20,12 @@ module RestaurantsHelper
 
   class DateRange
     def initialize(off_days, period_of_day)
-      @off_days = off_days  
+      @off_days = off_days
       @end_day = Date.today + (period_of_day.days - 1)
     end
 
     def reservation_range_date
-      (Date.today..@end_day).select{|date| @off_days.exclude?(date.strftime('%a'))}
+      (Date.today..@end_day).select { |date| @off_days.exclude?(date.strftime('%a')) }
     end
   end
 end

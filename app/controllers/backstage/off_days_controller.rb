@@ -17,6 +17,7 @@ module Backstage
     end
 
     private
+
     def params_off_day
       params.required(:off_day).permit(:off_day)
     end
@@ -24,6 +25,5 @@ module Backstage
     def find_restaurant
       @restaurant = Restaurant.find(params[:restaurant_id])
     end
-
   end
 end

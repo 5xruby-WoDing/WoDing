@@ -12,7 +12,7 @@ class Restaurant < ApplicationRecord
 
   belongs_to :manager
   has_many :seats, -> { order(title: :asc) }
-  has_many :reservations, -> { order(arrival_time: :asc) }
+  has_many :reservations
   has_many :opening_times, -> { order(closed_time: :asc) }
   has_many :off_days
   has_many :restaurant_tags

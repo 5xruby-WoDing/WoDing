@@ -1,0 +1,86 @@
+<main class='grid grid-cols-3 gap-4 p-6 ml-20 bg-hoverGray'>
+  <div class="mb-auto bg-white border">
+    <div class="py-2 text-2xl font-bold text-center border-b">搜尋</div>
+    <div class="p-6">
+      <div data-controller='search'>
+        <%= search_form_for @q, url: history_backstage_restaurant_reservations_path(@restaurant), class: 'inline' do |f| %>
+          <div class='grid grid-cols-2 gap-2 mb-2'>
+            <div>
+              <p class='mb-2 text-xl font-bold'>訂位姓名查詢</p> 
+              <%= f.search_field :name_cont, class: 'input-border-click', placeholder: '輸入名稱' %>
+            </div>
+
+            <div>
+              <p class='mb-2 text-xl font-bold'>訂單狀態</p>
+              <div class="text-center">
+                <%= f.select :state_lteq, [['所有', ' '], ['完成', 'completed'], ['取消','cancelled']],{},{class: 'input-border-click'} %>
+              </div>
+            </div>
+          </div>
+          
+          <div class='mb-2'>
+            <p class='text-xl font-bold'>時間範圍</p>
+            <div class='text-center'>
+              <%= f.date_select :arrival_date_gteq, class: 'input-border-click' %>
+              <div>至</div>
+              <%= f.date_select :arrival_date_lteq, class: 'input-border-click' %>
+            </div>
+          </div>
+          <div class='text-center'>
+            <%= button_tag type:'submit', class: 'major-btn' do %>
+              <i class="fa-solid fa-magnifying-glass"></i>
+            <% end %>
+            <%= link_to history_backstage_restaurant_reservations_path(@restaurant), class: 'major-btn bg-red-600 major-btn hover:bg-red-800' do %>
+              <i class="fa-solid fa-rotate-right"></i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>  
+    
+  <div class='col-span-2 py-0 mb-auto bg-white border rounded' data-controller='form'>
+    <div class="py-2 text-2xl font-bold text-center border-b">歷史訂單</div>
+    <% @reservations.each do |reservation| %>
+      <div class='grid grid-cols-5 p-4 text-center border-b'>
+
+        <div>
+          <%= reservation.arrival_date %>
+          <div>
+            <i class="fa-solid fa-clock"></i>
+            <%= reservation.arrival_time.strftime('%R') %>
+          </div>
+        </div>
+        <div>
+          <%= reservation.name %>
+          <%= reservation.gender %>
+          <p class='text-sm text-gray-500'><%= reservation.phone %></p>
+        </div>
+
+        <div class='flex justify-center'>
+          <p class='my-auto mr-3 text-2xl text-major'>
+            <%= reservation.adult_quantity + reservation.child_quantity %>
+            位
+          </p>
+          <p class='my-auto text-sm'>
+            <%= reservation.adult_quantity %>大人<br>
+            <%= reservation.child_quantity %>小孩
+          </p>
+        </div>
+        
+        <p class='my-auto text-xl'>
+          <span>
+            <%= reservation.seat.title %>
+            <%= reservation.seat.kind %>
+          </span>
+        </p>
+        <div class='m-auto'>
+          <span class='px-2 py-1 text-lg border rounded'>
+            <%= I18n.t :"reservations.#{reservation.state}" %>
+          </span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  </div>
+</section>

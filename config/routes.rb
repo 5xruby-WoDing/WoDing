@@ -14,6 +14,10 @@ Rails.application.routes.draw do
             post :statistics
             get :qrscan
           end
+          collection do
+            get :history
+            
+          end
         end
         resources :opening_times, shallow: true, only: [:index, :create, :edit, :update, :destroy]
         resources :off_days, shallow: true, only: [:create, :destroy]
