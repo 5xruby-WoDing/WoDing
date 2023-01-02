@@ -36,7 +36,7 @@ module Backstage
     def qrscan
       if @reservation.may_completed?
         @reservation.completed!
-        render json: { message: 'success', reservation: @reservation, seat: @reservation.seat }
+        render json: { message: 'success', reservation: @reservation, seat: @reservation.seat, id: @reservation.restaurant_id }
       else
         render json: { message: 'fail', reservation: @reservation, seat: @reservation.seat }
       end
