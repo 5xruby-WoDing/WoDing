@@ -14,7 +14,6 @@ class Seat < ApplicationRecord
   scope :seat_occupied, -> {where(state: 'occupied')}
   scope :seat_capacity, -> (people){where('capacity < ?', people)}
 
-
   aasm column: 'state', no_direct_assignment: true do
     state :vacant, initial: true
     state :occupied

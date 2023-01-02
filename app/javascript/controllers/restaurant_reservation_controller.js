@@ -153,6 +153,7 @@ export default class extends Controller {
       }else if(!(occupied_time.includes(btn.value))){
         this.releaseBtn(btn)
       }
+      
     })
   }
 
