@@ -9,11 +9,14 @@ class Seat < ApplicationRecord
   belongs_to :restaurant
   has_many :reservations, dependent: :destroy
 
-  enum kind: %i[吧台 方桌 圓桌 包廂]
+  enum kind: %i[方桌 圓桌 包廂]
 
-  scope :seat_occupied, -> {where(state: 'occupied')}
-  scope :seat_capacity, -> (people){where('capacity < ?', people)}
-
+  scope :seat_occupied, -> { where(state: 'occupied') }
+  scope :seat_vacant, -> { where(state: 'vacant') }
+  scope :seat_capacity, ->(people) { where('capacity < ?', people) }
+  scope :round_table, -> { where('kind = ?', 1) }
+  scope :booth, -> { where('kind = ?', 2) }
+  scope :square_table, -> { where('kind = ?', 0) }
 
   aasm column: 'state', no_direct_assignment: true do
     state :vacant, initial: true

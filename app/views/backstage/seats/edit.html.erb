@@ -1,27 +1,28 @@
-<h1 class="m-3 text-3xl">編輯座位資訊</h1>
+<section>
+  <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <div class="w-full rounded-lg shadow dark:border md:mt-0 md:max-w-lg xl:p-0">
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
 
-  <% if @seat.errors.any? %>
-    <ul>
-      <%= @seat.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>  
-  <% end %>
-
-
-  <%= form_with model: @seat, url: backstage_seat_path(@seat) do |f| %>
-    <div class="seat-form">
-      <%= f.label "種類" %>
-      <%= f.select :kind, Seat.kinds.keys %>
-    </div>
-    <div class="seat-form">
-      <%= f.label "容納人數" %>
-      <%= f.select :capacity, [[1, 1], [2, 2], [3, 3]] %>
-    </div>
-    <div class="seat-form">
-      <%= f.label "訂金" %>
-      <%= f.text_field :deposit %>
-    </div>
-  
-    <%= f.submit "修改座位", class: 'major-btn css-btn'%>
-  <% end %>
+          <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            編輯座位資訊
+          </h1>
+          <%= form_with model: @seat, url: backstage_seat_path(@seat) do |f| %>
+            <div class='mb-2'>
+              <%= f.label '桌號' %>
+              <%= f.text_field :title, class: 'input-border-click' %>
+              <%= f.label "種類", class: 'ml-4' %>
+              <%= f.select :kind, Seat.kinds.keys,{}, {class: 'input-border-click'} %>
+            </div>
+            <div class='mb-2'>
+              <%= f.label "訂金" %>
+              <%= f.number_field :deposit,class: 'input-border-click' %>
+              <%= f.label "容納人數", class: 'ml-4' %>
+              <%= f.select :capacity, [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8]],{}, {class: 'input-border-click'}  %>
+            </div>
+          
+            <%= f.submit "修改座位", class: 'major-btn css-btn'%>
+          <% end %>
+        </div>
+      </div>
+  </div>
+</section>

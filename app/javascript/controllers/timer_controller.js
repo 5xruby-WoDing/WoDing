@@ -3,7 +3,7 @@ import { Controller } from "stimulus"
 export default class extends Controller {
 
   connect(){
-    this.timer(200)
+    this.timer(5)
   }
 
   timer(endTime){

@@ -23,9 +23,10 @@ module Backstage
 
     def update
       return unless @opening_time.update(params_opening_time)
+
       redirect_to backstage_restaurant_opening_times_path(@opening_time.restaurant_id), notice: '已更新時段'
     end
-    
+
     def destroy
       @opening_time.destroy
     end

@@ -33,7 +33,6 @@ class ReservationsController < ApplicationController
 
     @reservation.reserve! if @reservation.may_reserve?
     ReserveMailJob.perform_later(@reservation)
-
   end
 
   private
