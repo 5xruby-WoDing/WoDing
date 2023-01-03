@@ -40,16 +40,19 @@ class RestaurantsController < ApplicationController
     sum_of_seat = @restaurant.seats.size
     arrival_date = @restaurant.reservations.reservations_date(reservated_date).not_cancelled
 
+    # [{7=>["13:00", "13:30", "14:00", "14:30"]}]
     occupied = arrival_date.each.reduce([]) do |arr, reservation|
       arr << Hash[reservation.seat_id, (reservation.arrival_time.to_i..reservation.end_time.to_i).step(restaurant.interval_time.minutes).reduce([]) do |array, time|
                                          array << Time.at(time).strftime('%R')
                                        end]
     end
 
+    # [[7, ["13:00", "13:30", "14:00", "14:30"]]]
     occupied_seats = occupied.flat_map(&:to_a).group_by(&:first).map do |k, v|
       [k, v.flatten.delete_if { |i| i.is_a?(Integer) }]
     end
 
+    # [[["13:00", "13:30", "14:00", "14:30"], 1]]
     each_time_occupied = occupied.flat_map(&:to_a).group_by(&:last).map do |k, v|
       Hash[k, v.size]
     end.flat_map(&:to_a)

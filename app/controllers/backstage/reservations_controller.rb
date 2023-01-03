@@ -9,8 +9,10 @@ module Backstage
       reservations = Reservation.includes(:seat,
                                           :restaurant,
                                           :manager_reservations).where(restaurant_id: @restaurant).references(:reservation)
-      @current_reservatoin = reservations.current_reservations.order(arrival_time: :asc)
+      current_reservations = reservations.current_reservations.order(arrival_time: :asc)
       @today_reservations = reservations.today_reservations
+      @morning = current_reservations.moning
+      @afternoon = current_reservations.afternoon
       @off_days = OffDay.includes(:restaurant).where(restaurant_id: @restaurant).references(:off_day).map do |off_day|
         off_day.off_day
       end
