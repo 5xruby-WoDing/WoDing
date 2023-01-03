@@ -1,0 +1,54 @@
+<div class='grid grid-cols-6 p-4 text-center border-b' 
+      data-controller="note-reservation"
+      data-id="<%= reservation.id %>"
+      data-noted="<%= current_manager.noted_important_reservation?(reservation) %>"
+      data-date='<%= reservation.arrival_date%>'
+      data-today=true
+      data-display-target='date'
+>
+  <div class='flex text-left'>  
+    <div class='flex'>
+      <span data-action="click->note-reservation#noted" class='m-auto mr-2 text-center text-major'>
+        <i class="fa-regular fa-star" data-note-reservation-target="icon"></i>
+      </span>
+      <div>
+        <%= reservation.name %>
+        <%= reservation.gender %>
+        <p class='text-sm text-gray-500'><%= reservation.phone %></p>
+      </div>
+    </div>
+  </div>
+  <div class='flex justify-center'>
+    <p class='my-auto mr-3 text-2xl text-major'>
+      <%= reservation.adult_quantity + reservation.child_quantity %>
+      位
+    </p>
+    <p class='my-auto text-sm'>
+      <%= reservation.adult_quantity %>大人<br>
+      <%= reservation.child_quantity %>小孩
+    </p>
+  </div>
+  
+  <p class='my-auto text-xl' data-controller='state'>
+    <span>
+      <%= reservation.seat.title %>
+      <%= reservation.seat.kind %>
+    </span>
+  </p>
+  <div class='m-auto'>
+    <span class='px-2 py-1 text-lg border rounded'
+            data-state-target='state'
+    >
+      <%= I18n.t :"reservations.#{reservation.state}" %>
+    </span>
+  </div>
+  
+  <p class='my-auto'>
+    <%= reservation.arrival_time.strftime('%R') %>
+  </p>
+  
+  <div class='m-auto'>
+    <%= link_to "報到", complete_backstage_reservation_path(reservation), class: "major-btn bg-green-600 hover:bg-green-800" %>
+    <%= link_to "取消", cancel_backstage_reservation_path(reservation), class: "major-btn bg-red-600 hover:bg-red-800" %>
+  </div>
+</div>
