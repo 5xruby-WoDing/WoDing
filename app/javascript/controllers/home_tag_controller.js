@@ -1,10 +1,12 @@
 import { Controller } from "stimulus"
+import Swal from 'sweetalert2'
 
 export default class extends Controller {
-  static targets = [ 'tagSection' ]
+  static targets = [ 'tagSection', 'searchInput' ]
 
   connect() {  
     this.state = true
+    this.searchBar = true
   }
   setTagSection(e) {
     e.preventDefault()
@@ -17,7 +19,12 @@ export default class extends Controller {
     }
     this.state = !this.state
   }
+
+  searchBarSubmit(event) {
+    console.log(event.srcElement[0]);
+    if ((event.srcElement[0].value).replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"") ===  "" ) {      
+      window.location = `/`      
+    }
+  }
 }
-
-
 
