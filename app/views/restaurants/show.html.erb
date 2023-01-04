@@ -1,18 +1,21 @@
 <main class="max-w-screen-lg mx-auto my-14">
   <section>
     <div class="swiper mySwiperTop" data-controller="swiper-carousel-top">
-      <div class="swiper-wrapper">
-        <% @restaurant.images.each do |image| %>
-        <div class="swiper-slide">
-          <%= image_tag (image.url) %>
-        </div>
-        <% end %>
-      </div> 
-      <div class="swiper-button-next swiper-button-next-top"></div>
-      <div class="swiper-button-prev swiper-button-prev-top"></div>
-      <div class="swiper-pagination swiper-pagination-top"></div>
+      <% if @restaurant.images.blank? %>
+        <img src="/assets/banner.png" class="object-cover w-full h-full">
+      <% else %>
+        <div class="swiper-wrapper">
+          <% @restaurant.images.each do |image| %>
+            <div class="swiper-slide">
+              <%= image_tag (image.url) %>
+            </div>
+          <% end %>
+        </div> 
+        <div class="swiper-button-next swiper-button-next-top"></div>
+        <div class="swiper-button-prev swiper-button-prev-top"></div>
+        <div class="swiper-pagination swiper-pagination-top"></div>
+      <% end %>
     </div> 
-
     <div class='mx-2 border-b-2 lg:mx-0'>
       <div class="py-8 space-y-2.5 border-b-2">  
         <div class='mb-2'>
@@ -194,19 +197,22 @@
     </div>
   </section>
   <section>
-    <div class="py-8" data-controller="swiper-carousel">
-      <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <% @restaurant.menus.each do |menu| %>
-            <div class="swiper-slide">
-              <%= image_tag (menu.url) %>
-            </div>
-          <% end %>
+    
+    <% unless @restaurant.menus.blank? %>
+      <div class="py-8" data-controller="swiper-carousel">
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <% @restaurant.menus.each do |menu| %>
+              <div class="swiper-slide">
+                <%= image_tag (menu.url) %>
+              </div>
+            <% end %>
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
         </div>
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-pagination"></div>
       </div>
-    </div>
+    <% end %>
   </section>
 </main>

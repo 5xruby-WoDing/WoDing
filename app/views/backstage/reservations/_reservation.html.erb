@@ -12,6 +12,7 @@
         <i class="fa-regular fa-star" data-note-reservation-target="icon"></i>
       </span>
       <div>
+        <%= reservation.serial %>
         <%= reservation.name %>
         <%= reservation.gender %>
         <p class='text-sm text-gray-500'><%= reservation.phone %></p>
@@ -29,7 +30,7 @@
     </p>
   </div>
   
-  <p class='my-auto text-xl' data-controller='state'>
+  <p class='my-auto text-xl'>
     <span>
       <%= reservation.seat.title %>
       <%= reservation.seat.kind %>
@@ -37,7 +38,9 @@
   </p>
   <div class='m-auto'>
     <span class='px-2 py-1 text-lg border rounded'
-            data-state-target='state'
+          data-controller='state'
+          data-state=<%= reservation.state %>
+          data-state-target='state'
     >
       <%= I18n.t :"reservations.#{reservation.state}" %>
     </span>

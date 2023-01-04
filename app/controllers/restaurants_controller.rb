@@ -68,6 +68,8 @@ class RestaurantsController < ApplicationController
     render json: { over_capacity_seats:, occupied_time:, occupied_seats:, all_keys: }
   end
 
+  def waring;end
+
   private
 
   def find_restaurant

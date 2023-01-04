@@ -15,8 +15,7 @@ Rails.application.routes.draw do
             get :qrscan
           end
           collection do
-            get :history
-            
+            get :history  
           end
         end
         resources :opening_times, shallow: true, only: [:index, :create, :edit, :update, :destroy]
@@ -40,10 +39,14 @@ Rails.application.routes.draw do
       post :notify
       post :reservation_status
       get :cancel
+      get :cancelled
     end
   end
 
   resources :restaurants, only: [:show] do
+    collection do
+      get :waring
+    end
     member do
       post :occupied
       get :reserve 
