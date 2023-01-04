@@ -25,7 +25,7 @@ class Restaurant < ApplicationRecord
   Restaurant.all.with_rich_text_content_and_embeds
 
   def tag_list=(arr)
-    self.tags = arr.split(',').uniq.map do |tag|
+    self.tags = arr.split(',').reject!(&:blank?).uniq.map do |tag|
       Tag.where(name: tag.strip).first_or_create!
     end
   end
@@ -38,3 +38,4 @@ class Restaurant < ApplicationRecord
     Tag.find_by!(name:).restaurants
   end
 end
+

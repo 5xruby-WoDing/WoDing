@@ -14,6 +14,7 @@ class HomeController < ApplicationController
                      Restaurant.includes(:manager, :restaurant_tags, :tags, [images_attachments: :blob])
                    end
 
+    @restaurant_images = Restaurant.includes(:manager, :restaurant_tags, :tags, [images_attachments: :blob])
     @tags = Tag.includes(:restaurants, :restaurant_tags).sample(20)
   end
 end
