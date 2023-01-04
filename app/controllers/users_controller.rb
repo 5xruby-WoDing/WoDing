@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params_user)
-    
+
     if @user.save
       if Reservation.reservations_date(@date).time_validation(@time).seat_validation(@seat_id).reserved.any?
         redirect_to waring_restaurants_path
@@ -45,6 +45,8 @@ class UsersController < ApplicationController
   end
 
   def params_validation
-    @time, @date, @seat_id = [Time.parse(params[:user][:arrival_time]), params[:user][:arrival_date], params[:seat_id]]
+    @time = Time.parse(params[:user][:arrival_time])
+    @date = params[:user][:arrival_date]
+    @seat_id = params[:seat_id]
   end
 end
