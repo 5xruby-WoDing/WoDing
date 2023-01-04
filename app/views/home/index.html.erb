@@ -3,7 +3,7 @@
   <section class="pb-4">
       <div class="swiper mySwiperTop" data-controller="swiper-carousel-top">
         <div class="swiper-wrapper">
-          <% @restaurants.each do |restaurant| %>
+          <% @restaurant_images.each do |restaurant| %>
             <% restaurant.images.sample(1).each do |image| %>
               <div class="swiper-slide">
                 <%= link_to image_tag(image.url) ,restaurant_path(restaurant) ,class:"object-cover w-full h-full" %>
@@ -15,7 +15,6 @@
         <div class="swiper-button-prev swiper-button-prev-top"></div>
         <div class="swiper-pagination swiper-pagination-top"></div>
       </div>
-  
     <div data-controller="home-tag">
       <%= form_with(url: root_path, method: :get, class: "pb-4 mt-4", data: {action: "submit->home-tag#searchBarSubmit"})do |form| %>
         <%= form.label :搜尋餐廳, class: "text-lg font-bold hidden md:inline-block mr-2" %>
