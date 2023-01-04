@@ -13,14 +13,14 @@ class Reservation < ApplicationRecord
   validates :name, presence: true
   validates :phone, presence: true, format: { with: /\d+{10}/ }
   validates :email, presence: true
-  validates :serial, presence: true
+  validates :serial, presence: true, uniqueness: true
   validates :arrival_time, presence: true
   validates :child_quantity, presence: true
   validates :arrival_date, presence: true
 
   before_validation :generate_serial
 
-  scope :history, -> { where('arrival_date < ?', Date.today) }
+  scope :before_today, -> { where('arrival_date < ?', Date.today) }
   scope :current_reservations, -> { where('arrival_date >= ?', Date.today) }
   scope :today_reservations, -> { where('arrival_date = ?', Date.today) }
 
@@ -32,6 +32,9 @@ class Reservation < ApplicationRecord
 
   scope :moning, -> {where('arrival_time <?', Time.new.noon)}
   scope :afternoon, -> {where('arrival_time >?', Time.new.noon)}
+
+  scope :time_validation, -> (time){where('arrival_time = ?', time)}
+  scope :seat_validation, -> (seat_id){where('seat_id = ?', seat_id)}
 
 
   aasm column: 'state', no_direct_assignment: true do

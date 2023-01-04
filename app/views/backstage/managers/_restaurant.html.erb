@@ -66,9 +66,11 @@
           <%= restaurant.address %>
         </span>
       </div>
-      <div class='flex'>
-        <%= link_to '管理訂單', backstage_restaurant_reservations_path(restaurant), class: 'major-btn cursor-pointer px-4 py-2 mr-4'%>
-        <%= link_to '編輯餐廳資訊', edit_backstage_restaurant_path(restaurant), class: 'px-6 py-2 text-major border-2 border-major rounded text-sm p-1 hover:bg-major hover:text-white' %>
+      <div class='flex' data-controller='form'>
+        <%= link_to  edit_backstage_restaurant_path(restaurant), class: 'text-major border-major hover:text-yellow-600 my-auto mr-2' do %>
+          <i class="text-lg fa-solid fa-gear"></i>
+        <% end %>
+        <%= link_to '管理訂單', backstage_restaurant_reservations_path(restaurant), class: 'major-btn cursor-pointer px-4 py-2 px-8 '%>
       </div>
     </div>
   </div>

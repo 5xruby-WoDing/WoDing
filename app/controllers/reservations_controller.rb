@@ -13,7 +13,7 @@ class ReservationsController < ApplicationController
 
   def cancel
     @reservation.cancel! if @reservation.may_cancel?
-    redirect_to root_path, notice: '已成功取消訂單'
+    redirect_to cancelled_reservation_path(@reservation.id)
   end
 
   def information
@@ -33,6 +33,10 @@ class ReservationsController < ApplicationController
 
     @reservation.reserve! if @reservation.may_reserve?
     ReserveMailJob.perform_later(@reservation)
+  end
+
+  def cancelled
+    @reservation = Reservation.find(params[:id])
   end
 
   private

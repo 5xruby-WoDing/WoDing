@@ -10,16 +10,16 @@ module Backstage
                                           :restaurant,
                                           :manager_reservations).where(restaurant_id: @restaurant).references(:reservation)
       current_reservations = reservations.current_reservations.order(arrival_time: :asc)
-      @today_reservations = reservations.today_reservations
+      @today_reservations = reservations.today_reservations.not_cancelled
       @morning = current_reservations.moning
       @afternoon = current_reservations.afternoon
       @off_days = OffDay.includes(:restaurant).where(restaurant_id: @restaurant).references(:off_day).map do |off_day|
         off_day.off_day
       end
 
-      @reserved = @today_reservations.reserved.count
-      @completed = @today_reservations.completed.count
-      @cancelled = @today_reservations.cancelled.count
+      @reserved = @today_reservations.reserved
+      @completed = @today_reservations.completed
+      @cancelled = reservations.today_reservations.cancelled
 
       @q = reservations.ransack(params[:q])
       @reservations = @q.result
@@ -63,8 +63,8 @@ module Backstage
     end
 
     def history
-      @reservations = @restaurant.reservations.history
-      @q = @reservations.ransack(params[:q])
+      @reservations = @restaurant.reservations.before_today
+      @q = @reservations.ransack(params[:q])  
       @reservations = @q.result
     end
 

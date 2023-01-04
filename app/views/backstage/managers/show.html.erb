@@ -1,13 +1,15 @@
 <main>
-  <div class='max-w-screen-lg px-3 mx-auto mt-8'>
+  <div class='max-w-screen-lg px-3 mx-auto mt-4'>
     <section class='mb-4'>
-      <div data-controller='manager-btn'>
-        <%= link_to new_backstage_manager_restaurant_path(current_manager.id), class: 'px-6 py-2 mr-2 cursor-pointer major-btn' do %>
-          <i class="fa-solid fa-plus"></i> 新增餐廳
-        <% end %>
+      <div data-controller='manager-btn' class='flex justify-between'>
         <%= link_to root_path, class: 'px-6 py-2 mr-2 cursor-pointer major-btn' do %>
           <i class="fa-solid fa-house"></i>
         <% end %>
+        <div class='inline my-auto'>
+          <%= link_to new_backstage_manager_restaurant_path(current_manager.id), class: 'mr-2 cursor-pointer major-btn py-2' do %>
+            <i class="fa-solid fa-plus"></i> 新增
+          <% end %>
+        </div>
       </div>
     </section>
 

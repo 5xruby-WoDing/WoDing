@@ -27,13 +27,13 @@
           </div>
           <div>
             <p class='text-4xl font-bold text-green-600'>
-              <%= @completed %>
+              <%= @completed.size %>
             </p>
             <h3>完成</h3>
           </div>
           <div>
             <p class='text-4xl font-bold text-red-600'>
-              <%= @reserved %>
+              <%= @reserved.size %>
             </p>
             <h3>剩餘組數</h3>
           </div>
@@ -45,7 +45,7 @@
           </div>
           <div>
             <p class='text-4xl font-bold text-red-600'>
-              <%= @cancelled %>
+              <%= @cancelled.size %>
             </p>
             <h3>取消</h3>
           </div>
@@ -125,6 +125,4 @@
       </div>  
     </div>
   </div>
-  
-
 </main>
