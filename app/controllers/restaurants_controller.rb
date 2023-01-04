@@ -10,8 +10,8 @@ class RestaurantsController < ApplicationController
     @opening_time = OpeningTime.includes(:restaurant).where(restaurant_id: @restaurant).references(:opening_time).order(opening_time: :asc)
     @key = SecureRandom.urlsafe_base64
     @tags = @restaurant.tags
-    @off_days = OffDay.includes(:restaurant).where(restaurant_id: @restaurant).references(:off_day).map do |off_day|
-      off_day.off_day
+    @off_days = OffDay.includes(:restaurant).where(restaurant_id: @restaurant).references(:off_day).map do |_date|
+      off_day.date
     end
   end
 
@@ -68,7 +68,7 @@ class RestaurantsController < ApplicationController
     render json: { over_capacity_seats:, occupied_time:, occupied_seats:, all_keys: }
   end
 
-  def waring;end
+  def waring; end
 
   private
 

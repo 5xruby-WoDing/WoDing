@@ -38,7 +38,7 @@ module Backstage
     end
 
     def find_restaurant
-      @restaurant = Restaurant.find(params[:restaurant_id])
+      @restaurant = current_manager.restaurants.find(params[:restaurant_id])
     end
 
     def find_opening_time

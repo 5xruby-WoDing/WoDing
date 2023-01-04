@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :managers
+  devise_for :managers, :controllers => { registrations: 'managers/registrations' }
 
   namespace :backstage do
     resources :managers, only: [:show] do

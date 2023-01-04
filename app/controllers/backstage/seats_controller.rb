@@ -6,11 +6,15 @@ module Backstage
     before_action :find_seat, only: %i[show edit update destroy vacant occupied]
 
     def index
-      @booth = @restaurant.seats.booth.sort { |a, b| a.title.sum.ord <=> b.title.sum.ord }
-      @round_table = @restaurant.seats.round_table.sort { |a, b| a.title.sum.ord <=> b.title.sum.ord }
-      @square_table = @restaurant.seats.square_table.sort { |a, b| a.title.sum.ord <=> b.title.sum.ord }
-      @vacant = @restaurant.seats.vacant.count
-      @occupied = @restaurant.seats.occupied.count
+      seats = Seat.includes(:restaurant).where(restaurant_id: @restaurant.id).references(:seat).order(title: :asc)
+
+      @booth = seats.booth
+      @round_table = seats.round_table
+      @square_table = seats.square_table
+
+      @vacant = seats.vacant.count
+      @occupied = seats.occupied.count
+
       @seat = Seat.new
     end
 
