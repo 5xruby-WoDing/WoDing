@@ -38,8 +38,8 @@ export default class extends Controller {
 
     if (phoneField === "") {
       this.addWarnDivElement(this.phoneWarnTarget, "手機欄位不可為空")
-    } else if (phoneField.match(/\D/)) {
-      this.addWarnDivElement(this.phoneWarnTarget, "格式錯誤，請輸入數字")             
+    } else if (!phoneField.match(/\d{10}/)) {
+      this.addWarnDivElement(this.phoneWarnTarget, "格式錯誤，請輸入10位數的號碼")             
     } else {
       this.removeWarnDivElement(this.phoneWarnTarget)              
     }  
@@ -50,7 +50,7 @@ export default class extends Controller {
     let emailState = this.emailInputTarget.value
     let phoneState = this.phoneInputTarget.value
 
-    if (nameState && emailState.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/) && phoneState.match(/\d/) ) {
+    if (nameState && emailState.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/) && phoneState.match(/\d{10}/) ) {
       this.openSubmit()
     } else {
       this.closeSubmit()
