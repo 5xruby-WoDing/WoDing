@@ -2,7 +2,6 @@ import { Controller } from "stimulus"
 import QrScanner from 'qr-scanner'
 import Swal from 'sweetalert2'
 
-
 export default class extends Controller {
   static targets = [ 'video' ]
 

@@ -1,13 +1,13 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = []
+
+  initialize(){
+    this.key = this.element.dataset.key
+  }
 
   connect() {
-    this.key = this.element.dataset.key
-
-    window.addEventListener('beforeunload', (event) => {
-
+    window.addEventListener('beforeunload', () => {
       const token = document.querySelector("meta[name='csrf-token']").content
       const id = this.element.dataset.id
 
@@ -24,7 +24,4 @@ export default class extends Controller {
 
     })
   }
-
-
-
 }

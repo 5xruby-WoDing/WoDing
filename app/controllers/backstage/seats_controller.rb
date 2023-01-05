@@ -6,7 +6,7 @@ module Backstage
     before_action :find_seat, only: %i[show edit update destroy vacant occupied]
 
     def index
-      seats = Seat.includes(:restaurant).where(restaurant_id: @restaurant.id).references(:seat).order(title: :asc)
+      seats = @restaurant.seats.order(title: :asc)
 
       @booth = seats.booth
       @round_table = seats.round_table

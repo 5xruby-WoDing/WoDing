@@ -1,5 +1,5 @@
 import { Controller } from "stimulus"
-import { library, icon, dom} from '@fortawesome/fontawesome-svg-core'
+import { library, dom} from '@fortawesome/fontawesome-svg-core'
 import { faThumbsUp as thumbsSolid, faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsUp as thumbsRegular, faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 
@@ -26,7 +26,6 @@ export default class extends Controller {
     const reservationId = this.element.dataset.id
     const token = document.querySelector("meta[name='csrf-token']").content
     
-
     fetch(`/backstage/reservations/${reservationId}/note`, {
       method: "PATCH", 
       headers: {

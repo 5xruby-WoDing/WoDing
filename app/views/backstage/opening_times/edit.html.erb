@@ -12,11 +12,11 @@
               <%= f.label :opening_time, '時段：', class: 'text-xl font-bold'%>
               <div class='text-center'>
                 <div>
-                  <%= f.time_select :opening_time%>
+                  <%= f.time_select :opening_time, {minute_step: 15} %>
                 </div>
                 <div>至</div>
                 <div class='mb-4'>
-                  <%= f.time_select :closed_time %>
+                  <%= f.time_select :closed_time, {minute_step: 15} %>
                 </div>
                 <%= f.submit '儲存', class: 'major-btn' %>
               </div>

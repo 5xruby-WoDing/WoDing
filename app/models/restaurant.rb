@@ -14,7 +14,7 @@ class Restaurant < ApplicationRecord
   has_many :seats, -> { order(title: :asc) }
   has_many :reservations
   has_many :opening_times, -> { order(closed_time: :asc) }
-  has_many :off_days
+  has_many :off_days, -> { order(off_day: :desc) }
   has_many :restaurant_tags
   has_many :tags, through: :restaurant_tags
 

@@ -20,13 +20,13 @@
     <div class='grid w-full grid-cols-2 gap-4 p-4 mb-4 ml-2 text-center rounded md:w-1/2 md:mb-0'>
       <span>  
         <p class='text-3xl text-major'>
-          <%= restaurant.reservations.select{|reservation| reservation.arrival_date == Date.today}.size %>
+          <%= restaurant.reservations.today_reservations.size %>
         </p>
         <p>今日組數</p>
       </span>
       <span>
         <p class='text-3xl text-major'>
-          <%= restaurant.reservations.select{|reservation| reservation.state == 'complete'}.size %>
+          <%= restaurant.reservations.completed.size %>
         </p>
         <p>以報到</p>
       </span>

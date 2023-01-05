@@ -8,17 +8,17 @@
         <%= form_with(model: @opening_time, 
                       url: backstage_restaurant_opening_times_path(@restaurant),
                       local: false) do |f| %>
-          <div>
+          <div data-controller='opening-time-form'>
             <%= f.label :opening_time, '時段：'%>
             <div class='text-center'>
               <div>
-                <%= f.time_select :opening_time%>
+                <%= f.time_select :opening_time, {minute_step: 15}, data: {opening_time_form_target: 'openingTime', action: 'change->opening-time-form#getOpeningTime'}%>
               </div>
               <div>至</div>
               <div class='mb-4'>
-                <%= f.time_select :closed_time %>
+                <%= f.time_select :closed_time, {minute_step: 15}, data: {opening_time_form_target: 'closedTime', action: 'change->opening-time-form#getClosedTime'} %>
               </div>
-              <%= f.submit '儲存', class: 'major-btn' %>
+              <%= f.submit '儲存', class: 'disabled-btn', data: {opening_time_form_target: 'submit'} %>
             </div>
           </div>
         <% end %>
@@ -34,7 +34,7 @@
       <div class='col-span-2 text-center'>
         <h3 class='mb-2 text-xl font-bold text-left'>新增公休日</h3>
         <div class='grid grid-cols-3 gap-3' id='off-day-selector'>
-          <% (Date.today.beginning_of_week(:sunday)...Date.today.end_of_week).each do |date| %>
+          <% @week.each do |date| %>
             <button class='gray-btn' 
                   data-date='<%= date.strftime('%a') %>'
                   data-off-day-target='date'
@@ -48,8 +48,9 @@
         <%= form_with(model: @off_day, 
                       url: backstage_restaurant_off_days_path(@restaurant)) do |f| %>
           <%= f.text_field :off_day, data: {off_day_target: 'input'}, value: '', class: 'hidden' %>
-          <%= f.submit '新增', class: 'major-btn mt-4 ' %>
+          <%= f.submit '新增', class: 'disabled-btn mt-4', data: {off_day_target: 'submit'} %>
         <% end %>
+        
       </div>
       <div class='off-day-list'>
         <%= render @off_days %>
