@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Backstage
   class OffDaysController < Backstage::RestaurantsController
     before_action :find_restaurant, only: %i[create]

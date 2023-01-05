@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SeatDepositMailer < ApplicationMailer
   def deposit_notify(reservation)
     @reservation = reservation
