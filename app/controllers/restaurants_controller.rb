@@ -3,16 +3,15 @@
 class RestaurantsController < ApplicationController
   before_action :find_restaurant, only: %i[show reserve occupied]
   before_action :find_seat_id, only: [:reserve]
+  before_action :find_off_days, only: [:show]
+  before_action :reservation_cache, only: [:occupied]
 
   def show
-    @seats = Seat.includes(:restaurant).where(restaurant_id: @restaurant).references(:seat)
+    @seats = @restaurant.seats
     @content = @restaurant.content
-    @opening_time = OpeningTime.includes(:restaurant).where(restaurant_id: @restaurant).references(:opening_time).order(opening_time: :asc)
+    @opening_time = @restaurant.opening_times.order(opening_time: :asc)
     @key = SecureRandom.urlsafe_base64
     @tags = @restaurant.tags
-    @off_days = OffDay.includes(:restaurant).where(restaurant_id: @restaurant).references(:off_day).map do |_date|
-      off_day.date
-    end
   end
 
   def reserve
@@ -27,7 +26,8 @@ class RestaurantsController < ApplicationController
   end
 
   def out
-    key = params[:key]
+    p key = params[:key]
+    puts '_'*200
     $redis.del(key)
   end
 
@@ -60,12 +60,7 @@ class RestaurantsController < ApplicationController
     # ["10:00", "10:30", "11:00"] 客滿時間
     occupied_time = each_time_occupied.map { |time| time.first if time[1] >= sum_of_seat }.compact.flatten
 
-    all_keys = $redis.smembers('all_key')
-    all_keys = all_keys.map do |key|
-      $redis.hgetall(key)
-    end
-
-    render json: { over_capacity_seats:, occupied_time:, occupied_seats:, all_keys: }
+    render json: { over_capacity_seats:, occupied_time:, occupied_seats:, all_keys: @all_keys }
   end
 
   def waring; end
@@ -78,5 +73,12 @@ class RestaurantsController < ApplicationController
 
   def find_seat_id
     @seat = Seat.find_by!(id: params[:seat_id])
+  end
+
+  def reservation_cache
+    @all_keys = $redis.smembers('all_key')
+    @all_keys = @all_keys.map do |key|
+      $redis.hgetall(key)
+    end
   end
 end

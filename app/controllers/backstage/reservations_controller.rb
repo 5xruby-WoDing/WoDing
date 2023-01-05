@@ -4,29 +4,23 @@ module Backstage
   class ReservationsController < Backstage::RestaurantsController
     before_action :find_reservation, only: %i[cancel note complete qrscan]
     before_action :find_restaurant, only: %i[index history]
+    before_action :find_off_days, only: %i[index]
 
     def index
-      reservations = Reservation.includes(:seat,
-                                          :restaurant,
-                                          :manager_reservations).where(restaurant_id: @restaurant).references(:reservation)
+      reservations = @restaurant.reservations.includes(:seat, :manager_reservations)
 
       current_reservations = reservations.current_reservations.order(arrival_time: :asc)
       @today_reservations = reservations.today_reservations.not_cancelled
 
       @morning = current_reservations.moning
       @afternoon = current_reservations.afternoon
-      @off_days = OffDay.includes(:restaurant).where(restaurant_id: @restaurant).references(:off_day).map do |_date|
-        off_day.date
-      end
 
-      @reserved = @today_reservations.reserved
-      @completed = @today_reservations.completed
       @cancelled = reservations.today_reservations.cancelled
 
       @q = reservations.ransack(params[:q])
       @reservations = @q.result
     end
-
+    
     def cancel
       @reservation.cancel! if @reservation.may_cancel?
       redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id), notice: '完成報到'

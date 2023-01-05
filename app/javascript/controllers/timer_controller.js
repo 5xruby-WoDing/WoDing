@@ -9,7 +9,7 @@ export default class extends Controller {
   timer(endTime){
     let time = endTime * 60
         
-    setInterval(()=>{
+    const timer = setInterval(()=>{
       const mins = ("" + (Math.floor(time / 60))).padStart(2, 0)
       let secs = ("" + (Math.floor(time % 60))).padStart(2, 0)
       this.element.innerHTML = `${mins}:${secs}`
@@ -28,7 +28,7 @@ export default class extends Controller {
             key:this.element.dataset.key
           })
         })
-        clearInterval(this.timer())
+        clearInterval(timer)
         window.location.href = `/restaurants/${id}`
 
       }

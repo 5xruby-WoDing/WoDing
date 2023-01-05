@@ -30,7 +30,7 @@ class Reservation < ApplicationRecord
   scope :not_cancelled, -> { where.not(state: 'cancelled') }
   scope :reservations_date, ->(date) { where('arrival_date =?', date) }
 
-  scope :moning, -> { where('arrival_time <?', Time.new.noon) }
+  scope :moning, -> { where('arrival_time <=?', Time.new.noon) }
   scope :afternoon, -> { where('arrival_time >?', Time.new.noon) }
 
   scope :time_validation, ->(time) { where('arrival_time = ?', time) }

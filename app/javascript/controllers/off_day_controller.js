@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ['input', 'date', 'offDay']
+  static targets = ['input', 'date', 'offDay', 'submit']
 
   connect(){
     const offDay = this.offDayTargets.map(a => a.dataset.date)
@@ -20,5 +20,7 @@ export default class extends Controller {
   }
   setDate(date){
     this.inputTarget.value = date
+    this.submitTarget.classList.remove('disabled-btn')
+    this.submitTarget.classList.add('major-btn')
   }
 }

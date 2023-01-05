@@ -7,14 +7,36 @@ module Backstage
 
     def index
       @opening_time = OpeningTime.new
-      @opening_times = OpeningTime.includes(:restaurant).where(restaurant_id: @restaurant).references(:opening_time)
-      @off_days = OffDay.includes(:restaurant).where(restaurant_id: @restaurant).references(:off_day)
+      @opening_times = @restaurant.opening_times
+
+      @off_days = @restaurant.off_days
       @off_day = OffDay.new
+
+      @week = (Date.today.beginning_of_week(:sunday)...Date.today.end_of_week)
     end
 
     def create
-      @opening_time = @restaurant.opening_times.new(params_opening_time)
-      return unless @opening_time.save
+      opening_time = Time.new(
+        params[:opening_time]['opening_time(1i)'].to_i,
+        params[:opening_time]['opening_time(2i)'].to_i,
+        params[:opening_time]['opening_time(3i)'].to_i,
+        params[:opening_time]['opening_time(4i)'].to_i,
+        params[:opening_time]['opening_time(5i)'].to_i
+      )
+
+      closed_time = Time.new(
+        params[:opening_time]['closed_time(1i)'].to_i,
+        params[:opening_time]['closed_time(2i)'].to_i,
+        params[:opening_time]['closed_time(3i)'].to_i,
+        params[:opening_time]['closed_time(4i)'].to_i,
+        params[:opening_time]['closed_time(5i)'].to_i
+      )
+
+      if opening_time < closed_time
+        @opening_time = @restaurant.opening_times.new(params_opening_time)
+        return unless @opening_time.save
+      end
+
     end
 
     def edit
