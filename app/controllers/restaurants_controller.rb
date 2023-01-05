@@ -81,4 +81,11 @@ class RestaurantsController < ApplicationController
       $redis.hgetall(key)
     end
   end
+
+  def reservation_cache
+    @all_keys = $redis.smembers('all_key')
+    @all_keys = @all_keys.map do |key|
+      $redis.hgetall(key)
+    end
+  end
 end
