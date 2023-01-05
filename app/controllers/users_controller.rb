@@ -15,10 +15,13 @@ class UsersController < ApplicationController
         reservation = Reservation.create!(params_reservation)
         reservation.reserve! if reservation.may_reserve? && reservation.seat.deposit.zero?
 
-        ReserveMailJob.perform_later(reservation) if reservation.seat.deposit.zero?
-
-        redirect_to checkout_reservation_path(id: reservation.serial)
+      if reservation.seat.deposit.zero?
+        ReserveMailJob.perform_later(reservation)
+      else
+        DepositMailJob.perform_later(reservation)
       end
+      
+      redirect_to checkout_reservation_path(id: reservation.serial)
     else
       render 'restaurants/reserve'
     end

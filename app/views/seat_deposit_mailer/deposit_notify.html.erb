@@ -1,0 +1,33 @@
+<h2>付款信件</h2>
+
+
+<h3>前往付款，此付款連結15分鐘後會失效</h3>
+<h3>位子訂金<%= @deposit %></h3>
+<a href="#">點我付款</a>
+
+
+
+<li>
+  預約人姓名 <%= @reservation.name %>
+</li>
+<li>
+  預約人信箱 <%= @reservation.email %>
+</li>
+<li>
+  預約日期 <%= @reservation.arrival_date %>
+</li>
+<li>
+  預約時間 <%= @reservation.arrival_time.strftime('%R') %>
+</li>
+<li>
+  預約的位置類型 <%= @reservation.seat.kind %>
+</li>
+<li>
+  預約餐廳 <%= @reservation.restaurant.title %>
+</li>
+
+
+
+
+
+
