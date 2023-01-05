@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DepositMailJob < ApplicationJob
   queue_as :default
 

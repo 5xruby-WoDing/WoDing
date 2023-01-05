@@ -14,6 +14,7 @@ class UsersController < ApplicationController
       else
         reservation = Reservation.create!(params_reservation)
         reservation.reserve! if reservation.may_reserve? && reservation.seat.deposit.zero?
+      end
 
       if reservation.seat.deposit.zero?
         ReserveMailJob.perform_later(reservation)
