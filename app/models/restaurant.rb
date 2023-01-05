@@ -27,7 +27,7 @@ class Restaurant < ApplicationRecord
   def tag_list=(arr)
     return unless arr.present?
 
-    self.tags = arr.split(',').reject!(&:blank?).uniq.map do |tag|
+    self.tags = arr.split(',').reject(&:blank?).uniq.map do |tag|
       Tag.where(name: tag.strip).first_or_create!
     end
   end
