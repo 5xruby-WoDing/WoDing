@@ -50,7 +50,7 @@
   </p>
   
   <div class='m-auto'>
-    <%= link_to "報到", complete_backstage_reservation_path(reservation), class: "major-btn bg-green-600 hover:bg-green-800" %>
-    <%= link_to "取消", cancel_backstage_reservation_path(reservation), class: "major-btn bg-red-600 hover:bg-red-800" %>
+    <%= link_to "報到", complete_backstage_reservation_path(reservation.serial), class: "major-btn bg-green-600 hover:bg-green-800" %>
+    <%= link_to "取消", cancel_backstage_reservation_path(reservation.serial), class: "major-btn bg-red-600 hover:bg-red-800" %>
   </div>
 </div>

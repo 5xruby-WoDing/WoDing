@@ -6,9 +6,8 @@ class ReserveMailer < ApplicationMailer
     # @cancel_url = "http://localhost:3000/reservations/#{reservation.serial}/cancel"
     @cancel_url = "#{ENV['WEB_DOMAIN']}/reservations/#{reservation.serial}/cancel"
 
-    # qr = RQRCode::QRCode.new("http://localhost:3000/backstage/reservations/#{reservation.id}/qrscan", size: 10, level: :h)
-    qr = RQRCode::QRCode.new("#{ENV['WEB_DOMAIN']}/backstage/reservations/#{reservation.id}/qrscan", size: 10,
-                                                                                                     level: :h)
+    # qr = RQRCode::QRCode.new("http://localhost:3000/backstage/reservations/#{reservation.serial}/qrscan", size: 10, level: :h)
+    qr = RQRCode::QRCode.new("#{ENV['WEB_DOMAIN']}/backstage/reservations/#{reservation.serial}/qrscan", size: 10, level: :h)
 
     png = qr.as_png(
       bit_depth: 1,
