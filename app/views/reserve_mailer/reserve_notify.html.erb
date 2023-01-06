@@ -25,3 +25,7 @@
 <h2>到店給店員掃描的QRCODE</h2>
 <%= image_tag(attachments['qr.png'].url)%>
 
+<h2>取消訂位</h2>
+<button style="padding: 5px 20px; background-color: #FB8500; border: 1px solid #FB8500; border-radius: 15px;">
+  <a href=<%= @cancel_url %> style="color: white; text-decoration: none;">點我取消訂位</a>
+</button>

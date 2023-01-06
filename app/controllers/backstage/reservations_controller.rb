@@ -2,9 +2,10 @@
 
 module Backstage
   class ReservationsController < Backstage::RestaurantsController
-    before_action :find_reservation, only: %i[cancel note complete qrscan]
+    before_action :find_reservation, only: %i[note]
     before_action :find_restaurant, only: %i[index history]
     before_action :find_off_days, only: %i[index]
+    before_action :find_reservation_serial, only: %i[cancel qrscan complete]
 
     def index
       reservations = @restaurant.reservations.includes(:seat, :manager_reservations)
@@ -21,14 +22,14 @@ module Backstage
       @reservations = @q.result
     end
     
-    def cancel
+    def cancel            
       @reservation.cancel! if @reservation.may_cancel?
-      redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id), notice: '完成報到'
+      redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id), notice: '已取消'
     end
 
-    def complete
+    def complete                 
       @reservation.completed! if @reservation.may_completed?
-      redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id), notice: '已取消'
+      redirect_to backstage_restaurant_reservations_path(@reservation.restaurant_id), notice: '完成報到'
     end
 
     def qrscan
@@ -71,8 +72,13 @@ module Backstage
       @reservation = Reservation.find(params[:id])
     end
 
+    def find_reservation_serial
+      @reservation = Reservation.find_by!(serial: params[:id])
+    end
+
     def find_restaurant
       @restaurant = current_manager.restaurants.find(params[:restaurant_id])
     end
+
   end
 end
