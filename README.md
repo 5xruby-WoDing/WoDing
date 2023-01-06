@@ -1,9 +1,9 @@
-Woding
-------
+# Woding
+
 SLOGAN - 一個提供快速訂位服務的餐廳網站
 
-一、產品簡介
-------
+## 一、產品簡介
+
 ![image](/app/assets/images/home_page.png)
       
 Woding，又名「我訂」，是致敬inline所開發出來的網站，我們提供消費者快速的餐廳訂位服務，消費者無需註冊、登入，就可以享有服務    
@@ -12,8 +12,8 @@ Woding，又名「我訂」，是致敬inline所開發出來的網站，我們�
 ***
 
 
-二、特色介紹
-------
+## 二、特色介紹
+
 ### **消費者端**
 (1) 搜尋欄、標籤篩選 - 用SQL語法篩選出你想要找的關鍵字    
 (2) 快速訂位 - 選擇日期、時間、位子類型即可定位  
@@ -37,14 +37,9 @@ Woding，又名「我訂」，是致敬inline所開發出來的網站，我們�
 ------
 
 - DEMO Link：https://woding-5xruby-5.herokuapp.com/
-- 商家測試帳號：  
--- 帳號：   
--- 密碼：   
 
+## 四、技術Develop & Tools
 
-
-四、技術Develop & Tools
-------
 
 - 前端：HTML / CSS、JavaScript、Ajax、Tailwind CSS、Stimulus JS
 - 後端：Ruby On Rails
@@ -52,39 +47,45 @@ Woding，又名「我訂」，是致敬inline所開發出來的網站，我們�
 - 部署：Heroku
 - 版控： Git / GitHub
 
-
-五、開發環境Environment
-------
+## 五、開發環境Environment
 
 - Ruby 3.1.1
 - Rails 6.1.7
 - Database：postgreSQL
 
-六、使用須知 Instructions
-------
+## 六、使用須知 Instructions
+
 請於 clone 專案前依上述版本建置開發環境
 
 ***
 
 ### 步驟一：安裝套件
-```md
-bundle install
-```
-```md
-yarn install
+```shell
+$ bundle install
+$ yarn install
 ```
 ***
 ### 步驟二：建立資料庫
-```md
-rails db:create
-```
-```md
-rails db:migrate
+```shell
+$ rails db:setup
 ```
 ***
 ### 步驟三：安裝redis
-```md
-brew install redis
+
+> --- 
+> #### **這邊介紹一下homebrew**
+>       
+> Homebrew (brew) 是一個免費的開源包管理器
+> 它允許根據用戶的需要在 macOS 中安裝應用程式和軟體。
+> 推薦它是因為它的簡單性和節省時間和精力的有效性。
+> 它的著名描述是“macOS 缺少的插件管理器”。
+>   
+> ---  
+{: .block-tip}
+
+因此我們用brew來安裝redis
+```shell
+$ brew install redis
 ```
 
 ***
@@ -93,7 +94,7 @@ brew install redis
 git clone下來的時候，記得把env.example改成.env，並把自己申請的key加上去
 
 #### 1、啟用寄/收信功能 - mailgun
-```md
+```yaml
 MAILGUN_DOMAIN=
 MAILGUN_SMTP_LOGIN=
 MAILGUN_SMTP_PASSWORD=
@@ -102,53 +103,55 @@ MAILGUN_SMTP_SERVER=
 ```
 
 #### 2、啟用金流功能 - MPG(藍新金流)
-```md
+```yaml
 MPG_ID=
 MPG_KEY=
 MPG_IV=
 ```
 
 #### 3、啟用簡訊功能 - 台灣簡訊
-```md
+```yaml
 TWSMS_ACCOUNT=
 TWSMS_PASSWORD=
 ```
 
 #### 4、GoogleMap API
-```md
+```yaml
 GOOGLE_MAP_KEY=
 ```
 
 #### 5、圖片上傳 - AWS S3
-```md
+```yaml
 ACCESS_KEY_ID=
 SECRET_ACCESS_KEY=
 ```
 
 #### 6、Domain - 自己的網域
-```md
+```yaml
 WEB_DOMAIN=
 ```
 
 ***
 
 ### 步驟五：開啟SERVER
-```md
+```shell
 foreman s
 ```
+
+***
 
 七、團隊 Member
 ------
 
-* John Chen
+* 陳登義 John Chen
   - Email: a034506618@gmail.com
   - GitHub: eagle0526
       
-* Jeff Chen
+* 陳榮葦 Jeff Chen
   - Email: zen003266598@gmail.com
   - GitHub: zen006598   
 
 
-* Mike LU
+* 呂宣銘 Mike LU
   - Email: Mik0833695466@gmail.com
   - GitHub: MrMikeMing
