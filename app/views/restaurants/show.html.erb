@@ -204,7 +204,9 @@
           <div class="swiper-wrapper">
             <% @restaurant.menus.each do |menu| %>
               <div class="swiper-slide">
-                <%= image_tag (menu.url) %>
+                <div class='swiper-zoom-container'>
+                  <%= image_tag (menu.url), class: 'swiper-zoom-target cursor-pointer	' %>
+                </div>
               </div>
             <% end %>
           </div>
