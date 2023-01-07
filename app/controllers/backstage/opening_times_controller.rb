@@ -12,7 +12,7 @@ module Backstage
       @off_days = @restaurant.off_days.includes(:restaurant)
       @off_day = OffDay.new
 
-      @week = (Date.today.beginning_of_week(:sunday)...Date.today.end_of_week)
+      @week = (Date.today.beginning_of_week..Date.today.end_of_week)
     end
 
     def create
