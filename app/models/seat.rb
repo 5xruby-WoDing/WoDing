@@ -18,6 +18,10 @@ class Seat < ApplicationRecord
   scope :booth, -> { where('kind = ?', 2) }
   scope :square_table, -> { where('kind = ?', 0) }
 
+  def self.occupied_number
+    seat_occupied.count
+  end
+
   aasm column: 'state', no_direct_assignment: true do
     state :vacant, initial: true
     state :occupied

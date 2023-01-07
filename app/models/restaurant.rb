@@ -5,7 +5,7 @@ class Restaurant < ApplicationRecord
 
   validates :title, presence: true
   validates :address, presence: true
-  validates :tel, presence: true
+  validates :tel, presence: true, format: {with: /\d[0-9]\)*\z/}
   validates :interval_time, presence: true
   validates :period_of_reservation, presence: true
   validates :period_of_reservation, presence: true

@@ -17,7 +17,7 @@
   </div>
 
   <div class='flex flex-col my-4 md:flex-row md:gap-4'>
-    <div class='grid w-full grid-cols-2 gap-4 p-4 mb-4 ml-2 text-center rounded md:w-1/2 md:mb-0'>
+    <div class='grid w-full grid-cols-3 gap-4 p-4 mb-4 ml-2 text-center rounded md:w-1/2 md:mb-0'>
       <span>  
         <p class='text-3xl text-major'>
           <%= restaurant.reservations.today_reservations.size %>
@@ -26,9 +26,15 @@
       </span>
       <span>
         <p class='text-3xl text-major'>
-          <%= restaurant.reservations.completed.size %>
+          <%= restaurant.reservations.today_reservations.completed.size %>
         </p>
         <p>以報到</p>
+      </span>
+      <span class='m-auto'>
+        <p class='text-3xl text-green-600'>
+          <%= restaurant.seats.occupied_number %>
+        </p>
+        <p>現場組數</p>
       </span>
       <span class='m-auto'>
         <p class='text-3xl text-major'>
@@ -40,11 +46,11 @@
         <% opening_time = restaurant.opening_times.reduce([]){|arr, opening_time| arr << (opening_time.opening_time.strftime('%R')..opening_time.closed_time.strftime('%R'))} %>  
         <% opening_time = opening_time.select{|time_range| time_range.include?(Time.current.strftime('%R'))} %>
         <% if opening_time.size > 0 %>
-          <span class='text-2xl text-green-500'>營業中</span>
+          <p class='text-xl text-green-500 '>營業中</p>
         <% else %>
-          <span class='text-2xl text-red-500'>已打烊</span>
+          <p class='text-xl text-red-500'>已打烊</p>
         <% end %>
-        <p>營業狀況</p> 
+        <p class='pt-2'>營業狀況</p> 
       </div>
     </div>            
     <div data-controller='info'>

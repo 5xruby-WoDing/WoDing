@@ -3,23 +3,27 @@
 module Backstage
   class ReservationsController < Backstage::RestaurantsController
     before_action :find_reservation, only: %i[note]
-    before_action :find_restaurant, only: %i[index history]
+    before_action :find_restaurant, only: %i[index history statistics]
     before_action :find_off_days, only: %i[index]
     before_action :find_reservation_serial, only: %i[cancel qrscan complete]
 
     def index
+      today = Date.today
       reservations = @restaurant.reservations.includes(:seat, :manager_reservations)
-
       current_reservations = reservations.current_reservations.order(arrival_time: :asc)
-      @today_reservations = reservations.today_reservations.not_cancelled
 
-      @morning = current_reservations.moning
+      @morning = current_reservations.morning
       @afternoon = current_reservations.afternoon
-
-      @cancelled = reservations.today_reservations.cancelled
 
       @q = reservations.ransack(params[:q])
       @reservations = @q.result
+
+      @today_reservations_number = reservations.reservations_number(today)
+
+      @people_number = reservations.people_count(today)
+      @completed_number = reservations.completed_number
+      @reserved_number = reservations.reserved_number
+      @cancelled_number = reservations.cancelled_number
     end
     
     def cancel            
@@ -45,19 +49,22 @@ module Backstage
     def note
       if current_manager.noted_important_reservation?(@reservation)
         current_manager.noted_important_reservations.delete(@reservation)
-        render json: { status: 'not be noted', manager: current_manager.id, reservation: @reservation.id }
+        render json: { status: 'not be noted', manager: current_manager, reservation: @reservation }
       else
         current_manager.noted_important_reservations << @reservation
-        render json: { status: 'has been noted', manager: current_manager.id, reservation: @reservation.id }
+        render json: { status: 'has been noted', manager: current_manager, reservation: @reservation }
       end
     end
 
     def statistics
-      reservation = Reservation.includes(:restaurant).where(restaurant_id: params[:id],
-                                                            arrival_date: params[:date]).references(:reservation)
-      sum = reservation.size
-      sum_of_people = reservation.reduce(0) { |array, r| array += (r.adult_quantity + r.child_quantity) }
-      render json: { sum:, sum_of_people: }
+      date = params[:date]
+      reservation = @restaurant.reservations
+      sum = reservation.reservations_number(date)
+      sum_of_people = reservation.people_count(date)
+
+      morning_number = reservation.morning_number(date)
+      afternoon_number = reservation.afternoon_number(date)
+      render json: { sum:, sum_of_people:, morning_number:, afternoon_number:}
     end
 
     def history

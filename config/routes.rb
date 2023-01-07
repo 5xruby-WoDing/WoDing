@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  root 'home#index'
+  get '/welcome' => 'home#after_registratioin_path'
   devise_for :managers, :controllers => { registrations: 'managers/registrations' }
 
   namespace :backstage do
@@ -11,10 +13,10 @@ Rails.application.routes.draw do
             get :cancel
             get :complete
             patch :note
-            post :statistics
             get :qrscan
           end
           collection do
+            post :statistics
             get :history  
           end
         end
@@ -54,5 +56,4 @@ Rails.application.routes.draw do
     end
   end
 
-  root 'home#index'
 end

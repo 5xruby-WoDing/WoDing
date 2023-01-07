@@ -7,15 +7,15 @@ module Backstage
 
     def new
       @restaurant = current_manager.restaurants.new
-      render layout: 'backstage'
+       render layout: 'backstage'
     end
 
     def create
-      @restaurant = current_manager.restaurants.new(params_restaurant)
-      if @restaurant.save
+      @restaurant = current_manager.restaurants.new(restaurant_params)
+      if @restaurant.save 
         redirect_to backstage_root_path(current_manager.id), notice: '餐廳新增成功'
       else
-        render :new
+        redirect_back(fallback_location: new_backstage_manager_restaurant_path, notice: '輸入錯誤錯誤')
       end
     end
 
@@ -24,10 +24,10 @@ module Backstage
     end
 
     def update
-      if @restaurant.update(params_restaurant)
+      if @restaurant.update(restaurant_params)
         redirect_to backstage_restaurant_path(@restaurant), notice: '餐廳資訊更新成功'
       else
-        render :edit
+        render :show
       end
     end
 
@@ -40,7 +40,7 @@ module Backstage
 
     private
 
-    def params_restaurant
+    def restaurant_params
       params.require(:restaurant).permit(:title, :tel, :address, :branch, :period_of_reservation, :tag_list,
                                          :dining_time, :content, :interval_time, images: [], menus: [])
     end

@@ -23,6 +23,7 @@ class Reservation < ApplicationRecord
   scope :before_today, -> { where('arrival_date < ?', Date.today) }
   scope :current_reservations, -> { where('arrival_date >= ?', Date.today) }
   scope :today_reservations, -> { where('arrival_date = ?', Date.today) }
+  scope :when_reservations, -> (date){ where('arrival_date = ?', date) }
 
   scope :reserved, -> { where(state: 'reserved') }
   scope :completed, -> { where(state: 'completed') }
@@ -30,11 +31,40 @@ class Reservation < ApplicationRecord
   scope :not_cancelled, -> { where.not(state: 'cancelled') }
   scope :reservations_date, ->(date) { where('arrival_date =?', date) }
 
-  scope :moning, -> { where('arrival_time <=?', Time.new.noon) }
+  scope :morning, -> { where('arrival_time <=?', Time.new.noon) }
   scope :afternoon, -> { where('arrival_time >?', Time.new.noon) }
 
-  scope :time_validation, ->(time) { where('arrival_time = ?', time) }
-  scope :seat_validation, ->(seat_id) { where('seat_id = ?', seat_id) }
+  def self.people_count(date)
+    if when_reservations(date).not_cancelled.blank?
+      0
+    else
+     when_reservations(date).not_cancelled.pluck('SUM(adult_quantity), SUM(child_quantity)').flatten.sum
+    end
+  end
+
+  def self.reservations_number(date)
+    reservations_date(date).not_cancelled.size
+  end
+
+  def self.completed_number
+    today_reservations.completed.count
+  end
+
+  def self.reserved_number
+    today_reservations.reserved.count
+  end
+  
+  def self.cancelled_number
+    today_reservations.cancelled.count
+  end
+
+  def self.morning_number(date)
+    reservations_date(date).not_cancelled.morning.count
+  end
+
+  def self.afternoon_number(date)
+    reservations_date(date).not_cancelled.afternoon.count
+  end
 
   aasm column: 'state', no_direct_assignment: true do
     state :pending, initial: true
