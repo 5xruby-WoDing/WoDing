@@ -1,58 +1,102 @@
 <section class='max-w-screen-lg p-3 mx-auto mt-8' data-controller='form'>
   <div>
     <%= form_with(model: [:backstage, :manager, @restaurant],url: url) do |f| %>
-      <div>
-        <%= f.label :title, '餐廳名稱：' %>
-        <%= f.text_field :title, class: 'input-border-click' %>
-      </div>
+      <div class='grid grid-cols-2'>
+        <div>
+          <div>
+            <%= f.label :title, '餐廳名稱：' %>
+            <%= f.text_field :title, class: 'input-border-click' %>
+          </div>
 
-      <div class='py-1'>
-        <%= f.label :branch, '分店名稱：' %>
-        <%= f.text_field :branch, class: 'input-border-click', placeholder: '例如：復興店' %>
-      </div>
+          <div class='py-1'>
+            <%= f.label :branch, '分店名稱：' %>
+            <%= f.text_field :branch, class: 'input-border-click', placeholder: '例如：復興店' %>
+          </div>
 
-      <div class='py-1'>
-        <%= f.label :address, '餐廳地址：' %>
-        <%= f.text_field :address, class: 'input-border-click' %>
-      </div>
+          <div class='py-1'>
+            <%= f.label :address, '餐廳地址：' %>
+            <%= f.text_field :address, class: 'input-border-click' %>
+          </div>
 
-      <div class='py-1'>
-        <%= f.label :tel, '餐廳電話：' %>
-        <%= f.phone_field :tel, class: 'input-border-click' %>
+          <div class='py-1'>
+            <%= f.label :tel, '餐廳電話：' %>
+            <%= f.phone_field :tel, class: 'input-border-click' %>
+          </div>
+        </div>
+        
+        <div class="flex justify-between w-full ">
+          <div class="flex flex-col w-3/4 gap-2">
+
+            <div class="flex items-center justify-between gap-1 ">
+              <div>
+                <%= f.label :dining_time, '用餐時間：', class: "w-full flex-grow w-20"%>
+                <%= f.number_field :dining_time, class: 'input-border-click', step: 15 %>
+              </div>
+              <span>分鐘</span>
+            </div>
+        
+            <div class="flex items-center justify-between gap-1 ">
+              <div>
+                <%= f.label :interval_time, '時段間隔：',class:"w-20" %>
+                <%= f.number_field :interval_time, step: 15, class: 'input-border-click', min: 15 %>
+              </div>
+               <span>分鐘</span>
+            </div>
+
+            <div>
+              <%= f.label :period_of_reservation, '訂位期限：',class:"w-20" %>
+              <%= f.number_field :period_of_reservation, class: 'input-border-click', min: 1 %>
+            </div>
+
+            <div class="flex gap-1"> 
+              <div class="flex items-center justify-end w-20 ">
+                <%= f.label '標籤：'%>
+              </div>
+              <%= f.text_field :tag_list, class: 'input-border-click -py-1', placeholder: '義式, 美式, 中式' %>
+            </div>
+          </div>
+        </div>
       </div>
       
-      <div class='py-1'>
-        <%= f.label :dining_time, '用餐時間：' %>
-        <%= f.number_field :dining_time, class: 'input-border-click', step: 15 %>分鐘
-      </div>
-      
-      <div class='py-1'>
-        <%= f.label :interval_time, '訂位時段間隔：' %>
-        <%= f.number_field :interval_time, step: 15, class: 'input-border-click', min: 15 %>分鐘
-      </div>
-
-      <div class='py-1'>
-        <%= f.label :period_of_reservation, '訂位期限：' %>
-        <%= f.number_field :period_of_reservation, class: 'input-border-click', min: 1 %>
-      </div>
-
-      <div class='py-1'>
-        <%= f.label '標籤：' %>
-        <%= f.text_field :tag_list, class: 'input-border-click', placeholder: '義式, 美式, 中式' %>
-      </div>
-
-      <div class='py-1'>
-        <%= f.label :images, '廣告照片：' %>
-        <%= f.file_field :images, multiple: true, accept: 'image/png, image/gif, image/jpeg', class: 'border rounded p-2' %>
+      <div data-controller='form'>
+        <div class='my-4'>
+          <%= f.label :images, '廣告照片：' %>
+          <%= f.file_field :images, multiple: true, accept: 'image/png, image/gif, image/jpeg', class: 'border rounded p-2 ' %>
+        </div>
+        <div class='grid grid-cols-4 gap-2'>
+          <% @restaurant.images.each do |i| %>
+            <div class="relative">
+              <%= link_to destroy_image_backstage_restaurant_path(@restaurant, i), method: 'delete', data: {confirm: '確定刪除？'} do %>
+                <div class= 'absolute top-0 right-0 flex items-center justify-center w-5 h-5 mt-2 mr-2 text-white bg-red-600 rounded-full '>
+                  <i class= "text-xs fa-solid fa-x"></i>
+                </div>
+              <% end %>
+              <%= image_tag(i) %>
+            </div>
+          <% end %>
+        </div>
       </div>
 
-      <div class='py-1'>
-        <%= f.label :menus, '菜單照片：' %>
-        <%= f.file_field :menus, multiple: true, accept: 'image/png, image/gif, image/jpeg', class: 'border rounded p-2' %>
+      <div data-controller='form'>
+        <div class='my-4'>
+          <%= f.label :menus, '菜單照片：' %>
+          <%= f.file_field :menus, multiple: true, accept: 'image/png, image/gif, image/jpeg', class: 'border rounded p-2' %>
+        </div>
+         <div class='grid grid-cols-4 gap-2'>
+          <% @restaurant.menus.each do |i| %>
+            <div class="relative">
+              <%= link_to destroy_menu_backstage_restaurant_path(@restaurant, i), method: 'delete', data: {confirm: '確定刪除？'} do %>
+                <div class= 'absolute top-0 right-0 flex items-center justify-center w-5 h-5 mt-2 mr-2 text-white bg-red-600 rounded-full '>
+                  <i class= "text-xs fa-solid fa-x"></i>
+                </div>
+              <% end %>
+              <%= image_tag(i) %>
+            </div>
+          <% end %>
+        </div>
       </div>
 
-      <div class='mb-4'>
-        <%= f.label :content, '餐廳資訊' %>
+      <div class='m-4'>
         <%= f.rich_text_area :content %>
       </div>
 
@@ -65,5 +109,6 @@
       </div>
       
     <% end %>
+
   </div>
 </section >

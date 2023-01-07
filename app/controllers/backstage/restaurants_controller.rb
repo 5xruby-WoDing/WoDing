@@ -2,12 +2,12 @@
 
 module Backstage
   class RestaurantsController < Backstage::ManagersController
-    before_action :find_restaurant, only: %i[show edit update destroy]
+    before_action :find_restaurant, only: %i[show edit update destroy destroy_image destroy_menu]
     layout 'restaurant_backstage'
 
     def new
       @restaurant = current_manager.restaurants.new
-       render layout: 'backstage'
+      render layout: 'backstage'
     end
 
     def create
@@ -36,6 +36,24 @@ module Backstage
     def destroy
       @restaurant.destroy
       redirect_to backstage_root_path(current_manager.id), notice: '餐廳已刪除'
+    end
+
+    def destroy_image
+      @restaurant.images.find(params[:image_id]).purge
+
+      respond_to do |format|
+        format.html { redirect_to backstage_restaurant_path(@restaurant), notice: '圖片已刪除' }
+        format.json { head :no_content }
+      end
+    end
+
+    def destroy_menu
+      @restaurant.menus.find(params[:menu_id]).purge
+
+      respond_to do |format|
+        format.html { redirect_to backstage_restaurant_path(@restaurant), notice: '圖片已刪除' }
+        format.json { head :no_content }
+      end
     end
 
     private

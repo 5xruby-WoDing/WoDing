@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   namespace :backstage do
     resources :managers, only: [:show] do
       resources :restaurants, shallow: true, only: [:new, :create, :show, :edit, :update, :destroy] do
+        member do
+          delete '/images/:image_id' => 'restaurants#destroy_image', as: :destroy_image
+          delete '/menus/:menu_id' => 'restaurants#destroy_menu', as: :destroy_menu
+        end
         resources :reservations, shallow: true, only: [:index] do
           member do
             get :cancel
