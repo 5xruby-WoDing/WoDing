@@ -5,10 +5,11 @@ export default class extends Controller {
   connect() {
       new Swiper(".mySwiper", {
       loop: true,
+      zoom: true,
       loopFillGroupWithBlank: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
+      zoom: {
+        maxRatio: 2,
+        minRatio: 1
       },
       pagination: {
         el: ".swiper-pagination",
