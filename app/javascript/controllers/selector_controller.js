@@ -14,7 +14,7 @@ export default class extends Controller {
 
     const token = document.querySelector("meta[name='csrf-token']").content
     const id = e.target.dataset.id
-    fetch(`/backstage/reservations/${id}/statistics`,{
+    fetch(`/backstage/restaurants/${id}/reservations/statistics`,{
       method: 'POST',
       headers: {
         "X-CSRF-Token": token,
@@ -24,8 +24,8 @@ export default class extends Controller {
         date: e.target.dataset.date
       })
     }).then((resp) => resp.json())
-    .then(({sum, sum_of_people}) => {
-      const event = new CustomEvent("update-info", {detail: {sum: sum, sum_of_people: sum_of_people, date: date}});
+    .then(({sum, sum_of_people, morning_number, afternoon_number}) => {
+      const event = new CustomEvent("update-info", {detail: {sum: sum, sum_of_people: sum_of_people, date: date,  morning_number: morning_number, afternoon_number: afternoon_number}});
       window.dispatchEvent(event)
     })
     .catch(() => {

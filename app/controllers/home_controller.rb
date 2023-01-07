@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
+  require 'timeout'
   def index
     @restaurants = if params[:search]
                      Restaurant.joins(:tags)
@@ -16,5 +17,8 @@ class HomeController < ApplicationController
 
     @restaurant_images = Restaurant.includes(:manager, :restaurant_tags, :tags, [images_attachments: :blob])
     @tags = Tag.includes(:restaurants, :restaurant_tags).sample(20)
+  end
+
+  def after_registratioin_path
   end
 end

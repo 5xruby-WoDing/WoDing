@@ -3,26 +3,24 @@
 class UsersController < ApplicationController
   before_action :find_restaurant, only: [:create]
   before_action :find_seat, only: [:create]
-  before_action :params_validation, only: [:create]
+  before_action :validation_params, only: [:create]
 
   def create
-    @user = User.new(params_user)
+    @user = User.new(user_params)
 
     if @user.save
-      if Reservation.reservations_date(@date).time_validation(@time).seat_validation(@seat_id).reserved.any?
+      if Reservation.exists?(arrival_date: @date, arrival_time: @time, seat_id: @seat_id)
         redirect_to waring_restaurants_path
       else
-        reservation = Reservation.create!(params_reservation)
-        reservation.reserve! if reservation.may_reserve? && reservation.seat.deposit.zero?
+        reservation = Reservation.create!(reservation_params)
+        if reservation.may_reserve? && reservation.seat.deposit.zero?
+          reservation.reserve!
+          ReserveMailJob.perform_later(reservation)
+        else
+          DepositMailJob.perform_later(reservation)
+        end
+        redirect_to checkout_reservation_path(id: reservation.serial)
       end
-
-      if reservation.seat.deposit.zero?
-        ReserveMailJob.perform_later(reservation)
-      else
-        DepositMailJob.perform_later(reservation)
-      end
-      
-      redirect_to checkout_reservation_path(id: reservation.serial)
     else
       render 'restaurants/reserve'
     end
@@ -38,17 +36,17 @@ class UsersController < ApplicationController
     @seat = Seat.find(params[:seat_id])
   end
 
-  def params_user
+  def user_params
     params.require(:user).permit(:name, :email, :phone, :gender)
   end
 
-  def params_reservation
+  def reservation_params
     params.require(:user).permit(:name, :email, :phone, :gender, :arrival_time,
                                  :adult_quantity, :child_quantity, :arrival_date, :end_time)
           .merge(seat: @seat, restaurant: @restaurant, user: @user)
   end
 
-  def params_validation
+  def validation_params
     @time = Time.parse(params[:user][:arrival_time])
     @date = params[:user][:arrival_date]
     @seat_id = params[:seat_id]

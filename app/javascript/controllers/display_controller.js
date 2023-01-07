@@ -26,29 +26,10 @@ export default class extends Controller {
   }
 
   setTitle(){
-    const afternoon = []
-    for (const reservation of this.afternoonTarget.children) {
-      afternoon.push(reservation.dataset.today) 
-    }
-    const afternoonCount = afternoon.filter(t => t === 'true').length
-    if (afternoonCount === 0) {
-      this.afternoonTitleTarget.classList.add('hidden')
-    }else{
-      this.afternoonTitleTarget.classList.remove('hidden')
-    }
+    const afternoonCount = [...this.afternoonTarget.children].filter((a) => a.dataset.today == 'true').length
+    const morningCount = [...this.morningTarget.children].filter((a) => a.dataset.today == 'true').length
 
-    const morning = []
-    for (const reservation of this.morningTarget.children) {
-      morning.push(reservation.dataset.today) 
-    }
-    const morningCount = morning.filter(t => t === 'true').length
-    if (morningCount === 0) {
-      this.morningTitleTarget.classList.add('hidden')
-    }else{
-      this.morningTitleTarget.classList.remove('hidden')
-    }
+    afternoonCount === 0? this.afternoonTitleTarget.classList.add('hidden') : this.afternoonTitleTarget.classList.remove('hidden')
+    morningCount === 0? this.morningTitleTarget.classList.add('hidden') : this.morningTitleTarget.classList.remove('hidden')
   }
 }
-
-
-

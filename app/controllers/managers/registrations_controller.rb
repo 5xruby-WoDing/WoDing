@@ -9,5 +9,10 @@ module Managers
     def configure_sign_up_params
       devise_parameter_sanitizer.permit(:sign_up, keys: %i[name phone gender])
     end
+
+    def after_inactive_sign_up_path_for(resource)
+      welcome_path
+    end
+
   end
 end

@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ['date', 'sum', 'sumOfPeople']
+  static targets = ['date', 'sum', 'sumOfPeople', 'morning', 'afternoon']
 
   connect(){
   }
@@ -16,7 +16,11 @@ export default class extends Controller {
     this.setDate(e.detail.date)
     const sum = e.detail.sum
     const sumOfPeople = e.detail.sum_of_people
+    const morningNumber = e.detail.morning_number
+    const afternoonNumber = e.detail.afternoon_number
     this.sumTarget.textContent = sum
     this.sumOfPeopleTarget.textContent = sumOfPeople
+    this.morningTarget.textContent = morningNumber
+    this.afternoonTarget.textContent = afternoonNumber
   }
 }

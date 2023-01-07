@@ -6,7 +6,7 @@ module Backstage
     before_action :find_seat, only: %i[show edit update destroy vacant occupied]
 
     def index
-      seats = @restaurant.seats.order(title: :asc)
+      seats = @restaurant.seats.includes(:restaurant).order(title: :asc)
 
       @booth = seats.booth
       @round_table = seats.round_table
@@ -19,7 +19,7 @@ module Backstage
     end
 
     def create
-      @seat = @restaurant.seats.new(params_seat)
+      @seat = @restaurant.seats.new(seat_params)
 
       return unless @seat.save
 
@@ -31,7 +31,7 @@ module Backstage
     end
 
     def update
-      if @seat.update(params_seat)
+      if @seat.update(seat_params)
         redirect_to backstage_restaurant_seats_path(@seat.restaurant_id), notice: '座位更新成功'
       else
         render :edit
@@ -59,7 +59,7 @@ module Backstage
       @restaurant = current_manager.restaurants.find(params[:restaurant_id])
     end
 
-    def params_seat
+    def seat_params
       params.require(:seat).permit(:kind, :capacity, :deposit, :state, :title)
     end
 

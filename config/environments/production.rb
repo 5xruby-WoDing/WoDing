@@ -124,7 +124,7 @@ Rails.application.configure do
 
   config.action_mailer.raise_delivery_errors = true
 
-  config.action_mailer.default_url_options = { :host => 'https://www.woding-5xruby.com/' }
+  config.action_mailer.default_url_options = { :host => ENV['WEB_DOMAIN'] }
 
   config.action_mailer.perform_caching = false
 

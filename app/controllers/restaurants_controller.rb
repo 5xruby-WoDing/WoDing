@@ -72,7 +72,7 @@ class RestaurantsController < ApplicationController
   end
 
   def find_seat_id
-    @seat = Seat.find_by!(id: params[:seat_id])
+    @seat = Seat.find(params[:seat_id])
   end
 
   def reservation_cache

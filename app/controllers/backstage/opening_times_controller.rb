@@ -7,16 +7,16 @@ module Backstage
 
     def index
       @opening_time = OpeningTime.new
-      @opening_times = @restaurant.opening_times
+      @opening_times = @restaurant.opening_times.includes(:restaurant)
 
-      @off_days = @restaurant.off_days
+      @off_days = @restaurant.off_days.includes(:restaurant)
       @off_day = OffDay.new
 
       @week = (Date.today.beginning_of_week(:sunday)...Date.today.end_of_week)
     end
 
     def create
-      opening_time = Time.new(
+      opening_time = Time.new(  
         params[:opening_time]['opening_time(1i)'].to_i,
         params[:opening_time]['opening_time(2i)'].to_i,
         params[:opening_time]['opening_time(3i)'].to_i,
@@ -33,7 +33,7 @@ module Backstage
       )
 
       if opening_time < closed_time
-        @opening_time = @restaurant.opening_times.new(params_opening_time)
+        @opening_time = @restaurant.opening_times.new(opening_time_params)
         return unless @opening_time.save
       end
 
@@ -44,9 +44,9 @@ module Backstage
     end
 
     def update
-      return unless @opening_time.update(params_opening_time)
+      return unless @opening_time.update(opening_time_params)
 
-      redirect_to backstage_restaurant_opening_times_path(@opening_time.restaurant_id), notice: '已更新時段'
+      redirect_to backstage_restaurant_opening_times_path(@opening_time.restaurant), notice: '已更新時段'
     end
 
     def destroy
@@ -55,7 +55,7 @@ module Backstage
 
     private
 
-    def params_opening_time
+    def opening_time_params
       params.require(:opening_time).permit(:opening_time, :closed_time)
     end
 

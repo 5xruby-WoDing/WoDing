@@ -1,6 +1,4 @@
-<section class='max-w-screen-lg p-3 mx-auto mt-8'
-        data-controller='form'
->
+<section class='max-w-screen-lg p-3 mx-auto mt-8' data-controller='form'>
   <div>
     <%= form_with(model: [:backstage, :manager, @restaurant],url: url) do |f| %>
       <div>
@@ -54,7 +52,7 @@
       </div>
 
       <div class='mb-4'>
-        <%= f.label :content %>
+        <%= f.label :content, '餐廳資訊' %>
         <%= f.rich_text_area :content %>
       </div>
 

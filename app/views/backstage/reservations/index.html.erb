@@ -1,6 +1,5 @@
 <main class='grid grid-cols-3 grid-rows-2 gap-4 p-6 ml-20 bg-hoverGray'>
   <% date_range = RestaurantsHelper::DateRange.new(@off_days, @restaurant.period_of_reservation) %>
-
   <div>
     <div class='mb-3 bg-white border rounded '>
       <h2 class='py-2 text-2xl font-bold text-center border-b' >
@@ -11,7 +10,7 @@
         <div class='grid grid-cols-3'>
           <div class='pb-4'>
             <p class='text-4xl font-bold'>
-              <%= @today_reservations.size %>
+              <%= @today_reservations_number %>
             </p>
             <h3 class='text-lg'>
               客人組數
@@ -19,7 +18,7 @@
           </div>
           <div>
             <p class='text-4xl font-bold'>
-              <%= @today_reservations.each.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
+              <%= @people_number %>
             </p>
             <h3 class='text-lg'>
               總人數
@@ -27,27 +26,39 @@
           </div>
           <div>
             <p class='text-4xl font-bold text-green-600'>
-              <%= @today_reservations.completed.size %>
+              <%= @completed_number %>
             </p>
-            <h3>完成</h3>
+            <h3 class='text-lg'>完成</h3>
           </div>
-          <div>
+          <div class='pb-4'>
             <p class='text-4xl font-bold text-red-600'>
-              <%= @today_reservations.reserved.size %>
+              <%= @reserved_number %>
             </p>
-            <h3>剩餘組數</h3>
+            <h3 class='text-lg'>剩餘組數</h3>
           </div>
           <div>
             <p class='text-4xl font-bold text-major'>
-              <%= @restaurant.seats.seat_occupied.size %>
+              <%= @restaurant.seats.occupied_number %>
             </p>
-            <h3>現場組數</h3>
+            <h3 class='text-lg'>現場組數</h3>
           </div>
           <div>
             <p class='text-4xl font-bold text-red-600'>
-              <%= @cancelled.size %>
+              <%= @cancelled_number %>
             </p>
-            <h3>取消</h3>
+            <h3 class='text-lg'>取消</h3>
+          </div>
+                    <div>
+            <p class='text-4xl font-bold'>
+              <%= @restaurant.reservations.morning_number(Date.today) %>
+            </p>
+            <h3 class='text-lg'>上午組數</h3>
+          </div>
+          <div>
+            <p class='text-4xl font-bold '>
+              <%= @restaurant.reservations.afternoon_number(Date.today) %>
+            </p>
+            <h3 class='text-lg'>下午組數</h3>
           </div>
         </div>
       </div>
@@ -64,7 +75,7 @@
               >
           <div class='pb-4'>
             <p class='text-4xl font-bold' data-dash-board-target='sum'>
-              <%= @today_reservations.size %>
+              <%= @today_reservations_number %>
             </p>
             <h3 class='text-lg'>
               客人組數
@@ -72,10 +83,26 @@
           </div>
           <div>
             <p class='text-4xl font-bold' data-dash-board-target='sumOfPeople'>
-              <%= @today_reservations.each.reduce(0){|acc, n| acc += (n.adult_quantity + n.child_quantity)} %>
+              <%= @people_number %>
             </p>
             <h3 class='text-lg'>
               總人數
+            </h3>
+          </div>
+          <div>
+            <p class='text-4xl font-bold' data-dash-board-target='morning'>
+              <%= @restaurant.reservations.morning_number(Date.today) %>
+            </p>
+            <h3 class='text-lg'>
+              上午組數
+            </h3>
+          </div>
+          <div>
+            <p class='text-4xl font-bold' data-dash-board-target='afternoon'>
+              <%= @restaurant.reservations.afternoon_number(Date.today) %>
+            </p>
+            <h3 class='text-lg'>
+              下午組數
             </h3>
           </div>
         </div>
