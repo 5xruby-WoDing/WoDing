@@ -81,6 +81,7 @@ GEM
       aws-sigv4 (~> 1.4)
     aws-sigv4 (1.5.2)
       aws-eventstream (~> 1, >= 1.0.2)
+    babosa (2.0.0)
     bcrypt (3.1.18)
     bindex (0.8.1)
     bootsnap (1.15.0)
@@ -113,6 +114,8 @@ GEM
     erubi (1.11.0)
     ffi (1.15.5)
     foreman (0.87.2)
+    friendly_id (5.5.0)
+      activerecord (>= 4.0.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -301,12 +304,14 @@ PLATFORMS
 DEPENDENCIES
   aasm (~> 5.4)
   aws-sdk-s3
+  babosa (~> 2.0)
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
   devise (~> 4.8)
   dotenv-rails
   foreman (~> 0.87.2)
+  friendly_id (~> 5.5)
   jbuilder (~> 2.7)
   listen (~> 3.3)
   paranoia (~> 2.6)

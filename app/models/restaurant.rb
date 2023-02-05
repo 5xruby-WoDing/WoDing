@@ -3,6 +3,9 @@
 class Restaurant < ApplicationRecord
   acts_as_paranoid
 
+  extend FriendlyId
+  friendly_id :slug_candidates, use: :slugged
+
   validates :title, presence: true
   validates :address, presence: true
   validates :tel, presence: true, format: {with: /\d[0-9]\)*\z/}
@@ -39,4 +42,16 @@ class Restaurant < ApplicationRecord
   def self.tagged_with(name)
     Tag.find_by!(name:).restaurants
   end
+
+  def normalize_friendly_id(input)
+    input.to_s.to_slug.normalize.to_s
+  end
+
+  def slug_candidates
+    [
+      :title,
+      [:title, :address]
+    ]
+  end
+
 end

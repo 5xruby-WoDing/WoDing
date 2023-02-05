@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_04_164826) do
+ActiveRecord::Schema.define(version: 2023_02_05_054858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,17 @@ ActiveRecord::Schema.define(version: 2023_01_04_164826) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
   create_table "manager_reservations", force: :cascade do |t|
@@ -143,8 +154,10 @@ ActiveRecord::Schema.define(version: 2023_01_04_164826) do
     t.integer "period_of_reservation", default: 1
     t.integer "dining_time", default: 0
     t.integer "interval_time", default: 15
+    t.string "slug"
     t.index ["deleted_at"], name: "index_restaurants_on_deleted_at"
     t.index ["manager_id"], name: "index_restaurants_on_manager_id"
+    t.index ["slug"], name: "index_restaurants_on_slug", unique: true
   end
 
   create_table "seats", force: :cascade do |t|
