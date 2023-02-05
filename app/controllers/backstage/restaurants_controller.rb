@@ -64,7 +64,7 @@ module Backstage
     end
 
     def find_restaurant
-      @restaurant = current_manager.restaurants.find(params[:id])
+      @restaurant = current_manager.restaurants.friendly.find(params[:id])
     end
   end
 end
